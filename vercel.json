@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/app.html"
+    },
+    {
+      "src": "/index.html",
+      "dest": "/app.html"
+    }
+  ]
+}
