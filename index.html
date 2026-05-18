@@ -779,89 +779,21 @@ function showModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 
 // ─── SEARCH ───────────────────────────────────────────────────────────────────
-// ─── GOOGLE PLACES API ────────────────────────────────────────────────────────
-const GKEY='AIzaSyD273uWBMbvxTCffalNKATPXHoGgCaUUbQ';
-
+// ─── SECTOR SEARCH QUERIES ──────────────────────────────────────────────────────
 const SECTOR_QUERY={
   hosteleria:'restaurantes',restauracion_rapida:'cafeterías bares',catering:'catering banquetes',
-  odontologia:'clínica dental',fisioterapia:'fisioterapia',salud_general:'centro médico clínica',
-  psicologia:'psicólogo psicología',veterinaria:'veterinario clínica veterinaria',
-  optica:'óptica',farmacia:'farmacia',inmobiliaria:'inmobiliaria agencia inmobiliaria',
-  construccion:'empresa construcción obras',reformas:'reformas hogar',
-  fontaneria:'fontanero fontanería',electricidad:'electricista instalaciones eléctricas',
-  climatizacion:'climatización aire acondicionado',carpinteria:'carpintería cerrajería',
-  pintura:'pintura decoración',automocion:'taller mecánico automóvil',
-  concesionarios:'concesionario automóviles',gruas:'grúa asistencia vial',
-  prevencion:'prevención riesgos laborales',seguridad:'empresa seguridad vigilancia',
-  limpieza:'empresa limpieza',gestoria:'gestoría asesoría',abogados:'abogado despacho',
-  educacion:'academia clases idiomas',informatica:'informática tecnología',
-  marketing:'agencia marketing digital publicidad',peluqueria:'peluquería estética belleza',
-  gimnasios:'gimnasio fitness',eventos:'eventos fotografía',
-  transporte:'transporte logística mensajería',alimentacion:'supermercado alimentación',
-  ferreteria:'ferretería materiales construcción',moda:'moda ropa joyería',
+  odontologia:'clínica dental',fisioterapia:'fisioterapia',salud_general:'centro médico',
+  psicologia:'psicólogo',veterinaria:'veterinaria',optica:'óptica',farmacia:'farmacia',
+  inmobiliaria:'inmobiliaria',construccion:'construcción obras',reformas:'reformas hogar',
+  fontaneria:'fontanero',electricidad:'electricista',climatizacion:'climatización',
+  carpinteria:'carpintería',pintura:'pintura decoración',automocion:'taller mecánico',
+  concesionarios:'concesionario coches',gruas:'grúa asistencia',prevencion:'prevención riesgos',
+  seguridad:'seguridad vigilancia',limpieza:'empresa limpieza',gestoria:'gestoría asesoría',
+  abogados:'abogado despacho',educacion:'academia formación',informatica:'informática tecnología',
+  marketing:'agencia marketing digital',peluqueria:'peluquería estética',gimnasios:'gimnasio fitness',
+  eventos:'eventos fotografía',transporte:'transporte logística',alimentacion:'supermercado alimentación',
+  ferreteria:'ferretería',moda:'moda joyería',
 };
-
-// Load Google Maps JS SDK dynamically
-let _mapsLoaded=false;
-let _mapsService=null;
-function loadGoogleMaps(){
-  return new Promise((resolve,reject)=>{
-    if(_mapsLoaded&&window.google?.maps){resolve();return;}
-    window._gmapsCallback=()=>{_mapsLoaded=true;resolve();};
-    const s=document.createElement('script');
-    s.src=`https://maps.googleapis.com/maps/api/js?key=${GKEY}&libraries=places&language=es&callback=_gmapsCallback`;
-    s.onerror=()=>reject(new Error('No se pudo cargar Google Maps'));
-    document.head.appendChild(s);
-  });
-}
-
-function getPlacesService(){
-  if(!_mapsService){
-    const el=document.createElement('div');
-    _mapsService=new google.maps.places.PlacesService(el);
-  }
-  return _mapsService;
-}
-
-function textSearchPromise(query){
-  return new Promise((resolve)=>{
-    const svc=getPlacesService();
-    svc.textSearch({query,language:'es'}, (results,status)=>{
-      resolve({results:results||[],status});
-    });
-  });
-}
-
-function getDetailsPromise(placeId){
-  return new Promise((resolve)=>{
-    const svc=getPlacesService();
-    svc.getDetails({
-      placeId,
-      fields:['name','formatted_phone_number','website','rating','user_ratings_total','formatted_address','place_id'],
-      language:'es'
-    },(result,status)=>{
-      resolve(status==='OK'?result:null);
-    });
-  });
-}
-
-function placeToLead(p, zona, sector){
-  const phone=p.formatted_phone_number||'';
-  const cleanPhone=phone.startsWith('+')?phone:(phone?'+34 '+phone.replace(/^[\s0]+/,''):'');
-  return {
-    n:p.name||'',
-    a:(p.formatted_address||p.vicinity||'').replace(', España','').replace(', Spain',''),
-    p:cleanPhone,
-    e:'',
-    w:p.website?p.website.replace(/^https?:\/\//,'').replace(/\/$/,''):'',
-    r:p.rating||0,
-    rv:p.user_ratings_total||0,
-    em:'desconocido',ig:false,fb:false,ob:false,
-    zona,sector,
-    placeId:p.place_id,
-    _gmaps:`https://www.google.com/maps/place/?q=place_id:${p.place_id}`,
-  };
-}
 
 async function doSearch(){
   const island=document.getElementById('selIsland').value;
@@ -875,9 +807,49 @@ async function doSearch(){
   const isAll=zona.startsWith('TODA')||zona.startsWith('TODO');
   const iData=ISLANDS[island];
   const area=document.getElementById('leadsArea');
-  const secQuery=SECTOR_QUERY[sector]||secLabel.split(' ').slice(1).join(' ');
   const zoneName=isAll?iData.label:zona.split('—')[1]?.trim()||zona;
 
+  area.innerHTML=`<div class="loading">
+    <div class="spin-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+    <div><strong style="font-size:14px;display:block;margin-bottom:4px">Buscando en ${zoneName}...</strong>
+    <span style="font-size:12px;color:var(--text3)">${secLabel.split(' ').slice(1).join(' ')}</span>
+    <div class="ldots"><span></span><span></span><span></span></div></div>
+  </div>`;
+
+  // Get data from local DB
+  const zonesToSearch=isAll?iData.zones.slice(1):[zona];
+  let raw=[];
+  for(const z of zonesToSearch){
+    const key=`${sector}|${z}`;
+    if(DB[key]) DB[key].forEach(b=>raw.push({...b,zona:z}));
+    else {
+      const mk=Object.keys(DB).find(k=>k.startsWith(sector+'|')&&(
+        k.toLowerCase().includes(z.split('—')[0].trim().toLowerCase())||
+        z.toLowerCase().includes(k.split('|')[1]?.split('—')[0]?.trim().toLowerCase()||'')
+      ));
+      if(mk) DB[mk].forEach(b=>raw.push({...b,zona:z}));
+    }
+  }
+
+  // Deduplicate
+  const seen=new Set();
+  raw=raw.filter(b=>{const k=(b.n||'').toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});
+
+  // Fallback to generic if nothing found
+  if(!raw.length) raw=generateGeneric(sector,zoneName,limit).map(b=>({...b,zona:zona||iData.label}));
+
+  raw=raw.slice(0,limit);
+
+  if(mode==='explore'){
+    allLeads=raw.map((b,i)=>({...b,id:Date.now()+i,sector,waMsg:WA[sector]||WA.hosteleria}));
+    renderExplore();
+  } else {
+    await scoreProsects(raw,sector,secLabel,zona||iData.label);
+  }
+
+  updateStats();
+  btn.disabled=false;
+}
 // Score for prospects mode
 async function scoreProsects(raw,sector,secLabel,zonaLabel){
   try{
