@@ -780,7 +780,7 @@ function closeModal(id){document.getElementById(id).classList.remove('open');}
 
 // ─── SEARCH ───────────────────────────────────────────────────────────────────
 // ─── GOOGLE PLACES API ────────────────────────────────────────────────────────
-const GKEY='AIzaSyD273uWBMbvxTCffalNKATPXHoGgCaUUbQ';
+const GKEY='AIzaSyAaSisTHJOI0KiID4JSTiLCcfD1HGwvfCw';
 
 const SECTOR_QUERY={
   hosteleria:'restaurantes',restauracion_rapida:'cafeterías bares',catering:'catering banquetes',
@@ -849,17 +849,17 @@ function placeToLead(p, zona, sector){
   const phone=p.formatted_phone_number||'';
   const cleanPhone=phone.startsWith('+')?phone:(phone?'+34 '+phone.replace(/^[\s0]+/,''):'');
   return {
-    n:p.name||'',
+    n:name,
     a:(p.formatted_address||p.vicinity||'').replace(', España','').replace(', Spain',''),
     p:cleanPhone,
     e:'',
-    w:p.website?p.website.replace(/^https?:\/\//,'').replace(/\/$/,''):'',
+    w:web?web.replace(/^https?:\/\//,'').replace(/\/$/,''):'',
     r:p.rating||0,
     rv:p.user_ratings_total||0,
     em:'desconocido',ig:false,fb:false,ob:false,
     zona,sector,
     placeId:p.place_id,
-    _gmaps:`https://www.google.com/maps/place/?q=place_id:${p.place_id}`,
+    _gmaps:placeId?`https://www.google.com/maps/place/?q=place_id:${placeId}`:'',
   };
 }
 
