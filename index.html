@@ -896,6 +896,56 @@ async function doSearch(){
   const secQuery=SECTOR_QUERY[sector]||secLabel.split(' ').slice(1).join(' ');
   const zoneName=isAll?iData.label:zona.split('—')[1]?.trim()||zona;
 
+  area.innerHTML=`<div class="loading"><div class="spin-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><div><strong style="font-size:14px;display:block;margin-bottom:4px">Buscando en Google Maps...</strong><span style="font-size:12px;color:var(--text3)">${secQuery} en ${zoneName}</span><div class="ldots"><span></span><span></span><span></span></div></div></div>`;
+
+  let raw=[];
+  let usedGoogle=false;
+  try{
+    await loadGoogleMaps();
+    const zonesToSearch=isAll?iData.zones.slice(1,5):[zona];
+    const seen=new Set();
+    for(const z of zonesToSearch){
+      const city=(z.split('—')[1]||z.replace(/^(TODA|TODO)\s+/i,'')).trim();
+      const q=secQuery+' '+city+' Canarias';
+      const {results,status}=await textSearchPromise(q);
+      if(status==='OK'&&results.length){
+        usedGoogle=true;
+        const slice=results.slice(0,isAll?Math.ceil(limit/zonesToSearch.length):limit);
+        for(const p of slice){
+          if(seen.has(p.place_id))continue;
+          seen.add(p.place_id);
+          const det=await getDetailsPromise(p.place_id);
+          raw.push(placeToLead(det||p,z,sector));
+        }
+      }
+      if(zonesToSearch.length>1)await new Promise(r=>setTimeout(r,300));
+    }
+  }catch(e){console.warn('Places SDK:',e.message);}
+
+  if(!raw.length){
+    const zz=isAll?iData.zones.slice(1):[zona];
+    for(const z of zz){
+      const key=sector+'|'+z;
+      if(DB[key])DB[key].forEach(b=>raw.push({...b,zona:z}));
+      else{const mk=Object.keys(DB).find(k=>k.startsWith(sector+'|')&&k.toLowerCase().includes(z.split('—')[0].trim().toLowerCase()));if(mk)DB[mk].forEach(b=>raw.push({...b,zona:z}));}
+    }
+    if(!raw.length)raw=generateGeneric(sector,zoneName,limit).map(b=>({...b,zona:zona||iData.label}));
+    if(!usedGoogle)showToast('⚠️ Usando datos demo — conecta Google Places');
+  }
+
+  const s2=new Set();
+  raw=raw.filter(b=>{const k=(b.n||'').toLowerCase();if(s2.has(k))return false;s2.add(k);return true;}).slice(0,limit);
+
+  if(mode==='explore'){
+    allLeads=raw.map((b,i)=>({...b,id:Date.now()+i,sector,waMsg:WA[sector]||WA.hosteleria}));
+    renderExplore();
+  }else{
+    await scoreProsects(raw,sector,secLabel,zona||iData.label);
+  }
+  updateStats();
+  btn.disabled=false;
+}
+
 // Score for prospects mode
 async function scoreProsects(raw,sector,secLabel,zonaLabel){
   try{
