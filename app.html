@@ -11,53 +11,117 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-[data-theme="dark"]{--bg:#080C0A;--bg2:#0E1410;--bg3:#141C16;--bg4:#1C261E;--bg5:#243028;--accent:#00E676;--accent2:#69F0AE;--accentDim:rgba(0,230,118,0.1);--accentBorder:rgba(0,230,118,0.22);--amber:#FFB300;--red:#FF5252;--blue:#64B5F6;--purple:#CE93D8;--text:#E8F5E9;--text2:#81C784;--text3:#4A6B4E;--border:#1A2E1C;--border2:#2A4A2C;--card:#0E1410;--shadow:rgba(0,0,0,0.4)}
-[data-theme="light"]{--bg:#F0F4F1;--bg2:#FFFFFF;--bg3:#F5F8F5;--bg4:#EAF0EB;--bg5:#E0EBE1;--accent:#00A854;--accent2:#00C762;--accentDim:rgba(0,168,84,0.07);--accentBorder:rgba(0,168,84,0.18);--amber:#E65100;--red:#D32F2F;--blue:#1565C0;--purple:#6A1B9A;--text:#1B2E1D;--text2:#2E7D32;--text3:#78909C;--border:#D4E4D6;--border2:#B8D4BA;--card:#FFFFFF;--shadow:rgba(0,0,0,0.07)}
+
+[data-theme="dark"]{
+  --bg:#080C0A;--bg2:#0E1410;--bg3:#141C16;--bg4:#1C261E;--bg5:#243028;
+  --accent:#00E676;--accent2:#69F0AE;--accentDim:rgba(0,230,118,0.1);--accentBorder:rgba(0,230,118,0.22);
+  --amber:#FFB300;--red:#FF5252;--blue:#64B5F6;--purple:#CE93D8;
+  --text:#E8F5E9;--text2:#81C784;--text3:#4A6B4E;
+  --border:#1A2E1C;--border2:#2A4A2C;
+  --card:#0E1410;--shadow:rgba(0,0,0,0.4);
+  --mode-a-bg:rgba(0,230,118,0.12);--mode-a-border:rgba(0,230,118,0.3);--mode-a-text:#00E676;
+  --mode-b-bg:rgba(100,181,246,0.1);--mode-b-border:rgba(100,181,246,0.25);--mode-b-text:#64B5F6;
+}
+[data-theme="light"]{
+  --bg:#F0F4F1;--bg2:#FFFFFF;--bg3:#F5F8F5;--bg4:#EAF0EB;--bg5:#E0EBE1;
+  --accent:#00A854;--accent2:#00C762;--accentDim:rgba(0,168,84,0.07);--accentBorder:rgba(0,168,84,0.18);
+  --amber:#E65100;--red:#D32F2F;--blue:#1565C0;--purple:#6A1B9A;
+  --text:#1B2E1D;--text2:#2E7D32;--text3:#78909C;
+  --border:#D4E4D6;--border2:#B8D4BA;
+  --card:#FFFFFF;--shadow:rgba(0,0,0,0.07);
+  --mode-a-bg:rgba(0,168,84,0.08);--mode-a-border:rgba(0,168,84,0.22);--mode-a-text:#00A854;
+  --mode-b-bg:rgba(21,101,192,0.07);--mode-b-border:rgba(21,101,192,0.2);--mode-b-text:#1565C0;
+}
+
 body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;transition:background .3s,color .3s}
 .app{max-width:430px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column}
-.header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:12px 16px 10px;transition:background .3s}
+
+/* ── HEADER ── */
+.header{
+  position:sticky;top:0;z-index:100;background:var(--bg);
+  border-bottom:1px solid var(--border);padding:12px 16px 10px;
+  transition:background .3s,border-color .3s;
+}
 [data-theme="dark"] .header{backdrop-filter:blur(20px);background:rgba(8,12,10,0.95)}
+[data-theme="light"] .header{box-shadow:0 1px 6px var(--shadow)}
 .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .logo-wrap{display:flex;align-items:center;gap:8px}
 .logo-dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center}
 .logo-dot svg{width:15px;height:15px;fill:var(--bg)}
 .logo-text{font-size:18px;font-weight:700;letter-spacing:-.5px}
-.logo-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;background:var(--accentDim);color:var(--accent);border:1px solid var(--accentBorder);font-family:'JetBrains Mono',monospace;margin-left:3px}
+.logo-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;background:var(--accentDim);color:var(--accent);border:1px solid var(--accentBorder);font-family:'JetBrains Mono',monospace;letter-spacing:.5px;margin-left:3px}
 .header-actions{display:flex;gap:6px;align-items:center}
 .hbtn{width:32px;height:32px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
 .hbtn:active{transform:scale(.92)}
-.hbtn svg{width:16px;height:16px;stroke:var(--text3);stroke-width:2;fill:none}
+.hbtn svg{width:16px;height:16px;stroke:var(--text3);stroke-width:2}
 .theme-toggle{width:48px;height:26px;border-radius:13px;border:1px solid var(--border);background:var(--bg3);cursor:pointer;position:relative;display:flex;align-items:center;padding:3px;transition:all .3s}
 .toggle-thumb{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));transition:transform .3s;display:flex;align-items:center;justify-content:center;font-size:11px}
 [data-theme="light"] .toggle-thumb{transform:translateX(22px)}
+
+/* STATS */
 .stats-bar{display:flex;gap:5px}
-.stat-pill{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:7px 8px;display:flex;flex-direction:column;gap:2px}
+.stat-pill{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:7px 8px;display:flex;flex-direction:column;gap:2px;transition:background .3s}
 .stat-num{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:500;line-height:1}
 .stat-num.g{color:var(--accent)}.stat-num.a{color:var(--amber)}.stat-num.b{color:var(--blue)}
 .stat-label{font-size:9px;color:var(--text3)}
+
+/* ── SEARCH AREA ── */
 .search-area{padding:10px 16px 0}
+
+/* MODE TOGGLE */
 .mode-toggle{display:flex;gap:6px;margin-bottom:10px}
-.mode-btn{flex:1;padding:10px 8px;border-radius:14px;border:1.5px solid var(--border);background:var(--bg3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .2s}
+.mode-btn{
+  flex:1;padding:10px 8px;border-radius:14px;border:1.5px solid var(--border);
+  background:var(--bg3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
+  transition:all .2s;
+}
 .mode-btn:active{transform:scale(.96)}
-.mode-btn.active-a{border-color:rgba(0,230,118,0.3);background:rgba(0,230,118,0.1)}
-.mode-btn.active-b{border-color:rgba(100,181,246,0.3);background:rgba(100,181,246,0.1)}
+.mode-btn.active-a{border-color:var(--mode-a-border);background:var(--mode-a-bg)}
+.mode-btn.active-b{border-color:var(--mode-b-border);background:var(--mode-b-bg)}
 .mode-icon{font-size:20px;line-height:1}
-.mode-label{font-size:12px;font-weight:700}
-.mode-btn.active-a .mode-label{color:var(--accent)}
-.mode-btn.active-b .mode-label{color:var(--blue)}
+.mode-label{font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.mode-btn.active-a .mode-label{color:var(--mode-a-text)}
+.mode-btn.active-b .mode-label{color:var(--mode-b-text)}
 .mode-desc{font-size:10px;color:var(--text3);text-align:center;line-height:1.3}
+.mode-btn.active-a .mode-desc{color:var(--mode-a-text);opacity:.7}
+.mode-btn.active-b .mode-desc{color:var(--mode-b-text);opacity:.7}
+
+/* SELECTORS */
 .sel-row{display:flex;gap:6px;margin-bottom:6px}
-select{background:var(--bg3);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:13px;padding:9px 28px 9px 12px;outline:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2378909C' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;transition:all .3s;flex:1;min-width:0}
+select{
+  background:var(--bg3);border:1px solid var(--border);border-radius:12px;
+  color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:13px;
+  padding:9px 28px 9px 12px;outline:none;-webkit-appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2378909C' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;
+  transition:background .3s,border-color .3s,color .3s;flex:1;min-width:0;
+}
 select:focus{border-color:var(--accent)}
-.island-badge{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--accentDim);border:1px solid var(--accentBorder);border-radius:10px;font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px}
-.island-badge svg{width:14px;height:14px;stroke:var(--accent);fill:none;flex-shrink:0}
-.search-btn{width:100%;padding:12px;border:none;border-radius:14px;color:var(--bg);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;margin-bottom:10px}
+
+/* ISLAND BADGE */
+.island-badge{
+  display:flex;align-items:center;gap:6px;padding:8px 12px;
+  background:var(--accentDim);border:1px solid var(--accentBorder);border-radius:10px;
+  font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px;
+}
+.island-badge svg{width:14px;height:14px;stroke:var(--accent);flex-shrink:0}
+
+.search-btn{
+  width:100%;padding:12px;border:none;border-radius:14px;
+  color:var(--bg);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:opacity .2s,transform .2s;margin-bottom:10px;
+}
 .search-btn:active{transform:scale(.97);opacity:.9}
 .search-btn:disabled{opacity:.5;cursor:not-allowed}
-.search-btn svg{width:16px;height:16px;stroke-width:2.5;fill:none}
+.search-btn svg{width:16px;height:16px;stroke-width:2.5}
 .btn-prospects{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.btn-prospects svg{stroke:var(--bg)}
 .btn-explore{background:linear-gradient(135deg,#64B5F6,#42A5F5)}
+.btn-explore svg{stroke:white;color:white}
 [data-theme="light"] .btn-explore{color:#0D1B2A}
+
+/* ── LEADS AREA ── */
 .leads-area{flex:1;padding:6px 16px 100px;overflow-y:auto}
 .leads-header{display:flex;align-items:center;justify-content:space-between;padding:4px 0 8px;flex-wrap:wrap;gap:6px}
 .leads-count{font-size:12px;color:var(--text3);font-family:'JetBrains Mono',monospace}
@@ -65,52 +129,70 @@ select:focus{border-color:var(--accent)}
 .leads-actions{display:flex;gap:5px}
 .chip{font-size:11px;padding:5px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text3);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .2s;font-weight:500}
 .chip:active{transform:scale(.94)}
-.chip svg{width:12px;height:12px;stroke:currentColor;fill:none}
+.chip svg{width:12px;height:12px;stroke:currentColor}
 .chip.hot{border-color:var(--accentBorder);color:var(--accent);background:var(--accentDim)}
 .chip.blue{border-color:rgba(100,181,246,.3);color:var(--blue);background:rgba(100,181,246,.08)}
+
+/* ── PROSPECT CARD ── */
 .lead-card{background:var(--card);border:1px solid var(--border);border-radius:18px;margin-bottom:10px;overflow:hidden;transition:border-color .2s,background .3s}
 .lead-card.hot-card{border-color:var(--accentBorder)}
 [data-theme="light"] .lead-card{box-shadow:0 2px 6px var(--shadow)}
 .lc-main{padding:13px 14px 11px}
 .lc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
 .lc-name{font-size:15px;font-weight:600;line-height:1.25;margin-bottom:3px;display:flex;align-items:center;flex-wrap:wrap;gap:5px}
-.hot-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--accentDim);color:var(--accent);border:1px solid var(--accentBorder);font-family:'JetBrains Mono',monospace}
+.hot-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--accentDim);color:var(--accent);border:1px solid var(--accentBorder);font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
 .zone-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:6px;background:rgba(100,181,246,.1);color:var(--blue);border:1px solid rgba(100,181,246,.2)}
 .lc-tags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px}
 .lc-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:6px;background:var(--bg4);border:1px solid var(--border2);color:var(--text2)}
 .lc-tag.no-web{color:var(--accent);border-color:var(--accentBorder);background:var(--accentDim)}
 .lc-addr{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:3px}
-.lc-addr svg{width:10px;height:10px;stroke:var(--text3);fill:none;flex-shrink:0}
+.lc-addr svg{width:10px;height:10px;stroke:var(--text3);flex-shrink:0}
+
+/* SCORE */
 .score-box{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
 .sc-hot{background:rgba(0,230,118,.14);border:1px solid rgba(0,230,118,.28)}
 .sc-warm{background:rgba(255,179,0,.1);border:1px solid rgba(255,179,0,.22)}
 .sc-cold{background:var(--bg4);border:1px solid var(--border)}
 .sn{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:500;line-height:1}
-.sn-hot{color:#00E676}[data-theme="light"] .sn-hot{color:#00A854}
-.sn-warm{color:#FFB300}[data-theme="light"] .sn-warm{color:#E65100}
+.sn-hot{color:#00E676}
+[data-theme="light"] .sn-hot{color:#00A854}
+.sn-warm{color:#FFB300}
+[data-theme="light"] .sn-warm{color:#E65100}
 .sn-cold{color:var(--text3)}
 .sl{font-size:8px;color:var(--text3);margin-top:1px}
+
+/* BREAKDOWN */
 .score-breakdown{background:var(--bg4);border-radius:10px;padding:8px 10px;margin-bottom:9px;display:none}
 .score-breakdown.open{display:block}
 .sb-row{display:flex;justify-content:space-between;align-items:flex-start;font-size:11px;color:var(--text3);padding:2px 0;gap:8px}
 .sb-row span:last-child{font-family:'JetBrains Mono',monospace;font-weight:500;flex-shrink:0}
 .sb-row span:last-child.p{color:var(--accent)}
+.sb-row span:last-child.n{color:var(--text3)}
+.sb-reason{font-size:11px;color:var(--text2);text-align:right;max-width:190px;line-height:1.3}
+
+/* META */
 .lc-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px}
 .meta-item{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--text3)}
-.meta-item svg{width:11px;height:11px;stroke:var(--text3);fill:none;flex-shrink:0}
+.meta-item svg{width:11px;height:11px;stroke:var(--text3);flex-shrink:0}
 .meta-item a{color:var(--blue);text-decoration:none}
+
+/* WA PREVIEW */
 .wa-preview{background:var(--bg4);border-radius:10px;padding:8px 11px;margin-bottom:9px;font-size:11px;color:var(--text2);line-height:1.5;border-left:2px solid var(--accent)}
 .wa-label{font-size:9px;color:var(--text3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
+
+/* CONTACT BUTTONS */
 .lc-contact{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
 .cbtn{padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--bg3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .2s}
 .cbtn:active{transform:scale(.91)}
-.cbtn svg{width:15px;height:15px;stroke-width:1.8;fill:none}
+.cbtn svg{width:15px;height:15px;stroke-width:1.8}
 .cbtn span{font-size:9px;font-weight:500;color:var(--text3)}
 .cb-call{border-color:rgba(100,181,246,.28)}.cb-call svg{stroke:var(--blue)}
 .cb-wa{border-color:var(--accentBorder)}.cb-wa svg{stroke:var(--accent)}
 .cb-email{border-color:rgba(255,179,0,.28)}.cb-email svg{stroke:var(--amber)}
-.cb-save svg{stroke:var(--accent)}.cb-save span{color:var(--accent)}
+.cb-save{border-color:var(--accentBorder)}.cb-save svg{stroke:var(--accent)}.cb-save span{color:var(--accent)}
 .cb-del svg{stroke:var(--red)}.cb-del span{color:var(--red)}
+
+/* STATUS ROW */
 .status-row{display:flex;gap:4px;padding:7px 13px;border-top:1px solid var(--border);background:var(--bg3)}
 .stbtn{flex:1;padding:5px 2px;border-radius:8px;font-size:9px;font-weight:700;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .2s;text-transform:uppercase;letter-spacing:.3px}
 .stbtn:active{transform:scale(.93)}
@@ -118,72 +200,91 @@ select:focus{border-color:var(--accent)}
 .st-c.on{background:rgba(100,181,246,.12);border-color:rgba(100,181,246,.3);color:var(--blue)}
 .st-i.on{background:var(--accentDim);border-color:var(--accentBorder);color:var(--accent)}
 .st-d.on{background:rgba(255,82,82,.1);border-color:rgba(255,82,82,.25);color:var(--red)}
-.explore-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;transition:background .3s}
+
+/* ── EXPLORE CARD (Mode B) ── */
+.explore-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:13px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;
+  transition:background .3s,border-color .3s;
+}
 [data-theme="light"] .explore-card{box-shadow:0 1px 4px var(--shadow)}
 .explore-card:active{background:var(--bg3)}
 .ec-left{flex:1;min-width:0}
 .ec-name{font-size:14px;font-weight:600;margin-bottom:3px;line-height:1.25}
 .ec-zone{font-size:10px;color:var(--blue);font-weight:500;margin-bottom:5px;display:flex;align-items:center;gap:3px}
-.ec-zone svg{width:9px;height:9px;stroke:var(--blue);fill:none}
+.ec-zone svg{width:9px;height:9px;stroke:var(--blue)}
 .ec-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
 .ec-meta-item{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:3px}
-.ec-meta-item svg{width:10px;height:10px;stroke:var(--text3);fill:none}
-.ec-meta-item a{color:var(--blue);text-decoration:none}
+.ec-meta-item svg{width:10px;height:10px;stroke:var(--text3)}
+.ec-meta-item a{color:var(--blue);text-decoration:none;font-size:11px}
 .ec-actions{display:flex;gap:5px;flex-wrap:wrap}
 .ec-btn{padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);cursor:pointer;display:flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--text3);transition:all .2s;white-space:nowrap}
 .ec-btn:active{transform:scale(.93)}
-.ec-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+.ec-btn svg{width:12px;height:12px;stroke:currentColor;stroke-width:2}
 .ec-btn.call{border-color:rgba(100,181,246,.28);color:var(--blue)}
 .ec-btn.wa{border-color:var(--accentBorder);color:var(--accent)}
 .ec-btn.web{border-color:rgba(206,147,216,.28);color:var(--purple)}
-.ec-btn.maps{border-color:rgba(255,179,0,.28);color:var(--amber)}
 .ec-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
 .ec-rating{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber);display:flex;align-items:center;gap:3px}
 .ec-rating svg{width:12px;height:12px;fill:var(--amber);stroke:none}
 .ec-reviews{font-size:10px;color:var(--text3)}
 .ec-sector-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:6px;background:var(--bg4);border:1px solid var(--border2);color:var(--text2)}
-.google-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:5px;background:rgba(100,181,246,.1);color:var(--blue);border:1px solid rgba(100,181,246,.2);display:inline-flex;align-items:center;gap:3px}
+
+/* ── EMPTY / LOADING ── */
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;gap:12px}
 .empty-icon{width:64px;height:64px;border-radius:20px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
-.empty-icon svg{width:28px;height:28px;stroke:var(--text3);fill:none}
+.empty-icon svg{width:28px;height:28px;stroke:var(--text3)}
 .empty-title{font-size:16px;font-weight:600}
 .empty-desc{font-size:13px;color:var(--text3);line-height:1.5;max-width:270px}
 .loading{padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
 .spin-ring{width:68px;height:68px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative}
 .spin-ring::before{content:'';position:absolute;inset:4px;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent);animation:spin .9s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.spin-ring svg{width:24px;height:24px;stroke:var(--accent);fill:none}
+.spin-ring svg{width:24px;height:24px;stroke:var(--accent)}
 .ldots{display:flex;gap:4px;margin-top:6px;justify-content:center}
 .ldots span{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:ld 1.4s ease-in-out infinite}
 .ldots span:nth-child(2){animation-delay:.2s}.ldots span:nth-child(3){animation-delay:.4s}
 @keyframes ld{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+
+/* ── SCREENS ── */
 .screen{flex:1;display:none;flex-direction:column}
 .screen.active{display:flex}
 .saved-screen{padding:10px 16px 100px}
 .saved-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .saved-title{font-size:18px;font-weight:700}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:200;background:var(--bg);border-top:1px solid var(--border);padding:7px 0 max(7px,env(safe-area-inset-bottom));display:flex;justify-content:space-around;transition:background .3s}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:430px;z-index:200;background:var(--bg);
+  border-top:1px solid var(--border);padding:7px 0 max(7px,env(safe-area-inset-bottom));
+  display:flex;justify-content:space-around;transition:background .3s;
+}
 [data-theme="dark"] .bottom-nav{backdrop-filter:blur(20px);background:rgba(8,12,10,0.95)}
 [data-theme="light"] .bottom-nav{box-shadow:0 -1px 6px var(--shadow)}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 18px;cursor:pointer;opacity:.4;transition:opacity .2s;position:relative}
 .nav-item.active{opacity:1}
-.nav-item svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8}
+.nav-item svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8}
 .nav-item.active svg{stroke:var(--accent)}
 .nav-label{font-size:10px;font-weight:500}
 .nav-item.active .nav-label{color:var(--accent)}
 .nav-badge{min-width:16px;height:16px;border-radius:8px;background:var(--accent);color:var(--bg);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;font-family:'JetBrains Mono',monospace;position:absolute;top:-1px;right:8px}
+
+/* ── MODAL ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:flex-end;justify-content:center}
 .modal-overlay.open{display:flex}
 .modal{width:100%;max-width:430px;background:var(--bg2);border-top:1px solid var(--border);border-radius:22px 22px 0 0;padding:18px 16px;max-height:80vh;overflow-y:auto;position:relative;transition:background .3s}
 .modal-handle{width:36px;height:4px;border-radius:2px;background:var(--border2);margin:0 auto 14px}
 .modal-title{font-size:16px;font-weight:700;margin-bottom:14px}
 .modal-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:9px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer}
-.modal-close svg{width:14px;height:14px;stroke:var(--text3);fill:none}
+.modal-close svg{width:14px;height:14px;stroke:var(--text3)}
 .filter-group{margin-bottom:14px}
 .filter-label{font-size:11px;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:7px;font-weight:500}
 .filter-chips{display:flex;gap:5px;flex-wrap:wrap}
 .fc{font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg3);color:var(--text3);cursor:pointer;transition:all .2s;font-weight:500}
 .fc.on{background:var(--accentDim);border-color:var(--accentBorder);color:var(--accent)}
+
+/* ── TOAST ── */
 .toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-size:13px;font-weight:700;padding:10px 20px;border-radius:20px;opacity:0;transition:opacity .3s;z-index:500;pointer-events:none;white-space:nowrap;font-family:'Space Grotesk',sans-serif}
 .toast.show{opacity:1}
 </style>
@@ -191,17 +292,26 @@ select:focus{border-color:var(--accent)}
 <body>
 <div class="app">
 
+<!-- HEADER -->
 <header class="header">
   <div class="header-top">
     <div class="logo-wrap">
-      <div class="logo-dot"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="logo-dot">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
       <span class="logo-text">Prospector</span>
       <span class="logo-badge">AI</span>
     </div>
     <div class="header-actions">
-      <div class="theme-toggle" onclick="toggleTheme()"><div class="toggle-thumb" id="toggleThumb">🌙</div></div>
-      <div class="hbtn" onclick="exportCSV()"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
-      <div class="hbtn" onclick="showModal('filterModal')"><svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></div>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="toggle-thumb" id="toggleThumb">🌙</div>
+      </div>
+      <div class="hbtn" onclick="exportCSV()" title="Exportar CSV">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </div>
+      <div class="hbtn" onclick="showModal('filterModal')">
+        <svg viewBox="0 0 24 24" fill="none"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      </div>
     </div>
   </div>
   <div class="stats-bar">
@@ -212,20 +322,25 @@ select:focus{border-color:var(--accent)}
   </div>
 </header>
 
+<!-- SEARCH SCREEN -->
 <div class="screen active" id="screen-search">
   <div class="search-area">
+
+    <!-- MODE TOGGLE -->
     <div class="mode-toggle">
       <div class="mode-btn active-a" id="modeA" onclick="setMode('prospects')">
         <div class="mode-icon">🎯</div>
         <div class="mode-label">Clientes potenciales</div>
-        <div class="mode-desc">Score IA · Pipeline · WhatsApp</div>
+        <div class="mode-desc">Score IA · Pipeline · WhatsApp personalizado</div>
       </div>
       <div class="mode-btn" id="modeB" onclick="setMode('explore')">
         <div class="mode-icon">🗺️</div>
         <div class="mode-label">Explorar empresas</div>
-        <div class="mode-desc">Vista limpia · Google Maps real</div>
+        <div class="mode-desc">Vista limpia · Sin evaluación · Mapa del mercado</div>
       </div>
     </div>
+
+    <!-- ISLAND / ZONE SELECTORS -->
     <div class="sel-row">
       <select id="selIsland" onchange="updateZones()">
         <option value="">— Selecciona isla —</option>
@@ -237,7 +352,7 @@ select:focus{border-color:var(--accent)}
         <option value="la_gomera">🌳 La Gomera</option>
         <option value="el_hierro">🔥 El Hierro</option>
       </select>
-      <select id="selZona"><option value="">— Elige isla primero —</option></select>
+      <select id="selZona"></select>
     </div>
     <div class="sel-row">
       <select id="selSector"></select>
@@ -246,38 +361,40 @@ select:focus{border-color:var(--accent)}
         <option value="12" selected>12 resultados</option>
         <option value="20">20 resultados</option>
         <option value="30">30 resultados</option>
-        <option value="50">50 resultados</option>
-        <option value="60">60 resultados</option>
       </select>
     </div>
+
     <div class="island-badge" id="islandBadge" style="display:none">
-      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       <span id="islandBadgeText">Búsqueda en toda la isla</span>
     </div>
+
     <button class="search-btn btn-prospects" id="searchBtn" onclick="doSearch()">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <span id="searchBtnText">Buscar clientes potenciales</span>
     </button>
   </div>
   <div class="leads-area" id="leadsArea">
     <div class="empty">
-      <div class="empty-icon"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+      <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
       <div class="empty-title">Elige modo y busca</div>
-      <div class="empty-desc">Selecciona isla, zona y sector. Los datos vienen de Google Maps en tiempo real.</div>
+      <div class="empty-desc">Selecciona isla, zona o toda la isla, el sector y el modo de búsqueda.</div>
     </div>
   </div>
 </div>
 
+<!-- SAVED SCREEN -->
 <div class="screen" id="screen-saved">
   <div class="saved-screen">
     <div class="saved-header">
       <span class="saved-title">Pipeline guardado</span>
-      <div class="chip" onclick="clearSaved()"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>Limpiar</div>
+      <div class="chip" onclick="clearSaved()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>Limpiar</div>
     </div>
     <div id="savedList"></div>
   </div>
 </div>
 
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <div class="nav-item active" id="nav-search" onclick="showScreen('search')">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -291,10 +408,11 @@ select:focus{border-color:var(--accent)}
 </nav>
 </div>
 
+<!-- FILTER MODAL (only for prospects mode) -->
 <div class="modal-overlay" id="filterModal" onclick="if(event.target===this)closeModal('filterModal')">
   <div class="modal">
     <div class="modal-handle"></div>
-    <div class="modal-close" onclick="closeModal('filterModal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+    <div class="modal-close" onclick="closeModal('filterModal')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
     <div class="modal-title">Filtros</div>
     <div class="filter-group">
       <div class="filter-label">Score mínimo IA</div>
@@ -304,6 +422,24 @@ select:focus{border-color:var(--accent)}
         <div class="fc" id="f7" onclick="setScoreFilter(7)">≥ 7</div>
         <div class="fc" id="f8" onclick="setScoreFilter(8)">≥ 8 Caliente</div>
         <div class="fc" id="f9" onclick="setScoreFilter(9)">≥ 9 Top</div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Estado del lead</div>
+      <div class="filter-chips">
+        <div class="fc on" id="fs-all" onclick="setStFilter('all')">Todos</div>
+        <div class="fc" id="fs-nuevo" onclick="setStFilter('nuevo')">Nuevos</div>
+        <div class="fc" id="fs-contactado" onclick="setStFilter('contactado')">Contactados</div>
+        <div class="fc" id="fs-interesado" onclick="setStFilter('interesado')">Interesados</div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Presencia digital</div>
+      <div class="filter-chips">
+        <div class="fc on" id="fw-all" onclick="setWebFilter('all')">Todos</div>
+        <div class="fc" id="fw-noweb" onclick="setWebFilter('noweb')">Sin web</div>
+        <div class="fc" id="fw-noemail" onclick="setWebFilter('noemail')">Sin email</div>
+        <div class="fc" id="fw-email" onclick="setWebFilter('email')">Con email</div>
       </div>
     </div>
     <div class="filter-group">
@@ -320,19 +456,41 @@ select:focus{border-color:var(--accent)}
 <div class="toast" id="toast"></div>
 
 <script>
-const CLAUDE_KEY='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';
-const GKEY='AIzaSyD273uWBMbvxTCffalNKATPXHoGgCaUUbQ';
+const KEY='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';
 
+// ─── ISLANDS & ZONES ──────────────────────────────────────────────────────────
 const ISLANDS={
-  gran_canaria:{label:'Gran Canaria',zones:['TODA Gran Canaria','Las Palmas — Centro/Triana','Las Palmas — Mesa y López','Las Palmas — Vegueta','Las Palmas — Las Canteras','Las Palmas — Ciudad Alta','Telde','Santa Lucía de Tirajana','Arucas','Gáldar','Agüimes','Vecindario','Playa del Inglés','Maspalomas','Puerto Rico','Mogán']},
-  lanzarote:{label:'Lanzarote',zones:['TODA Lanzarote','Arrecife — Centro','Puerto del Carmen','Costa Teguise','Playa Blanca','Teguise','Yaiza']},
-  tenerife:{label:'Tenerife',zones:['TODO Tenerife','Santa Cruz de Tenerife','La Laguna','Los Cristianos','Adeje','Costa Adeje','Puerto de la Cruz','Las Américas']},
-  fuerteventura:{label:'Fuerteventura',zones:['TODA Fuerteventura','Puerto del Rosario','Corralejo','Jandia','Morro Jable','Costa Calma']},
-  la_palma:{label:'La Palma',zones:['TODA La Palma','Santa Cruz de La Palma','Los Llanos de Aridane']},
-  la_gomera:{label:'La Gomera',zones:['TODA La Gomera','San Sebastián de La Gomera']},
-  el_hierro:{label:'El Hierro',zones:['TODO El Hierro','Valverde']},
+  gran_canaria:{
+    label:'Gran Canaria',
+    zones:['TODA Gran Canaria','Las Palmas — Centro/Triana','Las Palmas — Mesa y López','Las Palmas — Vegueta','Las Palmas — Las Canteras','Las Palmas — Ciudad Alta','Las Palmas — Schamann','Telde','Santa Lucía de Tirajana','Arucas','Gáldar','Agüimes','Vecindario','Playa del Inglés','Maspalomas','Puerto Rico','Mogán','Arguineguín','San Agustín'],
+  },
+  lanzarote:{
+    label:'Lanzarote',
+    zones:['TODA Lanzarote','Arrecife — Centro','Puerto del Carmen','Costa Teguise','Playa Blanca','Teguise','Yaiza','San Bartolomé'],
+  },
+  tenerife:{
+    label:'Tenerife',
+    zones:['TODO Tenerife','Santa Cruz de Tenerife','La Laguna','Los Cristianos','Adeje','Costa Adeje','Puerto de la Cruz','Las Américas','Los Gigantes','Candelaria'],
+  },
+  fuerteventura:{
+    label:'Fuerteventura',
+    zones:['TODA Fuerteventura','Puerto del Rosario','Corralejo','Jandia','Morro Jable','Costa Calma','Gran Tarajal'],
+  },
+  la_palma:{
+    label:'La Palma',
+    zones:['TODA La Palma','Santa Cruz de La Palma','Los Llanos de Aridane','El Paso'],
+  },
+  la_gomera:{
+    label:'La Gomera',
+    zones:['TODA La Gomera','San Sebastián de La Gomera','Valle Gran Rey'],
+  },
+  el_hierro:{
+    label:'El Hierro',
+    zones:['TODO El Hierro','Valverde'],
+  },
 };
 
+// ─── SECTORS ──────────────────────────────────────────────────────────────────
 const SECTORS=[
   {id:'hosteleria',label:'🍽️ Hostelería y restauración'},
   {id:'restauracion_rapida',label:'🍔 Cafeterías y fast food'},
@@ -372,95 +530,203 @@ const SECTORS=[
   {id:'moda',label:'👗 Moda, joyería y accesorios'},
 ];
 
-const SECTOR_QUERY={
-  hosteleria:'restaurantes',restauracion_rapida:'cafeterías bares',catering:'catering banquetes',
-  odontologia:'clínica dental',fisioterapia:'fisioterapia',salud_general:'centro médico clínica',
-  psicologia:'psicólogo psicología',veterinaria:'clínica veterinaria',optica:'óptica',farmacia:'farmacia',
-  inmobiliaria:'inmobiliaria agencia inmobiliaria',construccion:'empresa construcción obras',
-  reformas:'reformas hogar',fontaneria:'fontanero fontanería',electricidad:'electricista instalaciones',
-  climatizacion:'climatización aire acondicionado',carpinteria:'carpintería cerrajería',
-  pintura:'pintura decoración',automocion:'taller mecánico automóvil',concesionarios:'concesionario coches',
-  gruas:'grúa asistencia vial',prevencion:'prevención riesgos laborales',seguridad:'empresa seguridad vigilancia',
-  limpieza:'empresa limpieza',gestoria:'gestoría asesoría fiscal',abogados:'abogado despacho',
-  educacion:'academia clases formación',informatica:'empresa informática tecnología',
-  marketing:'agencia marketing digital publicidad',peluqueria:'peluquería estética salón belleza',
-  gimnasios:'gimnasio fitness crossfit',eventos:'eventos fotografía',
-  transporte:'transporte logística mensajería',alimentacion:'supermercado alimentación',
-  ferreteria:'ferretería materiales',moda:'moda ropa joyería',
-};
-
+// ─── WHATSAPP MESSAGES ────────────────────────────────────────────────────────
 const WA={
-  hosteleria:'Hola, soy Javier de Tryvor. Automatizamos reservas y atención al cliente con IA — bot WhatsApp 24h. ¿Demo gratuita de 15 min?',
-  restauracion_rapida:'Hola, soy Javier de Tryvor. Automatizo pedidos y atención de cafeterías con IA. Bot WhatsApp 24h. ¿Demo gratis?',
-  catering:'Hola, soy Javier de Tryvor. Automatizo presupuestos y gestión de eventos de catering con IA. ¿Demo gratuita?',
-  odontologia:'Hola, soy Javier de Tryvor. Bot IA para clínicas dentales: gestiona citas, recordatorios y FAQs. -60% llamadas. ¿Demo gratis?',
-  fisioterapia:'Hola, soy Javier de Tryvor. Automatizo agenda de fisioterapia con IA — recordatorios y citas por WhatsApp. ¿Demo gratuita?',
-  salud_general:'Hola, soy Javier de Tryvor. Automatizo citas y recordatorios de centros médicos con IA. ¿Demo gratuita?',
-  psicologia:'Hola, soy Javier de Tryvor. Sistema de citas y recordatorios para consultas de psicología. ¿Demo gratuita?',
-  veterinaria:'Hola, soy Javier de Tryvor. Bot IA para veterinarias: citas, recordatorios vacunas y consultas 24h. ¿Demo gratis?',
+  hosteleria:'Hola, soy Javier de Tryvor en Canarias. Automatizamos reservas y atención al cliente de restaurantes con IA — el bot responde WhatsApp 24h. ¿Demo gratuita de 15 min?',
+  restauracion_rapida:'Hola, soy Javier de Tryvor. Automatizo pedidos y atención al cliente de cafeterías con IA. Bot WhatsApp 24h para gestionar encargos. ¿Demo gratis?',
+  catering:'Hola, soy Javier de Tryvor. Automatizo presupuestos y gestión de eventos de catering con IA. De consulta a propuesta PDF en segundos. ¿Demo gratuita?',
+  odontologia:'Hola, soy Javier de Tryvor. Bot IA para clínicas dentales: gestiona citas, envía recordatorios y responde FAQs. -60% llamadas. ¿Demo gratis?',
+  fisioterapia:'Hola, soy Javier de Tryvor. Automatizo la agenda de fisioterapia con IA — recordatorios y citas por WhatsApp. ¿Demo gratuita?',
+  salud_general:'Hola, soy Javier de Tryvor. Automatizo citas y recordatorios de centros médicos con IA. ¿Demo gratuita de 15 min?',
+  psicologia:'Hola, soy Javier de Tryvor. Sistema de citas y recordatorios para consultas de psicología. Privado y profesional. ¿Demo gratuita?',
+  veterinaria:'Hola, soy Javier de Tryvor. Bot IA para clínicas veterinarias: citas, recordatorios de vacunas y consultas 24h. ¿Demo gratis?',
   optica:'Hola, soy Javier de Tryvor. Automatizo citas y seguimiento de clientes de óptica con IA. ¿Demo gratuita?',
   farmacia:'Hola, soy Javier de Tryvor. Bot IA para farmacias: consultas, horarios y pedidos por WhatsApp 24h. ¿Demo gratis?',
-  inmobiliaria:'Hola, soy Javier de Tryvor. Propuestas inmobiliarias con IA en 30 segundos + bot consultas 24h. ¿Demo gratuita?',
+  inmobiliaria:'Hola, soy Javier de Tryvor. Propuestas inmobiliarias PDF con IA en 30 segundos + bot consultas 24h. ¿Demo gratuita?',
   construccion:'Hola, soy Javier de Tryvor. Automatizo presupuestos y seguimiento de clientes de constructoras con IA. ¿Demo gratuita?',
-  reformas:'Hola, soy Javier de Tryvor. Bot IA para reformas: presupuestos automáticos y seguimiento de obras. ¿Demo gratis?',
-  fontaneria:'Hola, soy Javier de Tryvor. Bot IA para fontaneros: urgencias 24h y presupuestos automáticos. ¿Demo gratis?',
-  electricidad:'Hola, soy Javier de Tryvor. Bot IA para electricistas: urgencias 24h y agenda de instalaciones. ¿Demo gratuita?',
-  climatizacion:'Hola, soy Javier de Tryvor. Bot IA para A/C: solicitudes de mantenimiento y urgencias 24h. ¿Demo gratis?',
-  carpinteria:'Hola, soy Javier de Tryvor. Automatizo presupuestos y seguimiento de carpintería con IA. ¿Demo gratis?',
-  pintura:'Hola, soy Javier de Tryvor. Bot IA para pintores: presupuestos automáticos y seguimiento. ¿Demo gratis?',
-  automocion:'Hola, soy Javier de Tryvor. Bot IA para talleres: citas, presupuestos y seguimiento de reparaciones. ¿Demo?',
-  concesionarios:'Hola, soy Javier de Tryvor. Automatizo atención y seguimiento de leads de concesionarios con IA. ¿Demo gratis?',
+  reformas:'Hola, soy Javier de Tryvor. Bot IA para reformas: presupuestos automáticos y seguimiento de obras por WhatsApp. ¿Demo gratis?',
+  fontaneria:'Hola, soy Javier de Tryvor. Bot IA para fontaneros: urgencias 24h, presupuestos automáticos y seguimiento de clientes. ¿Demo gratis?',
+  electricidad:'Hola, soy Javier de Tryvor. Bot IA para electricistas: urgencias 24h, presupuestos y agenda de instalaciones. ¿Demo gratuita?',
+  climatizacion:'Hola, soy Javier de Tryvor. Bot IA para empresas de A/C: solicitudes de mantenimiento y urgencias 24h. ¿Demo gratis?',
+  carpinteria:'Hola, soy Javier de Tryvor. Automatizo presupuestos y seguimiento de pedidos de carpintería con IA. ¿Demo gratis?',
+  pintura:'Hola, soy Javier de Tryvor. Bot IA para pintores: presupuestos automáticos y seguimiento de obras. ¿Demo gratis?',
+  automocion:'Hola, soy Javier de Tryvor. Bot IA para talleres: citas automáticas, presupuestos y seguimiento de reparaciones. ¿Demo de 15 min?',
+  concesionarios:'Hola, soy Javier de Tryvor. Automatizo atención al cliente y seguimiento de leads de concesionarios con IA. ¿Demo gratis?',
   gruas:'Hola, soy Javier de Tryvor. Bot IA para grúas: urgencias 24h y seguimiento de clientes. ¿Demo gratis?',
-  prevencion:'Hola, soy Javier de Tryvor. Automatizo documentación y seguimiento de prevención de riesgos con IA. ¿Demo?',
-  seguridad:'Hola, soy Javier de Tryvor. Bot IA para seguridad: presupuestos automáticos y seguimiento. ¿Demo gratis?',
-  limpieza:'Hola, soy Javier de Tryvor. Bot IA para limpieza: presupuestos, contratos y seguimiento. ¿Demo gratuita?',
+  prevencion:'Hola, soy Javier de Tryvor. Automatizo documentación y seguimiento de clientes de prevención de riesgos con IA. ¿Demo gratuita?',
+  seguridad:'Hola, soy Javier de Tryvor. Bot IA para seguridad: presupuestos automáticos y seguimiento de contratos. ¿Demo gratis?',
+  limpieza:'Hola, soy Javier de Tryvor. Bot IA para limpieza: presupuestos, contratos y seguimiento por WhatsApp. ¿Demo gratuita?',
   gestoria:'Hola, soy Javier de Tryvor. Automatizo captación y gestión de consultas de gestorías con IA. ¿Demo gratis?',
-  abogados:'Hola, soy Javier de Tryvor. Bot IA para despachos: primera consulta automática y seguimiento. ¿Demo gratuita?',
-  educacion:'Hola, soy Javier de Tryvor. Bot IA para academias: consultas, matrículas y seguimiento. ¿Demo gratis?',
-  informatica:'Hola, soy Javier de Tryvor. Bot IA para empresas IT: soporte 24h y tickets automático. ¿Demo gratis?',
-  marketing:'Hola, soy Javier de Tryvor. Bot IA para agencias: captación de leads y seguimiento automático. ¿Hablamos?',
-  peluqueria:'Hola, soy Javier de Tryvor. Bot IA para peluquerías: reservas 24h y recordatorios. ¿Demo gratis?',
-  gimnasios:'Hola, soy Javier de Tryvor. Bot IA para gimnasios: altas, clases y renovaciones por WhatsApp. ¿Demo gratis?',
-  eventos:'Hola, soy Javier de Tryvor. Bot IA para eventos: presupuestos automáticos y seguimiento. ¿Demo gratis?',
-  transporte:'Hola, soy Javier de Tryvor. Bot IA para transporte: solicitudes y seguimiento por WhatsApp. ¿Demo gratis?',
-  alimentacion:'Hola, soy Javier de Tryvor. Bot IA para alimentación: pedidos y atención 24h. ¿Demo gratis?',
-  ferreteria:'Hola, soy Javier de Tryvor. Bot IA para ferreterías: consultas de stock y pedidos. ¿Demo gratis?',
+  abogados:'Hola, soy Javier de Tryvor. Bot IA para despachos: primera consulta automática y seguimiento de casos. ¿Demo gratuita?',
+  educacion:'Hola, soy Javier de Tryvor. Bot IA para academias: consultas, matrículas y seguimiento de alumnos. ¿Demo gratis?',
+  informatica:'Hola, soy Javier de Tryvor. Bot IA para empresas IT: soporte 24h y seguimiento de tickets automático. ¿Demo gratis?',
+  marketing:'Hola, soy Javier de Tryvor. Bot IA para agencias: captación de leads y seguimiento de clientes automático. ¿Hablamos?',
+  peluqueria:'Hola, soy Javier de Tryvor. Bot IA para peluquerías: reservas 24h y recordatorios automáticos. ¿Demo gratis?',
+  gimnasios:'Hola, soy Javier de Tryvor. Bot IA para gimnasios: altas de socios, clases y renovaciones por WhatsApp. ¿Demo gratis?',
+  eventos:'Hola, soy Javier de Tryvor. Bot IA para eventos y fotografía: presupuestos automáticos y seguimiento. ¿Demo gratis?',
+  transporte:'Hola, soy Javier de Tryvor. Bot IA para transporte: solicitudes y seguimiento de envíos por WhatsApp. ¿Demo gratis?',
+  alimentacion:'Hola, soy Javier de Tryvor. Bot IA para alimentación: pedidos y atención al cliente 24h. ¿Demo gratis?',
+  ferreteria:'Hola, soy Javier de Tryvor. Bot IA para ferreterías: consultas de stock y pedidos por WhatsApp. ¿Demo gratis?',
   moda:'Hola, soy Javier de Tryvor. Bot IA para tiendas: atención 24h y seguimiento de pedidos. ¿Demo gratis?',
 };
 
-// ─── STATE ────────────────────────────────────────────────────────
-let mode='prospects';
-let allLeads=[], savedLeads=JSON.parse(localStorage.getItem('pro_leads')||'[]');
-let scoreFilter=0, sortFilter='score';
-let isDark=localStorage.getItem('pro_theme')!=='light';
-let _gmapsReady=false, _placesService=null;
+// ─── DATABASE ─────────────────────────────────────────────────────────────────
+// Key format: "sector|zona"
+const DB={
+  'hosteleria|Las Palmas — Centro/Triana':[
+    {n:'Casa Montesdeoca',a:'C/ Montesdeoca 10',p:'+34 928 333 466',e:'info@casamontesdeoca.com',w:'casamontesdeoca.com',r:4.9,rv:2341,em:'grande',ig:true,fb:true,ob:false},
+    {n:'Restaurante El Herreño',a:'C/ Mendizábal 5',p:'+34 928 310 513',e:'',w:'elherreno.es',r:4.7,rv:1247,em:'mediano',ig:false,fb:true,ob:false},
+    {n:'La Trastienda Grill',a:'C/ Buenos Aires 11',p:'+34 928 276 982',e:'reservas@latrastienda.es',w:'latrastienda.es',r:4.8,rv:1089,em:'mediano',ig:true,fb:true,ob:true},
+    {n:'Restaurante Amaiur',a:'C/ Pérez Galdós 2',p:'+34 928 370 717',e:'',w:'',r:4.6,rv:634,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'El Churrasco Las Palmas',a:'C/ Remedios 3',p:'+34 928 311 400',e:'',w:'',r:4.4,rv:567,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Taberna El Jamón',a:'C/ Triana 34',p:'+34 928 361 234',e:'',w:'',r:4.2,rv:289,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Restaurante Cho Zacarias',a:'Av. Mesa y López 45',p:'+34 928 265 412',e:'',w:'',r:4.5,rv:423,em:'pequeño',ig:false,fb:true,ob:false},
+  ],
+  'hosteleria|Las Palmas — Las Canteras':[
+    {n:'La Marinera Las Palmas',a:'Paseo Las Canteras 28',p:'+34 928 463 802',e:'',w:'lamarinera.es',r:4.5,rv:892,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'Chiringuito Las Alcaravaneras',a:'Playa Alcaravaneras 2',p:'+34 928 462 890',e:'',w:'',r:4.3,rv:312,em:'pequeño',ig:false,fb:true,ob:false},
+    {n:'El Paseo Canteras Café',a:'Paseo Las Canteras 45',p:'+34 928 460 234',e:'',w:'',r:4.4,rv:456,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'hosteleria|Playa del Inglés':[
+    {n:'El Palmeral Playa del Inglés',a:'C.C. Faro 2',p:'+34 928 762 310',e:'info@elpalmeral.com',w:'elpalmeral.com',r:4.5,rv:2156,em:'grande',ig:true,fb:true,ob:true},
+    {n:'Grill La Kasbah',a:'Av. de Tirajana 58',p:'+34 928 771 234',e:'',w:'lakasbah.es',r:4.4,rv:1123,em:'mediano',ig:true,fb:false,ob:false},
+    {n:'La Bodeguita del Medio',a:'Av. Tirajana 38',p:'+34 928 762 890',e:'',w:'',r:4.3,rv:987,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Bamira Playa',a:'C/ Las Retamas 1',p:'+34 928 762 501',e:'info@bamira.com',w:'bamira.com',r:4.5,rv:1032,em:'mediano',ig:true,fb:true,ob:false},
+  ],
+  'hosteleria|Arrecife — Centro':[
+    {n:'Restaurante Lilium',a:'Av. Fred Olsen, Arrecife',p:'+34 928 524 978',e:'',w:'restaurantelilium.com',r:4.8,rv:1876,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'El Varadero Arrecife',a:'Puerto de Arrecife',p:'+34 928 803 355',e:'',w:'',r:4.6,rv:1234,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Mesón El Puerto',a:'Muelle de La Pescadería',p:'+34 928 801 234',e:'',w:'',r:4.3,rv:567,em:'pequeño',ig:false,fb:true,ob:false},
+  ],
+  'hosteleria|Puerto del Carmen':[
+    {n:'La Cañada Lanzarote',a:'Av. de las Playas 22',p:'+34 928 510 234',e:'',w:'',r:4.5,rv:1234,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'El Tomate Lanzarote',a:'C/ Teide 3',p:'+34 928 511 890',e:'',w:'eltomate.es',r:4.6,rv:890,em:'pequeño',ig:true,fb:false,ob:false},
+  ],
+  'hosteleria|Teguise|Yaiza':[
+    {n:'La Tegala',a:'C/ Mácher 12, Tinajo',p:'+34 928 524 324',e:'reservas@lategala.com',w:'lategala.com',r:4.9,rv:3421,em:'grande',ig:true,fb:true,ob:true},
+    {n:'Bodega El Chupadero',a:'C/ Buenavista 12, Teguise',p:'+34 928 845 037',e:'',w:'',r:4.7,rv:987,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'El Almacén Lanzarote',a:'C/ Herrerita 23, Arrecife',p:'+34 928 800 240',e:'',w:'elalmacen.es',r:4.8,rv:1456,em:'mediano',ig:true,fb:true,ob:false},
+  ],
+  'hosteleria|Santa Cruz de Tenerife':[
+    {n:'Restaurante El Coto de Antonio',a:'C/ General Goded 13',p:'+34 922 272 105',e:'info@elcotodeantonio.com',w:'elcotodeantonio.com',r:4.8,rv:1567,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'Kazan Restaurante',a:'C/ Dr. Pérez Zamora 32',p:'+34 922 281 425',e:'',w:'kazantenerife.com',r:4.7,rv:934,em:'mediano',ig:false,fb:true,ob:false},
+    {n:'La Hierbita',a:'C/ El Clavel 19',p:'+34 922 245 617',e:'',w:'',r:4.6,rv:712,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Mesón El Monasterio',a:'C/ San Agustín 24',p:'+34 922 242 422',e:'',w:'',r:4.5,rv:543,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'hosteleria|Corralejo':[
+    {n:'La Marquesina',a:'Puerto de Corralejo',p:'+34 928 535 435',e:'info@lamarquesina.com',w:'lamarquesina.com',r:4.7,rv:1123,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'El Molino Corralejo',a:'Av. Grandes Playas 3',p:'+34 928 535 234',e:'',w:'',r:4.4,rv:567,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'odontologia|Las Palmas — Centro/Triana':[
+    {n:'Clínica Dental Smile LP',a:'C/ Triana 78',p:'+34 928 362 100',e:'citas@smilecanarias.es',w:'smilecanarias.es',r:4.8,rv:432,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'Clínica Dental Estetic',a:'C/ León y Castillo 320',p:'+34 928 278 900',e:'info@clinicaestetic.es',w:'clinicaestetic.es',r:4.6,rv:523,em:'mediano',ig:false,fb:true,ob:false},
+    {n:'Clínica Dental Viera',a:'C/ Viera y Clavijo 45',p:'+34 928 361 450',e:'',w:'',r:4.4,rv:234,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'OdontoClinic LP',a:'Av. Mesa y López 67',p:'+34 928 262 890',e:'info@odontoclinic.es',w:'odontoclinic.es',r:4.5,rv:345,em:'mediano',ig:true,fb:false,ob:false},
+  ],
+  'odontologia|Playa del Inglés':[
+    {n:'Clínica Dental Maspalomas',a:'Av. Touroperador 22',p:'+34 928 769 801',e:'citas@dentalmaspalomas.es',w:'',r:4.7,rv:312,em:'mediano',ig:false,fb:true,ob:false},
+    {n:'Dental Sur',a:'C.C. Faro 2, Local 45',p:'+34 928 770 234',e:'',w:'',r:4.4,rv:198,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'fisioterapia|Las Palmas — Centro/Triana':[
+    {n:'Fisioterapia Sport Canarias',a:'C/ Perojo 23',p:'+34 928 480 213',e:'fisio@sportcanarias.es',w:'',r:4.7,rv:312,em:'pequeño',ig:false,fb:true,ob:false},
+    {n:'Clínica Fisio Las Canteras',a:'Paseo Las Canteras 56',p:'+34 928 464 300',e:'info@fisiocanteras.es',w:'fisiocanteras.es',r:4.7,rv:189,em:'pequeño',ig:true,fb:false,ob:false},
+    {n:'Centro Fisio & Salud LP',a:'Av. Mesa y López 23',p:'+34 928 261 890',e:'',w:'',r:4.5,rv:145,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'inmobiliaria|Las Palmas — Centro/Triana':[
+    {n:'RE/MAX Canarias',a:'C/ Veintiún de Agosto 17',p:'+34 928 497 800',e:'canarias@remax.es',w:'remaxcanarias.com',r:4.7,rv:456,em:'grande',ig:true,fb:true,ob:false},
+    {n:'Century 21 Las Palmas',a:'Av. Mesa y López 12',p:'+34 928 293 080',e:'',w:'century21lp.es',r:4.6,rv:312,em:'mediano',ig:false,fb:true,ob:false},
+    {n:'Donpiso Las Palmas',a:'C/ León y Castillo 44',p:'+34 928 240 404',e:'lp@donpiso.com',w:'donpiso.com',r:4.3,rv:178,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Fincas Canarias',a:'C/ Triana 56',p:'+34 928 361 534',e:'',w:'fincascanarias.es',r:4.5,rv:234,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'inmobiliaria|Playa del Inglés':[
+    {n:'DreamHomes Maspalomas',a:'Av. Touroperador Neckermann 16',p:'+34 928 765 432',e:'info@dreamhomescanarias.es',w:'dreamhomescanarias.es',r:4.8,rv:543,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'Gran Canaria Properties',a:'C.C. El Veril, San Agustín',p:'+34 928 760 123',e:'',w:'gcproperties.es',r:4.6,rv:345,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'fontaneria|Las Palmas — Centro/Triana':[
+    {n:'Fontanería López 24h',a:'C/ Doctor Chil 23',p:'+34 928 251 890',e:'',w:'',r:4.5,rv:189,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Instalaciones Hidráulicas GC',a:'Polígono Las Longueras',p:'+34 928 389 012',e:'info@hidrogc.es',w:'',r:4.3,rv:123,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Fontanería Hernández',a:'C/ Pérez Muñoz 12',p:'+34 928 479 345',e:'',w:'',r:4.6,rv:234,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'SOS Fontanería Canarias',a:'Av. Escaleritas 34',p:'+34 600 234 567',e:'sos@fontaneriacanarias.es',w:'',r:4.4,rv:156,em:'pequeño',ig:false,fb:true,ob:false},
+  ],
+  'electricidad|Las Palmas — Centro/Triana':[
+    {n:'Electricidad Rodríguez LP',a:'C/ Galicia 45',p:'+34 928 272 345',e:'',w:'',r:4.5,rv:167,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Instalaciones Eléctricas Canarias',a:'Polígono Industrial Norte 5',p:'+34 928 476 890',e:'iec@instalacionescanarias.es',w:'instalacionescanarias.es',r:4.4,rv:234,em:'mediano',ig:false,fb:false,ob:false},
+    {n:'Electro Servicio 24h LP',a:'Av. Escaleritas 78',p:'+34 600 345 678',e:'',w:'',r:4.3,rv:145,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Electricidad García e Hijos',a:'C/ Pérez Galdós 56',p:'+34 928 370 234',e:'',w:'',r:4.6,rv:189,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'automocion|Las Palmas — Centro/Triana':[
+    {n:'Talleres Hermanos Santana',a:'Av. Escaleritas 98',p:'+34 928 251 678',e:'',w:'',r:4.6,rv:234,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Toyota Canarias Las Palmas',a:'Ctra. del Centro km 3',p:'+34 928 251 100',e:'lp@toyotacanarias.es',w:'toyotacanarias.es',r:4.5,rv:567,em:'grande',ig:true,fb:true,ob:true},
+    {n:'Talleres González e Hijos',a:'Polígono Industrial Las Longueras',p:'+34 928 389 234',e:'',w:'',r:4.7,rv:189,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Renault Canarias LP',a:'Av. Marítima del Norte 20',p:'+34 928 464 500',e:'',w:'renaultcanarias.es',r:4.4,rv:312,em:'grande',ig:true,fb:true,ob:false},
+    {n:'Reparauto Las Palmas',a:'C/ Doctor Chil 67',p:'+34 928 252 890',e:'',w:'',r:4.3,rv:145,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'prevencion|Las Palmas — Centro/Triana':[
+    {n:'Prevención Canarias SL',a:'C/ León y Castillo 89',p:'+34 928 270 567',e:'info@prevencioncanarias.es',w:'prevencioncanarias.es',r:4.5,rv:89,em:'mediano',ig:false,fb:false,ob:false},
+    {n:'Seguridad Laboral GC',a:'Av. Mesa y López 67',p:'+34 928 262 890',e:'',w:'',r:4.3,rv:67,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Premap Canarias',a:'C/ Perojo 34',p:'+34 928 480 123',e:'',w:'premap.es',r:4.2,rv:123,em:'grande',ig:false,fb:false,ob:false},
+    {n:'MC Mutual Canarias',a:'C/ Triana 123',p:'+34 928 362 456',e:'asesor@mcmutual.es',w:'mcmutual.es',r:4.4,rv:156,em:'grande',ig:false,fb:false,ob:false},
+  ],
+  'peluqueria|Las Palmas — Centro/Triana':[
+    {n:'Spa Wellness Hotel Santa Catalina',a:'Parque Doramas s/n',p:'+34 928 243 040',e:'spa@santacatalina.es',w:'spasantacatalina.es',r:4.9,rv:567,em:'grande',ig:true,fb:true,ob:true},
+    {n:'Salón Miriam Beauty',a:'C/ Viera y Clavijo 56',p:'+34 928 363 712',e:'',w:'',r:4.8,rv:234,em:'pequeño',ig:true,fb:true,ob:false},
+    {n:'Clínica Estética Belleza Total',a:'Av. Juan XXIII 8',p:'+34 928 368 432',e:'info@bellezatotal.es',w:'bellezatotal.es',r:4.6,rv:189,em:'pequeño',ig:true,fb:false,ob:false},
+    {n:'Nails & Co Las Palmas',a:'CC Las Arenas Local 22',p:'+34 928 461 234',e:'',w:'',r:4.5,rv:145,em:'pequeño',ig:true,fb:false,ob:false},
+    {n:'Instituto Capilar Canarias',a:'C/ Mesa y López 34',p:'+34 928 262 890',e:'',w:'',r:4.4,rv:198,em:'pequeño',ig:false,fb:true,ob:false},
+  ],
+  'marketing|Las Palmas — Centro/Triana':[
+    {n:'Agencia Digital Canarias',a:'C/ Triana 98',p:'+34 928 362 780',e:'hola@agenciadigitalcanarias.es',w:'agenciadigitalcanarias.es',r:4.8,rv:123,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'Social Media GC',a:'C/ Mesa y López 34',p:'+34 928 261 234',e:'info@socialmediagc.es',w:'socialmediagc.es',r:4.7,rv:89,em:'pequeño',ig:true,fb:true,ob:false},
+    {n:'SEO Canarias Pro',a:'C/ Viera y Clavijo 12',p:'+34 928 363 901',e:'',w:'',r:4.7,rv:56,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Diseño Web Canarias',a:'C/ León y Castillo 78',p:'+34 928 270 890',e:'',w:'',r:4.6,rv:78,em:'pequeño',ig:true,fb:false,ob:false},
+  ],
+  'educacion|Las Palmas — Centro/Triana':[
+    {n:'English Now Gran Canaria',a:'C/ Galicia 34',p:'+34 928 272 890',e:'info@englishnowgc.es',w:'englishnowgc.es',r:4.7,rv:456,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'Centro de Idiomas Canarias',a:'Av. Mesa y López 23',p:'+34 928 264 700',e:'',w:'idiomascn.es',r:4.5,rv:234,em:'pequeño',ig:false,fb:true,ob:false},
+    {n:'Academia Oposiciones Islas',a:'C/ Perojo 45',p:'+34 928 460 321',e:'info@opoislas.es',w:'',r:4.6,rv:178,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'gestoria|Las Palmas — Centro/Triana':[
+    {n:'Gestoría Díaz & Asociados',a:'C/ Triana 67',p:'+34 928 362 456',e:'info@gestoriadiaz.es',w:'gestoriadiaz.es',r:4.6,rv:178,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Asesoría García LP',a:'Av. Mesa y López 89',p:'+34 928 262 123',e:'',w:'',r:4.4,rv:134,em:'pequeño',ig:false,fb:false,ob:false},
+    {n:'Gestoría Canaria Integral',a:'C/ León y Castillo 23',p:'+34 928 240 567',e:'contacto@gci.es',w:'gci.es',r:4.5,rv:89,em:'pequeño',ig:false,fb:false,ob:false},
+  ],
+  'gimnasios|Las Palmas — Centro/Triana':[
+    {n:'Fitness Canarias Centro',a:'Av. Mesa y López 12',p:'+34 928 262 345',e:'info@fitnesscanarias.es',w:'fitnesscanarias.es',r:4.5,rv:345,em:'mediano',ig:true,fb:true,ob:false},
+    {n:'CrossFit Las Palmas',a:'Polígono Industrial Norte',p:'+34 928 476 567',e:'',w:'',r:4.7,rv:234,em:'pequeño',ig:true,fb:false,ob:false},
+    {n:'Gimnasio Olympia LP',a:'C/ Doctor Chil 89',p:'+34 928 252 456',e:'',w:'',r:4.3,rv:189,em:'mediano',ig:false,fb:true,ob:false},
+  ],
+};
 
-// ─── INIT ─────────────────────────────────────────────────────────
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let mode='prospects'; // 'prospects' | 'explore'
+let allLeads=[], savedLeads=JSON.parse(localStorage.getItem('pro3_leads')||'[]');
+let scoreFilter=0, stFilter='all', webFilter='all', sortFilter='score';
+let isDark=localStorage.getItem('pro3_theme')!=='light';
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 (function init(){
   const ss=document.getElementById('selSector');
   SECTORS.forEach(s=>{const o=document.createElement('option');o.value=s.id;o.textContent=s.label;ss.appendChild(o);});
+  updateZones();
   applyTheme(isDark);
   updateStats();
   updateSavedBadge();
 })();
 
-// ─── THEME ────────────────────────────────────────────────────────
-function toggleTheme(){isDark=!isDark;localStorage.setItem('pro_theme',isDark?'dark':'light');applyTheme(isDark);}
-function applyTheme(dark){
-  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
-  document.getElementById('themeColor').content=dark?'#080C0A':'#F0F4F1';
-  document.getElementById('toggleThumb').textContent=dark?'🌙':'☀️';
-}
-
-// ─── ZONES ────────────────────────────────────────────────────────
 function updateZones(){
   const island=document.getElementById('selIsland').value;
   const sz=document.getElementById('selZona');
   sz.innerHTML='';
-  if(!island){sz.innerHTML='<option value="">— Elige isla primero —</option>';document.getElementById('islandBadge').style.display='none';return;}
-  ISLANDS[island].zones.forEach((z,i)=>{
+  if(!island){
+    sz.innerHTML='<option value="">— Primero elige isla —</option>';
+    document.getElementById('islandBadge').style.display='none';
+    return;
+  }
+  const iData=ISLANDS[island];
+  iData.zones.forEach((z,i)=>{
     const o=document.createElement('option');o.value=z;
-    o.textContent=i===0?'🌐 '+z:z;
+    o.textContent=i===0?`🌐 ${z}`:z;
+    if(i===0)o.style.fontWeight='600';
     sz.appendChild(o);
   });
   sz.onchange=checkIslandBadge;
@@ -469,31 +735,39 @@ function updateZones(){
 
 function checkIslandBadge(){
   const v=document.getElementById('selZona').value;
+  const badge=document.getElementById('islandBadge');
   const isAll=v.startsWith('TODA')||v.startsWith('TODO');
-  document.getElementById('islandBadge').style.display=isAll?'flex':'none';
+  badge.style.display=isAll?'flex':'none';
   if(isAll){
-    const iData=ISLANDS[document.getElementById('selIsland').value];
-    document.getElementById('islandBadgeText').textContent='Buscando en toda '+iData.label;
+    const island=ISLANDS[document.getElementById('selIsland').value];
+    document.getElementById('islandBadgeText').textContent=`Buscando en toda ${island?.label||'la isla'} — todas las zonas`;
   }
 }
 
-// ─── MODE ─────────────────────────────────────────────────────────
+// ─── THEME ────────────────────────────────────────────────────────────────────
+function toggleTheme(){isDark=!isDark;localStorage.setItem('pro3_theme',isDark?'dark':'light');applyTheme(isDark);}
+function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');document.getElementById('themeColor').content=dark?'#080C0A':'#F0F4F1';document.getElementById('toggleThumb').textContent=dark?'🌙':'☀️';}
+
+// ─── MODE ────────────────────────────────────────────────────────────────────
 function setMode(m){
   mode=m;
   const a=document.getElementById('modeA'),b=document.getElementById('modeB');
   const btn=document.getElementById('searchBtn'),txt=document.getElementById('searchBtnText');
   if(m==='prospects'){
-    a.className='mode-btn active-a';b.className='mode-btn';
+    a.classList.add('active-a');a.classList.remove('active-b');
+    b.classList.remove('active-b');b.classList.add('');
     btn.className='search-btn btn-prospects';
+    btn.querySelector('svg').style.stroke='var(--bg)';
     txt.textContent='Buscar clientes potenciales';
   } else {
-    b.className='mode-btn active-b';a.className='mode-btn';
+    b.classList.add('active-b');b.classList.remove('active-a');
+    a.classList.remove('active-a');
     btn.className='search-btn btn-explore';
     txt.textContent='Explorar empresas de la zona';
   }
 }
 
-// ─── NAVIGATION ───────────────────────────────────────────────────
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
 function showScreen(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(v=>v.classList.remove('active'));
@@ -504,63 +778,91 @@ function showScreen(n){
 function showModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 
-// ─── GOOGLE PLACES SDK ────────────────────────────────────────────
+// ─── SEARCH ───────────────────────────────────────────────────────────────────
+// ─── GOOGLE PLACES API ────────────────────────────────────────────────────────
+const GKEY='AIzaSyD273uWBMbvxTCffalNKATPXHoGgCaUUbQ';
+
+const SECTOR_QUERY={
+  hosteleria:'restaurantes',restauracion_rapida:'cafeterías bares',catering:'catering banquetes',
+  odontologia:'clínica dental',fisioterapia:'fisioterapia',salud_general:'centro médico clínica',
+  psicologia:'psicólogo psicología',veterinaria:'veterinario clínica veterinaria',
+  optica:'óptica',farmacia:'farmacia',inmobiliaria:'inmobiliaria agencia inmobiliaria',
+  construccion:'empresa construcción obras',reformas:'reformas hogar',
+  fontaneria:'fontanero fontanería',electricidad:'electricista instalaciones eléctricas',
+  climatizacion:'climatización aire acondicionado',carpinteria:'carpintería cerrajería',
+  pintura:'pintura decoración',automocion:'taller mecánico automóvil',
+  concesionarios:'concesionario automóviles',gruas:'grúa asistencia vial',
+  prevencion:'prevención riesgos laborales',seguridad:'empresa seguridad vigilancia',
+  limpieza:'empresa limpieza',gestoria:'gestoría asesoría',abogados:'abogado despacho',
+  educacion:'academia clases idiomas',informatica:'informática tecnología',
+  marketing:'agencia marketing digital publicidad',peluqueria:'peluquería estética belleza',
+  gimnasios:'gimnasio fitness',eventos:'eventos fotografía',
+  transporte:'transporte logística mensajería',alimentacion:'supermercado alimentación',
+  ferreteria:'ferretería materiales construcción',moda:'moda ropa joyería',
+};
+
+// Load Google Maps JS SDK dynamically
+let _mapsLoaded=false;
+let _mapsService=null;
 function loadGoogleMaps(){
   return new Promise((resolve,reject)=>{
-    if(_gmapsReady&&window.google&&window.google.maps&&window.google.maps.places){resolve();return;}
-    if(document.querySelector('script[data-gm]')){
-      const w=()=>{if(window.google&&window.google.maps&&window.google.maps.places){_gmapsReady=true;resolve();}else setTimeout(w,200);};
-      w();return;
-    }
+    if(_mapsLoaded&&window.google?.maps){resolve();return;}
+    window._gmapsCallback=()=>{_mapsLoaded=true;resolve();};
     const s=document.createElement('script');
-    s.setAttribute('data-gm','1');
-    s.src='https://maps.googleapis.com/maps/api/js?key='+GKEY+'&libraries=places&language=es';
-    s.onload=function(){_gmapsReady=true;resolve();};
-    s.onerror=function(){reject(new Error('Google Maps no disponible'));};
+    s.src=`https://maps.googleapis.com/maps/api/js?key=${GKEY}&libraries=places&language=es&callback=_gmapsCallback`;
+    s.onerror=()=>reject(new Error('No se pudo cargar Google Maps'));
     document.head.appendChild(s);
   });
 }
 
-function getPS(){
-  if(!_placesService){_placesService=new google.maps.places.PlacesService(document.createElement('div'));}
-  return _placesService;
+function getPlacesService(){
+  if(!_mapsService){
+    const el=document.createElement('div');
+    _mapsService=new google.maps.places.PlacesService(el);
+  }
+  return _mapsService;
 }
 
-function gSearch(query){
-  return new Promise(function(resolve){
-    getPS().textSearch({query:query,language:'es'},function(r,s,pg){
-      var all=r||[];
-      if(pg&&pg.hasNextPage&&all.length<40){
-        setTimeout(function(){
-          pg.nextPage(function(r2,s2,pg2){all=all.concat(r2||[]);if(pg2&&pg2.hasNextPage&&all.length<60){setTimeout(function(){pg2.nextPage(function(r3){all=all.concat(r3||[]);resolve({results:all,status:s});});},2000);}else{resolve({results:all,status:s});}});
-        },2000);
-      }else{resolve({results:all,status:s});}
+function textSearchPromise(query){
+  return new Promise((resolve)=>{
+    const svc=getPlacesService();
+    svc.textSearch({query,language:'es'}, (results,status)=>{
+      resolve({results:results||[],status});
     });
   });
 }
 
-function gDetails(placeId){
-  return new Promise(function(resolve){
-    getPS().getDetails({placeId:placeId,fields:['name','formatted_phone_number','website','rating','user_ratings_total','formatted_address','place_id'],language:'es'},function(r,s){resolve(s==='OK'?r:null);});
+function getDetailsPromise(placeId){
+  return new Promise((resolve)=>{
+    const svc=getPlacesService();
+    svc.getDetails({
+      placeId,
+      fields:['name','formatted_phone_number','website','rating','user_ratings_total','formatted_address','place_id'],
+      language:'es'
+    },(result,status)=>{
+      resolve(status==='OK'?result:null);
+    });
   });
 }
 
-function placeToLead(p,zona,sector){
-  var ph=p.formatted_phone_number||'';
-  var phone=ph.startsWith('+')?ph:(ph?'+34 '+ph.replace(/^[\s0]+/,''):'');
+function placeToLead(p, zona, sector){
+  const phone=p.formatted_phone_number||'';
+  const cleanPhone=phone.startsWith('+')?phone:(phone?'+34 '+phone.replace(/^[\s0]+/,''):'');
   return {
     n:p.name||'',
-    a:(p.formatted_address||p.vicinity||'').replace(/, Espa[ñn]a.*/,''),
-    p:phone, e:'',
+    a:(p.formatted_address||p.vicinity||'').replace(', España','').replace(', Spain',''),
+    p:cleanPhone,
+    e:'',
     w:p.website?p.website.replace(/^https?:\/\//,'').replace(/\/$/,''):'',
-    r:p.rating||0, rv:p.user_ratings_total||0,
-    em:'', ig:false, fb:false, ob:false,
-    zona:zona, sector:sector, fromGoogle:true,
-    _gmaps:'https://www.google.com/maps/place/?q=place_id:'+p.place_id,
+    r:p.rating||0,
+    rv:p.user_ratings_total||0,
+    em:'desconocido',ig:false,fb:false,ob:false,
+    zona,sector,
+    placeId:p.place_id,
+    _gmaps:`https://www.google.com/maps/place/?q=place_id:${p.place_id}`,
   };
 }
 
-// ─── SEARCH ───────────────────────────────────────────────────────
 async function doSearch(){
   const island=document.getElementById('selIsland').value;
   const zona=document.getElementById('selZona').value;
@@ -569,256 +871,239 @@ async function doSearch(){
   if(!island){showToast('Selecciona una isla primero');return;}
   const btn=document.getElementById('searchBtn');
   btn.disabled=true;
-  const secLabel=SECTORS.find(function(s){return s.id===sector;})||{label:sector};
+  const secLabel=SECTORS.find(s=>s.id===sector)?.label||sector;
   const isAll=zona.startsWith('TODA')||zona.startsWith('TODO');
   const iData=ISLANDS[island];
   const area=document.getElementById('leadsArea');
-  const zoneName=isAll?iData.label:(zona.split('—')[1]||zona).trim();
-  const secQuery=SECTOR_QUERY[sector]||secLabel.label.split(' ').slice(1).join(' ');
+  const secQuery=SECTOR_QUERY[sector]||secLabel.split(' ').slice(1).join(' ');
+  const zoneName=isAll?iData.label:zona.split('—')[1]?.trim()||zona;
 
-  area.innerHTML='<div class="loading"><div class="spin-ring"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><div><strong style="font-size:14px;display:block;margin-bottom:4px">Buscando en Google Maps...</strong><span style="font-size:12px;color:var(--text3)">'+secQuery+' en '+zoneName+'</span><div class="ldots"><span></span><span></span><span></span></div></div></div>';
-
-  var raw=[];
-  var usedGoogle=false;
-
+// Score for prospects mode
+async function scoreProsects(raw,sector,secLabel,zonaLabel){
   try{
-    await loadGoogleMaps();
-    var zonesToSearch=isAll?iData.zones.slice(1,5):[zona];
-    var seen=new Set();
-    for(var i=0;i<zonesToSearch.length;i++){
-      var z=zonesToSearch[i];
-      var city=(z.split('—')[1]||z.replace(/^(TODA|TODO)\s+/i,'')).trim();
-      var q=secQuery+' '+city;
-      var res=await gSearch(q);
-      if(res.status==='OK'&&res.results.length){
-        usedGoogle=true;
-        var n=isAll?Math.ceil(limit/zonesToSearch.length):limit;
-        for(var j=0;j<Math.min(n,res.results.length);j++){
-          var p=res.results[j];
-          if(seen.has(p.place_id))continue;
-          seen.add(p.place_id);
-          var det=await gDetails(p.place_id);
-          raw.push(placeToLead(det||p,z,sector));
-        }
-      }
-      if(zonesToSearch.length>1)await new Promise(function(r){setTimeout(r,300);});
-    }
-  }catch(e){console.warn('Google Places:',e.message);}
-
-  if(!raw.length){
-    raw=generateGeneric(sector,zoneName,limit).map(function(b){return Object.assign({},b,{zona:zona||iData.label});});
-    showToast('Demo: activa Google Places para datos reales');
-  }
-
-  var s2=new Set();
-  raw=raw.filter(function(b){var k=(b.n||'').toLowerCase();if(s2.has(k))return false;s2.add(k);return true;}).slice(0,limit);
-
-  allLeads=raw.map(function(b,i){return Object.assign({},b,{id:Date.now()+i,sector:sector,status:'nuevo',waMsg:WA[sector]||WA.hosteleria});});
-
-  if(mode==='explore'){
-    renderExplore();
-  }else{
-    await scoreProsects(allLeads,secLabel.label,zoneName);
-  }
-  updateStats();
-  btn.disabled=false;
-}
-
-function generateGeneric(sector,zona,limit){
-  var sl=SECTORS.find(function(s){return s.id===sector;})||{label:sector};
-  var name=sl.label.split(' ').slice(1).join(' ');
-  var city=zona.split(' ')[0];
-  return Array.from({length:Math.min(limit,6)},function(_,i){
-    return {n:name+' '+city+' '+(i+1),a:'C/ Ejemplo '+(10+i*5)+', '+city,p:'+34 928 '+String(300+i*41).padStart(3,'0')+' '+String(100+i*27).padStart(3,'0'),e:i<2?'info@ejemplo'+i+'.es':'',w:i===0?'ejemplo'+i+'.es':'',r:Number((3.9+Math.random()).toFixed(1)),rv:Math.floor(40+Math.random()*300),em:'pequeño',ig:false,fb:false,ob:false,zona:zona};
-  });
-}
-
-// ─── SCORE ────────────────────────────────────────────────────────
-async function scoreProsects(leads,secLabel,zonaLabel){
-  try{
-    var lt=leads.map(function(l,i){return (i+1)+'. '+l.n+' | Rating: '+l.r+' | '+(l.rv)+' reseñas | Web: '+(l.w?'sí':'no')+' | Tel: '+(l.p?'sí':'no');}).join('\n');
-    var res=await fetch('https://api.anthropic.com/v1/messages',{
+    const lt=raw.map((l,i)=>`${i+1}. ${l.n} | Rating: ${l.r} | ${l.rv} reseñas | Web: ${l.w?'sí':'no'} | Email: ${l.e?'sí':'no'} | Booking: ${l.ob?'sí':'no'} | IG: ${l.ig?'sí':'no'}`).join('\n');
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'x-api-key':CLAUDE_KEY,'anthropic-version':'2023-06-01','content-type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-5-20250929',max_tokens:600,
-        messages:[{role:'user',content:'Eres un experto en prospección B2B en Canarias. Evalúa '+leads.length+' negocios de "'+secLabel+'" para automatización IA.\n\nPRIORIDAD 1 - EMAIL VISIBLE (+3 pts): contacto directo, máximo valor comercial.\nPRIORIDAD 2 - Sin web (+2 pts): digitalización urgente.\nPRIORIDAD 3 - Sin reservas online (+1 pt).\nPRIORIDAD 4 - Sin redes sociales (+1 pt).\nPRIORIDAD 5 - Más de 500 reseñas (+1 pt, budget disponible).\nPRIORIDAD 6 - Rating 4.7+ (+0.5 pts).\n\nSolo JSON sin texto: [{"s":9,"r":"Email visible + sin web"},...]\n\n'+lt}]}))
+      headers:{'x-api-key':KEY,'anthropic-version':'2023-06-01','content-type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5-20250929',max_tokens:500,
+        messages:[{role:'user',content:`Evalúa ${raw.length} negocios de "${secLabel}" en Canarias para automatización IA. Sin web/email/booking/redes = más necesidad = score más alto. Score 1-10. Responde SOLO JSON: [{"s":8,"r":"Sin web ni email"},...].\n${lt}`}]})
     });
-    var data=await res.json();
-    var txt=data.content&&data.content[0]?data.content[0].text:'[]';
-    var match=txt.match(/\[[\s\S]*?\]/);
-    var scores=[];
-    if(match){try{scores=JSON.parse(match[0]);}catch(e){}}
-    allLeads=leads.map(function(l,i){
-      return Object.assign({},l,{score:scores[i]?scores[i].s:calcScore(l),scoreReason:scores[i]?scores[i].r:'Calculado localmente'});
-    });
+    const data=await res.json();
+    const txt=data.content?.[0]?.text||'[]';
+    const match=txt.match(/\[[\s\S]*?\]/);
+    let scores=[];
+    if(match){try{scores=JSON.parse(match[0]);}catch{}}
+    allLeads=raw.map((l,i)=>({...l,score:scores[i]?.s||calcScore(l),scoreReason:scores[i]?.r||'Calculado automáticamente',sector,status:'nuevo',id:Date.now()+i,waMsg:WA[sector]||WA.hosteleria}));
   }catch(e){
-    allLeads=leads.map(function(l){return Object.assign({},l,{score:calcScore(l),scoreReason:'Calculado localmente'});});
+    allLeads=raw.map((l,i)=>({...l,score:calcScore(l),scoreReason:'Calculado localmente',sector,status:'nuevo',id:Date.now()+i,waMsg:WA[sector]||WA.hosteleria}));
   }
-  if(sortFilter==='rating')allLeads.sort(function(a,b){return b.r-a.r;});
-  else if(sortFilter==='reviews')allLeads.sort(function(a,b){return b.rv-a.rv;});
-  else allLeads.sort(function(a,b){return b.score-a.score;});
+  if(sortFilter==='rating')allLeads.sort((a,b)=>b.r-a.r);
+  else if(sortFilter==='reviews')allLeads.sort((a,b)=>b.rv-a.rv);
+  else allLeads.sort((a,b)=>b.score-a.score);
   renderProspects();
 }
 
-function calcScore(l){var s=5;if(!l.w)s+=2;if(!l.p)s+=1;if(!l.e)s+=1;if(l.rv>500)s+=.5;if(l.r>=4.7)s+=.5;return Math.min(10,Math.round(s));}
+function calcScore(l){let s=5;if(!l.w)s+=2;if(!l.e)s+=1;if(!l.ob)s+=1;if(!l.ig&&!l.fb)s+=1;if(l.rv>500)s+=.5;if(l.r>=4.7)s+=.5;return Math.min(10,Math.round(s));}
 
-// ─── RENDER PROSPECTS ─────────────────────────────────────────────
+function generateGeneric(sector,zona,limit){
+  const sl=SECTORS.find(s=>s.id===sector)?.label.split(' ').slice(1).join(' ')||sector;
+  const city=zona.split('—')[1]?.trim()||zona.split(' ')[0];
+  return Array.from({length:Math.min(limit,6)},(_,i)=>({
+    n:`${sl} ${city} ${['Central','Norte','Sur','Express','Plus','Pro'][i]||i+1}`,
+    a:`C/ Ejemplo ${10+i*5}, ${city}`,
+    p:`+34 928 ${String(300+i*41).padStart(3,'0')} ${String(100+i*27).padStart(3,'0')}`,
+    e:i<2?`info@${sector.slice(0,5)}${city.slice(0,3).toLowerCase()}${i}.es`:'',
+    w:i===0?`${sector.slice(0,5)}${city.slice(0,4).toLowerCase()}.es`:'',
+    r:Number((3.9+Math.random()*1).toFixed(1)),rv:Math.floor(40+Math.random()*500),
+    em:i<2?'mediano':'pequeño',ig:i===0,fb:i<2,ob:false,zona,
+  }));
+}
+
+// ─── RENDER PROSPECTS ────────────────────────────────────────────────────────
 function renderProspects(){
-  var area=document.getElementById('leadsArea');
-  var fl=allLeads.filter(function(l){return l.score>=scoreFilter;});
-  var hot=fl.filter(function(l){return l.score>=8;}).length;
-  area.innerHTML='<div class="leads-header"><span class="leads-count">'+fl.length+' leads'+(hot?' · <span>'+hot+' calientes</span>':'')+'</span><div class="leads-actions"><div class="chip hot" onclick="saveAll()"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Guardar todo</div><div class="chip" onclick="exportCSV()"><svg viewBox="0 0 24 24"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>CSV</div></div></div>'+fl.map(function(l){return buildProspectCard(l,false);}).join('');
+  const area=document.getElementById('leadsArea');
+  let fl=allLeads.filter(l=>l.score>=scoreFilter);
+  if(stFilter!=='all')fl=fl.filter(l=>l.status===stFilter);
+  if(webFilter==='noweb')fl=fl.filter(l=>!l.w);
+  if(webFilter==='noemail')fl=fl.filter(l=>!l.e);
+  if(webFilter==='email')fl=fl.filter(l=>l.e);
+  const hot=fl.filter(l=>l.score>=8).length;
+  area.innerHTML=`<div class="leads-header">
+    <span class="leads-count">${fl.length} leads${hot?` · <span>${hot} calientes</span>`:''}</span>
+    <div class="leads-actions">
+      <div class="chip hot" onclick="saveAll()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Guardar todo</div>
+      <div class="chip" onclick="exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>CSV</div>
+    </div>
+  </div>`+fl.map(l=>buildProspectCard(l,false)).join('');
 }
 
 function buildProspectCard(l,isSaved){
-  var sc=l.score||0;
-  var scClass=sc>=9?'sc-hot':sc>=7?'sc-warm':'sc-cold';
-  var snClass=sc>=9?'sn-hot':sc>=7?'sn-warm':'sn-cold';
-  var ph=(l.p||'').replace(/\s/g,'');
-  var wa=ph.replace('+','');
-  var waText=encodeURIComponent(l.waMsg||WA.hosteleria);
-  var gBadge=l.fromGoogle?'<span class="google-badge">📍 Google Maps</span>':'';
-  return '<div class="lead-card '+(sc>=8?'hot-card':'')+'" id="card-'+l.id+'">'+
-    '<div class="lc-main">'+
-    '<div class="lc-top">'+
-    '<div style="flex:1;min-width:0">'+
-    '<div class="lc-name">'+l.n+(sc>=8?'<span class="hot-badge">HOT</span>':'')+gBadge+'</div>'+
-    '<div class="lc-tags">'+(l.w?'':'<span class="lc-tag no-web">Sin web</span>')+
-    (l.zona&&l.zona!==document.getElementById('selZona').value?'<span class="zone-badge">'+(l.zona.split('—')[0]||l.zona).trim()+'</span>':'')+
-    '</div>'+
-    '<div class="lc-addr"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+l.a+'</div>'+
-    '</div>'+
-    '<div class="score-box '+scClass+'" onclick="toggleBD('+l.id+')">'+
-    '<span class="sn '+snClass+'">'+sc+'</span><span class="sl">/10 ▾</span>'+
-    '</div>'+
-    '</div>'+
-    '<div class="score-breakdown" id="sb-'+l.id+'">'+
-    '<div class="sb-row"><span>Motivo IA</span><span style="color:var(--text2);text-align:right;max-width:200px">'+( l.scoreReason||'—')+'</span></div>'+
-    (!l.w?'<div class="sb-row"><span>Sin página web</span><span class="p">+2 pts</span></div>':'')+
-    '<div class="sb-row"><span>Rating Google</span><span class="p">'+l.r+'★ ('+((l.rv||0).toLocaleString())+')</span></div>'+
-    '</div>'+
-    '<div class="lc-meta">'+
-    (l.p?'<div class="meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>'+l.p+'</div>':'')+
-    (l.e?'<div class="meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:'+l.e+'">'+l.e+'</a></div>':'')+
-    (l.w?'<div class="meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg><a href="https://'+l.w+'" target="_blank">'+l.w+'</a></div>':'')+
-    '<div class="meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'+l.r+' ('+((l.rv||0).toLocaleString())+')</div>'+
-    (l._gmaps?'<div class="meta-item"><a href="'+l._gmaps+'" target="_blank" style="color:var(--amber)">Ver en Maps →</a></div>':'')+
-    '</div>'+
-    '<div class="wa-preview"><div class="wa-label">Mensaje WhatsApp</div>'+(l.waMsg||WA.hosteleria)+'</div>'+
-    '<div class="lc-contact">'+
-    '<div class="cbtn cb-call" onclick="window.location.href=\'tel:'+l.p+'\'"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72"/></svg><span>Llamar</span></div>'+
-    '<div class="cbtn cb-wa" onclick="window.open(\'https://wa.me/'+wa+'?text='+waText+'\',\'_blank\')"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6"/></svg><span>WhatsApp</span></div>'+
-    (l.e?'<div class="cbtn cb-email" onclick="window.location.href=\'mailto:'+l.e+'\'"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Email</span></div>':'<div class="cbtn" style="opacity:.25"><svg viewBox="0 0 24 24"><path d="M4 4h16"/></svg><span>Sin email</span></div>')+
-    '<div class="cbtn" onclick="copyLead('+l.id+')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copiar</span></div>'+
-    (isSaved?
-    '<div class="cbtn cb-del" onclick="removeSaved('+l.id+')"><svg viewBox="0 0 24 24" stroke="var(--red)"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg><span style="color:var(--red)">Quitar</span></div>':
-    '<div class="cbtn cb-save" onclick="saveLead('+l.id+')"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span>Guardar</span></div>')+
-    '</div>'+
-    '</div>'+
-    '<div class="status-row">'+
-    '<button class="stbtn st-n '+(l.status==='nuevo'?'on':'')+'" onclick="'+(isSaved?'setSS':'setStatus')+'('+l.id+',\'nuevo\')">Nuevo</button>'+
-    '<button class="stbtn st-c '+(l.status==='contactado'?'on':'')+'" onclick="'+(isSaved?'setSS':'setStatus')+'('+l.id+',\'contactado\')">Contactado</button>'+
-    '<button class="stbtn st-i '+(l.status==='interesado'?'on':'')+'" onclick="'+(isSaved?'setSS':'setStatus')+'('+l.id+',\'interesado\')">Interesado</button>'+
-    '<button class="stbtn st-d '+(l.status==='descartado'?'on':'')+'" onclick="'+(isSaved?'setSS':'setStatus')+'('+l.id+',\'descartado\')">Descartar</button>'+
-    '</div>'+
-    '</div>';
+  const sc=l.score||0;
+  const scClass=sc>=9?'sc-hot':sc>=7?'sc-warm':'sc-cold';
+  const snClass=sc>=9?'sn-hot':sc>=7?'sn-warm':'sn-cold';
+  const ph=l.p?.replace(/\s/g,'')||'';
+  const wa=ph.replace('+','');
+  const waText=encodeURIComponent(l.waMsg||WA.hosteleria);
+  return `<div class="lead-card ${sc>=8?'hot-card':''}" id="card-${l.id}">
+    <div class="lc-main">
+      <div class="lc-top">
+        <div style="flex:1;min-width:0">
+          <div class="lc-name">${l.n}${sc>=8?'<span class="hot-badge">HOT</span>':''}</div>
+          <div class="lc-tags">
+            ${!l.w?'<span class="lc-tag no-web">Sin web</span>':''}
+            ${l.em?`<span class="lc-tag">${l.em}</span>`:''}
+            ${l.zona&&l.zona!==document.getElementById('selZona').value?`<span class="zone-badge">${l.zona.split('—')[0].trim()}</span>`:''}
+          </div>
+          <div class="lc-addr"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${l.a}</div>
+        </div>
+        <div class="score-box ${scClass}" onclick="toggleBD(${l.id})">
+          <span class="sn ${snClass}">${sc}</span><span class="sl">/10 ▾</span>
+        </div>
+      </div>
+      <div class="score-breakdown" id="sb-${l.id}">
+        <div class="sb-row"><span>Motivo IA</span><span class="sb-reason">${l.scoreReason||'—'}</span></div>
+        ${!l.w?'<div class="sb-row"><span>Sin página web</span><span class="p">+2 pts</span></div>':''}
+        ${!l.e?'<div class="sb-row"><span>Sin email visible</span><span class="p">+1 pt</span></div>':''}
+        ${!l.ob?'<div class="sb-row"><span>Sin reservas online</span><span class="p">+1 pt</span></div>':''}
+        ${!l.ig&&!l.fb?'<div class="sb-row"><span>Sin redes sociales</span><span class="p">+1 pt</span></div>':''}
+        <div class="sb-row"><span>Rating</span><span class="${l.r>=4.7?'p':'n'}">${l.r}★ (${(l.rv||0).toLocaleString()})</span></div>
+      </div>
+      <div class="lc-meta">
+        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>${l.p}</div>
+        ${l.e?`<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:${l.e}">${l.e}</a></div>`:''}
+        ${l.w?`<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg><a href="https://${l.w}" target="_blank">${l.w}</a></div>`:''}
+        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>${l.r} (${(l.rv||0).toLocaleString()})</div>
+      </div>
+      <div class="wa-preview"><div class="wa-label">Mensaje WhatsApp</div>${l.waMsg||WA.hosteleria}</div>
+      <div class="lc-contact">
+        <div class="cbtn cb-call" onclick="window.location.href='tel:${l.p}'"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72"/></svg><span>Llamar</span></div>
+        <div class="cbtn cb-wa" onclick="window.open('https://wa.me/${wa}?text=${waText}','_blank')"><svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6"/></svg><span>WhatsApp</span></div>
+        ${l.e?`<div class="cbtn cb-email" onclick="window.location.href='mailto:${l.e}?subject=Demo%20gratuita%20Tryvor%20IA'"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Email</span></div>`:`<div class="cbtn" style="opacity:.25"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12"/></svg><span>Sin email</span></div>`}
+        <div class="cbtn" onclick="copyLead(${l.id})"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copiar</span></div>
+        <div class="cbtn ${isSaved?'cb-del':'cb-save'}" onclick="${isSaved?`removeSaved(${l.id})`:`saveLead(${l.id})`}">
+          ${isSaved?`<svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg><span style="color:var(--red)">Quitar</span>`:`<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span>Guardar</span>`}
+        </div>
+      </div>
+    </div>
+    <div class="status-row">
+      <button class="stbtn st-n ${l.status==='nuevo'?'on':''}" onclick="${isSaved?`setSS(${l.id},'nuevo')`:`setStatus(${l.id},'nuevo')`}">Nuevo</button>
+      <button class="stbtn st-c ${l.status==='contactado'?'on':''}" onclick="${isSaved?`setSS(${l.id},'contactado')`:`setStatus(${l.id},'contactado')`}">Contactado</button>
+      <button class="stbtn st-i ${l.status==='interesado'?'on':''}" onclick="${isSaved?`setSS(${l.id},'interesado')`:`setStatus(${l.id},'interesado')`}">Interesado</button>
+      <button class="stbtn st-d ${l.status==='descartado'?'on':''}" onclick="${isSaved?`setSS(${l.id},'descartado')`:`setStatus(${l.id},'descartado')`}">Descartar</button>
+    </div>
+  </div>`;
 }
 
-// ─── RENDER EXPLORE ───────────────────────────────────────────────
+// ─── RENDER EXPLORE (Mode B — no scores) ─────────────────────────────────────
 function renderExplore(){
-  var area=document.getElementById('leadsArea');
-  area.innerHTML='<div class="leads-header"><span class="leads-count">'+allLeads.length+' empresas encontradas</span><div class="leads-actions"><div class="chip blue" onclick="exportCSV()"><svg viewBox="0 0 24 24"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>CSV</div></div></div>'+
-  allLeads.map(function(l){return buildExploreCard(l);}).join('');
+  const area=document.getElementById('leadsArea');
+  const fl=allLeads;
+  area.innerHTML=`<div class="leads-header">
+    <span class="leads-count">${fl.length} empresas encontradas</span>
+    <div class="leads-actions">
+      <div class="chip blue" onclick="exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar CSV</div>
+    </div>
+  </div>`+fl.map(l=>buildExploreCard(l)).join('');
 }
 
 function buildExploreCard(l){
-  var ph=(l.p||'').replace(/\s/g,'');
-  var wa=ph.replace('+','');
-  var secLabel=(SECTORS.find(function(s){return s.id===l.sector;})||{label:l.sector}).label.split(' ').slice(1).join(' ');
-  return '<div class="explore-card">'+
-    '<div class="ec-left">'+
-    '<div class="ec-name">'+l.n+'</div>'+
-    '<div class="ec-zone"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+(l.zona||'')+'</div>'+
-    '<div class="ec-meta">'+
-    (l.p?'<div class="ec-meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2"/></svg>'+l.p+'</div>':'')+
-    (l.e?'<div class="ec-meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12"/></svg><a href="mailto:'+l.e+'">'+l.e+'</a></div>':'')+
-    (l.w?'<div class="ec-meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg><a href="https://'+l.w+'" target="_blank">'+l.w+'</a></div>':'')+
-    '<div class="ec-meta-item">'+l.a+'</div>'+
-    '</div>'+
-    '<div class="ec-actions">'+
-    (l.p?'<div class="ec-btn call" onclick="window.location.href=\'tel:'+l.p+'\'"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2"/></svg>Llamar</div>':'')+
-    (ph?'<div class="ec-btn wa" onclick="window.open(\'https://wa.me/'+wa+'\',\'_blank\')"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8"/></svg>WhatsApp</div>':'')+
-    (l.w?'<div class="ec-btn web" onclick="window.open(\'https://'+l.w+'\',\'_blank\')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Web</div>':'')+
-    (l._gmaps?'<div class="ec-btn maps" onclick="window.open(\''+l._gmaps+'\',\'_blank\')"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Maps</div>':'')+
-    '<div class="ec-btn" onclick="copyExplore('+l.id+')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/></svg>Copiar</div>'+
-    '</div>'+
-    '</div>'+
-    '<div class="ec-right">'+
-    '<div class="ec-rating"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'+l.r+'</div>'+
-    '<div class="ec-reviews">'+((l.rv||0).toLocaleString())+' reseñas</div>'+
-    '<div class="ec-sector-tag">'+secLabel+'</div>'+
-    (l.fromGoogle?'<div class="google-badge">📍 Real</div>':'')+
-    '</div>'+
-    '</div>';
+  const ph=l.p?.replace(/\s/g,'')||'';
+  const wa=ph.replace('+','');
+  const secLabel=SECTORS.find(s=>s.id===l.sector)?.label.split(' ').slice(1).join(' ')||l.sector;
+  return `<div class="explore-card">
+    <div class="ec-left">
+      <div class="ec-name">${l.n}</div>
+      <div class="ec-zone"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${l.zona||'—'}</div>
+      <div class="ec-meta">
+        <div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>${l.p}</div>
+        ${l.e?`<div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:${l.e}">${l.e}</a></div>`:''}
+        ${l.w?`<div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg><a href="https://${l.w}" target="_blank">${l.w}</a></div>`:''}
+        <div class="ec-meta-item">${l.a}</div>
+      </div>
+      <div class="ec-actions">
+        <div class="ec-btn call" onclick="window.location.href='tel:${l.p}'"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>Llamar</div>
+        <div class="ec-btn wa" onclick="window.open('https://wa.me/${wa}','_blank')"><svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7"/></svg>WhatsApp</div>
+        ${l.w?`<div class="ec-btn web" onclick="window.open('https://${l.w}','_blank')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Web</div>`:''}
+        ${l._gmaps?`<div class="ec-btn" style="border-color:rgba(255,179,0,.28);color:var(--amber)" onclick="window.open('${l._gmaps}','_blank')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Maps</div>`:''}
+        <div class="ec-btn" onclick="copyExplore(${l.id})"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar</div>
+      </div>
+    </div>
+    <div class="ec-right">
+      <div class="ec-rating"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>${l.r}</div>
+      <div class="ec-reviews">${(l.rv||0).toLocaleString()} reseñas</div>
+      <div class="ec-sector-tag">${secLabel}</div>
+    </div>
+  </div>`;
 }
 
-// ─── ACTIONS ──────────────────────────────────────────────────────
-function toggleBD(id){var el=document.getElementById('sb-'+id);if(el)el.classList.toggle('open');}
-function setStatus(id,st){var l=allLeads.find(function(l){return l.id===id;});if(l){l.status=st;renderProspects();}var s=savedLeads.find(function(l){return l.id===id;});if(s){s.status=st;save();}}
-function setSS(id,st){var l=savedLeads.find(function(l){return l.id===id;});if(l){l.status=st;save();renderSaved();updateStats();}}
-function saveLead(id){var l=allLeads.find(function(l){return l.id===id;});if(!l)return;if(savedLeads.find(function(s){return s.id===id;})){showToast('Ya guardado');return;}savedLeads.unshift(Object.assign({},l));save();updateStats();updateSavedBadge();showToast('Guardado ✓');}
-function saveAll(){var n=0;allLeads.forEach(function(l){if(!savedLeads.find(function(s){return s.id===l.id;})){savedLeads.unshift(Object.assign({},l));n++;}});save();updateStats();updateSavedBadge();showToast(n+' leads guardados ✓');}
-function removeSaved(id){savedLeads=savedLeads.filter(function(l){return l.id!==id;});save();renderSaved();updateStats();updateSavedBadge();}
-function clearSaved(){if(confirm('¿Eliminar todos los leads?')){savedLeads=[];save();renderSaved();updateStats();updateSavedBadge();}}
-function save(){localStorage.setItem('pro_leads',JSON.stringify(savedLeads));}
-function copyLead(id){
-  var l=allLeads.find(function(l){return l.id===id;})||savedLeads.find(function(l){return l.id===id;});
-  if(!l)return;
-  var t=l.n+'\n📍 '+l.a+(l.p?'\n📞 '+l.p:'')+(l.e?'\n✉️ '+l.e:'')+(l.w?'\n🌐 '+l.w:'')+'\n⭐ '+l.r+' ('+l.rv+' reseñas)\nScore IA: '+(l.score||'—')+'/10\n\n'+(l.waMsg||'');
-  navigator.clipboard.writeText(t).then(function(){showToast('Copiado ✓');});
-}
 function copyExplore(id){
-  var l=allLeads.find(function(l){return l.id===id;});
-  if(!l)return;
-  var t=l.n+'\n📍 '+l.a+(l.p?'\n📞 '+l.p:'')+(l.e?'\n✉️ '+l.e:'')+(l.w?'\n🌐 '+l.w:'')+'\n⭐ '+l.r+' ('+l.rv+' reseñas)';
-  navigator.clipboard.writeText(t).then(function(){showToast('Copiado ✓');});
+  const l=allLeads.find(l=>l.id===id);if(!l)return;
+  const t=`${l.n}\n📍 ${l.a}\n📞 ${l.p}${l.e?'\n✉️ '+l.e:''}${l.w?'\n🌐 '+l.w:''}\n⭐ ${l.r} (${l.rv} reseñas)`;
+  navigator.clipboard.writeText(t).then(()=>showToast('Copiado ✓'));
 }
+
+// ─── ACTIONS ──────────────────────────────────────────────────────────────────
+function toggleBD(id){document.getElementById('sb-'+id)?.classList.toggle('open');}
+function setStatus(id,st){const l=allLeads.find(l=>l.id===id);if(l){l.status=st;renderProspects();updateStats();}const s=savedLeads.find(l=>l.id===id);if(s){s.status=st;save();}}
+function setSS(id,st){const l=savedLeads.find(l=>l.id===id);if(l){l.status=st;save();renderSaved();updateStats();}}
+function saveLead(id){const l=allLeads.find(l=>l.id===id);if(!l)return;if(savedLeads.find(s=>s.id===id)){showToast('Ya guardado');return;}savedLeads.unshift({...l});save();updateStats();updateSavedBadge();showToast('Guardado ✓');}
+function saveAll(){let n=0;allLeads.forEach(l=>{if(!savedLeads.find(s=>s.id===l.id)){savedLeads.unshift({...l});n++;}});save();updateStats();updateSavedBadge();showToast(n+' leads guardados ✓');}
+function removeSaved(id){savedLeads=savedLeads.filter(l=>l.id!==id);save();renderSaved();updateStats();updateSavedBadge();}
+function clearSaved(){if(confirm('¿Eliminar todos los leads guardados?')){savedLeads=[];save();renderSaved();updateStats();updateSavedBadge();}}
+function save(){localStorage.setItem('pro3_leads',JSON.stringify(savedLeads));}
+function copyLead(id){
+  const l=allLeads.find(l=>l.id===id)||savedLeads.find(l=>l.id===id);if(!l)return;
+  const t=`${l.n}\n📍 ${l.a}\n📞 ${l.p}${l.e?'\n✉️ '+l.e:''}${l.w?'\n🌐 '+l.w:''}\n⭐ ${l.r} (${l.rv} reseñas)\nScore IA: ${l.score||'—'}/10\n\n${l.waMsg||''}`;
+  navigator.clipboard.writeText(t).then(()=>showToast('Copiado ✓'));
+}
+
 function renderSaved(){
-  var list=document.getElementById('savedList');
-  if(!savedLeads.length){list.innerHTML='<div class="empty"><div class="empty-icon"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><div class="empty-title">Pipeline vacío</div><div class="empty-desc">Guarda leads desde el buscador.</div></div>';return;}
-  list.innerHTML=savedLeads.map(function(l){return buildProspectCard(l,true);}).join('');
+  const list=document.getElementById('savedList');
+  if(!savedLeads.length){list.innerHTML=`<div class="empty"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><div class="empty-title">Pipeline vacío</div><div class="empty-desc">Guarda leads desde el modo "Clientes potenciales" para gestionarlos aquí.</div></div>`;return;}
+  list.innerHTML=savedLeads.map(l=>buildProspectCard(l,true)).join('');
 }
 
-// ─── FILTERS ──────────────────────────────────────────────────────
-function setScoreFilter(v){scoreFilter=v;document.querySelectorAll('[id^="f"]').forEach(function(e){e.classList.remove('on');});var el=document.getElementById('f'+v);if(el)el.classList.add('on');if(allLeads.length&&mode==='prospects')renderProspects();}
-function setSortFilter(v){sortFilter=v;document.querySelectorAll('[id^="sort-"]').forEach(function(e){e.classList.remove('on');});var el=document.getElementById('sort-'+v);if(el)el.classList.add('on');}
+// ─── FILTERS ──────────────────────────────────────────────────────────────────
+function setScoreFilter(v){scoreFilter=v;document.querySelectorAll('[id^="f"]').forEach(e=>e.classList.remove('on'));document.getElementById('f'+v)?.classList.add('on');if(allLeads.length&&mode==='prospects')renderProspects();}
+function setStFilter(v){stFilter=v;document.querySelectorAll('[id^="fs-"]').forEach(e=>e.classList.remove('on'));document.getElementById('fs-'+v)?.classList.add('on');if(allLeads.length&&mode==='prospects')renderProspects();}
+function setWebFilter(v){webFilter=v;document.querySelectorAll('[id^="fw-"]').forEach(e=>e.classList.remove('on'));document.getElementById('fw-'+v)?.classList.add('on');if(allLeads.length&&mode==='prospects')renderProspects();}
+function setSortFilter(v){sortFilter=v;document.querySelectorAll('[id^="sort-"]').forEach(e=>e.classList.remove('on'));document.getElementById('sort-'+v)?.classList.add('on');}
 
-// ─── STATS ────────────────────────────────────────────────────────
+// ─── STATS ────────────────────────────────────────────────────────────────────
 function updateStats(){
-  var all=allLeads.concat(savedLeads.filter(function(s){return !allLeads.find(function(a){return a.id===s.id;});}));
-  var u=Array.from(new Map(all.map(function(l){return [l.id,l];})).values());
+  const all=[...allLeads,...savedLeads.filter(s=>!allLeads.find(a=>a.id===s.id))];
+  const u=[...new Map(all.map(l=>[l.id,l])).values()];
   document.getElementById('statTotal').textContent=u.length;
-  document.getElementById('statHot').textContent=u.filter(function(l){return l.score>=8;}).length;
-  document.getElementById('statCont').textContent=u.filter(function(l){return l.status==='contactado';}).length;
-  document.getElementById('statInt').textContent=u.filter(function(l){return l.status==='interesado';}).length;
+  document.getElementById('statHot').textContent=u.filter(l=>l.score>=8).length;
+  document.getElementById('statCont').textContent=u.filter(l=>l.status==='contactado').length;
+  document.getElementById('statInt').textContent=u.filter(l=>l.status==='interesado').length;
 }
-function updateSavedBadge(){var b=document.getElementById('savedBadge');if(savedLeads.length){b.style.display='flex';b.textContent=savedLeads.length;}else b.style.display='none';}
+function updateSavedBadge(){const b=document.getElementById('savedBadge');if(savedLeads.length){b.style.display='flex';b.textContent=savedLeads.length;}else b.style.display='none';}
 
-// ─── EXPORT ───────────────────────────────────────────────────────
+// ─── EXPORT ───────────────────────────────────────────────────────────────────
 function exportCSV(){
-  var leads=allLeads.length?allLeads:savedLeads;
-  if(!leads.length){showToast('No hay datos');return;}
-  var rows=[['Negocio','Zona','Teléfono','Email','Web','Rating','Reseñas','Score','Estado','Dirección','Mensaje WhatsApp']];
-  leads.forEach(function(l){rows.push([l.n,l.zona||'',l.p||'',l.e||'',l.w||'',l.r||'',l.rv||'',l.score||'',l.status||'',l.a||'',l.waMsg||'']);});
-  var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
-  var blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');a.href=url;a.download='prospector_'+new Date().toISOString().slice(0,10)+'.csv';a.click();URL.revokeObjectURL(url);
+  const leads=allLeads.length?allLeads:savedLeads;
+  if(!leads.length){showToast('No hay datos para exportar');return;}
+  const isEx=mode==='explore'&&allLeads.length;
+  const headers=isEx?['Negocio','Sector','Zona','Teléfono','Email','Web','Rating','Reseñas','Dirección']:['Negocio','Sector','Zona','Teléfono','Email','Web','Rating','Reseñas','Empleados','Score IA','Razón Score','Estado','Dirección','Instagram','Facebook','Reservas Online','Mensaje WhatsApp'];
+  const rows=[headers];
+  leads.forEach(l=>{
+    if(isEx) rows.push([l.n,l.sector||'',l.zona||'',l.p||'',l.e||'',l.w||'',l.r||'',l.rv||'',l.a||'']);
+    else rows.push([l.n,l.sector||'',l.zona||'',l.p||'',l.e||'',l.w||'',l.r||'',l.rv||'',l.em||'',l.score||'',l.scoreReason||'',l.status||'',l.a||'',l.ig?'Sí':'No',l.fb?'Sí':'No',l.ob?'Sí':'No',l.waMsg||'']);
+  });
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`prospector_${mode}_${new Date().toISOString().slice(0,10)}.csv`;a.click();URL.revokeObjectURL(url);
   showToast('CSV exportado ✓');
 }
 
-// ─── TOAST ────────────────────────────────────────────────────────
-function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+// PWA
+const mb=new Blob([JSON.stringify({name:'Prospector AI Canarias',short_name:'Prospector',theme_color:isDark?'#080C0A':'#F0F4F1',background_color:isDark?'#080C0A':'#F0F4F1',display:'standalone',start_url:'.',icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2300E676'/><text y='.9em' font-size='65' x='18'>📍</text></svg>",sizes:'192x192'}]})],{type:'application/json'});
+const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(mb);document.head.appendChild(ml);
 </script>
 </body>
 </html>
