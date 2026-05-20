@@ -2,1176 +2,1032 @@
 <html lang="es" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#080C0A" id="themeColor">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Prospector">
-<title>Prospector — Leads IA Canarias</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#080C0A">
+<title>Prospector AI Canarias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-
-[data-theme="dark"]{
-  --bg:#080C0A;--bg2:#0E1410;--bg3:#141C16;--bg4:#1C261E;--bg5:#243028;
-  --accent:#00E676;--accent2:#69F0AE;--accentDim:rgba(0,230,118,0.1);--accentBorder:rgba(0,230,118,0.22);
-  --amber:#FFB300;--red:#FF5252;--blue:#64B5F6;--purple:#CE93D8;
-  --text:#E8F5E9;--text2:#81C784;--text3:#4A6B4E;
-  --border:#1A2E1C;--border2:#2A4A2C;
-  --card:#0E1410;--shadow:rgba(0,0,0,0.4);
-  --mode-a-bg:rgba(0,230,118,0.12);--mode-a-border:rgba(0,230,118,0.3);--mode-a-text:#00E676;
-  --mode-b-bg:rgba(100,181,246,0.1);--mode-b-border:rgba(100,181,246,0.25);--mode-b-text:#64B5F6;
-}
-[data-theme="light"]{
-  --bg:#F0F4F1;--bg2:#FFFFFF;--bg3:#F5F8F5;--bg4:#EAF0EB;--bg5:#E0EBE1;
-  --accent:#00A854;--accent2:#00C762;--accentDim:rgba(0,168,84,0.07);--accentBorder:rgba(0,168,84,0.18);
-  --amber:#E65100;--red:#D32F2F;--blue:#1565C0;--purple:#6A1B9A;
-  --text:#1B2E1D;--text2:#2E7D32;--text3:#78909C;
-  --border:#D4E4D6;--border2:#B8D4BA;
-  --card:#FFFFFF;--shadow:rgba(0,0,0,0.07);
-  --mode-a-bg:rgba(0,168,84,0.08);--mode-a-border:rgba(0,168,84,0.22);--mode-a-text:#00A854;
-  --mode-b-bg:rgba(21,101,192,0.07);--mode-b-border:rgba(21,101,192,0.2);--mode-b-text:#1565C0;
-}
-
-body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;transition:background .3s,color .3s}
-.app{max-width:430px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column}
-
-/* ── HEADER ── */
-.header{
-  position:sticky;top:0;z-index:100;background:var(--bg);
-  border-bottom:1px solid var(--border);padding:12px 16px 10px;
-  transition:background .3s,border-color .3s;
-}
-[data-theme="dark"] .header{backdrop-filter:blur(20px);background:rgba(8,12,10,0.95)}
-[data-theme="light"] .header{box-shadow:0 1px 6px var(--shadow)}
-.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.logo-wrap{display:flex;align-items:center;gap:8px}
-.logo-dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center}
-.logo-dot svg{width:15px;height:15px;fill:var(--bg)}
-.logo-text{font-size:18px;font-weight:700;letter-spacing:-.5px}
-.logo-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;background:var(--accentDim);color:var(--accent);border:1px solid var(--accentBorder);font-family:'JetBrains Mono',monospace;letter-spacing:.5px;margin-left:3px}
-.header-actions{display:flex;gap:6px;align-items:center}
-.hbtn{width:32px;height:32px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
-.hbtn:active{transform:scale(.92)}
-.hbtn svg{width:16px;height:16px;stroke:var(--text3);stroke-width:2}
-.theme-toggle{width:48px;height:26px;border-radius:13px;border:1px solid var(--border);background:var(--bg3);cursor:pointer;position:relative;display:flex;align-items:center;padding:3px;transition:all .3s}
-.toggle-thumb{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));transition:transform .3s;display:flex;align-items:center;justify-content:center;font-size:11px}
-[data-theme="light"] .toggle-thumb{transform:translateX(22px)}
-
-/* STATS */
-.stats-bar{display:flex;gap:5px}
-.stat-pill{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:7px 8px;display:flex;flex-direction:column;gap:2px;transition:background .3s}
-.stat-num{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:500;line-height:1}
-.stat-num.g{color:var(--accent)}.stat-num.a{color:var(--amber)}.stat-num.b{color:var(--blue)}
-.stat-label{font-size:9px;color:var(--text3)}
-
-/* ── SEARCH AREA ── */
-.search-area{padding:10px 16px 0}
-
-/* MODE TOGGLE */
-.mode-toggle{display:flex;gap:6px;margin-bottom:10px}
-.mode-btn{
-  flex:1;padding:10px 8px;border-radius:14px;border:1.5px solid var(--border);
-  background:var(--bg3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
-  transition:all .2s;
-}
-.mode-btn:active{transform:scale(.96)}
-.mode-btn.active-a{border-color:var(--mode-a-border);background:var(--mode-a-bg)}
-.mode-btn.active-b{border-color:var(--mode-b-border);background:var(--mode-b-bg)}
-.mode-icon{font-size:20px;line-height:1}
-.mode-label{font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif}
-.mode-btn.active-a .mode-label{color:var(--mode-a-text)}
-.mode-btn.active-b .mode-label{color:var(--mode-b-text)}
-.mode-desc{font-size:10px;color:var(--text3);text-align:center;line-height:1.3}
-.mode-btn.active-a .mode-desc{color:var(--mode-a-text);opacity:.7}
-.mode-btn.active-b .mode-desc{color:var(--mode-b-text);opacity:.7}
-
-/* SELECTORS */
-.sel-row{display:flex;gap:6px;margin-bottom:6px}
-select{
-  background:var(--bg3);border:1px solid var(--border);border-radius:12px;
-  color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:13px;
-  padding:9px 28px 9px 12px;outline:none;-webkit-appearance:none;cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2378909C' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;
-  transition:background .3s,border-color .3s,color .3s;flex:1;min-width:0;
-}
-select:focus{border-color:var(--accent)}
-
-/* ISLAND BADGE */
-.island-badge{
-  display:flex;align-items:center;gap:6px;padding:8px 12px;
-  background:var(--accentDim);border:1px solid var(--accentBorder);border-radius:10px;
-  font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px;
-}
-.island-badge svg{width:14px;height:14px;stroke:var(--accent);flex-shrink:0}
-
-.search-btn{
-  width:100%;padding:12px;border:none;border-radius:14px;
-  color:var(--bg);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:opacity .2s,transform .2s;margin-bottom:10px;
-}
-.search-btn:active{transform:scale(.97);opacity:.9}
-.search-btn:disabled{opacity:.5;cursor:not-allowed}
-.search-btn svg{width:16px;height:16px;stroke-width:2.5}
-.btn-prospects{background:linear-gradient(135deg,var(--accent),var(--accent2))}
-.btn-prospects svg{stroke:var(--bg)}
-.btn-explore{background:linear-gradient(135deg,#64B5F6,#42A5F5)}
-.btn-explore svg{stroke:white;color:white}
-[data-theme="light"] .btn-explore{color:#0D1B2A}
-
-/* ── LEADS AREA ── */
-.leads-area{flex:1;padding:6px 16px 100px;overflow-y:auto}
-.leads-header{display:flex;align-items:center;justify-content:space-between;padding:4px 0 8px;flex-wrap:wrap;gap:6px}
-.leads-count{font-size:12px;color:var(--text3);font-family:'JetBrains Mono',monospace}
-.leads-count span{color:var(--accent)}
-.leads-actions{display:flex;gap:5px}
-.chip{font-size:11px;padding:5px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text3);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .2s;font-weight:500}
-.chip:active{transform:scale(.94)}
-.chip svg{width:12px;height:12px;stroke:currentColor}
-.chip.hot{border-color:var(--accentBorder);color:var(--accent);background:var(--accentDim)}
-.chip.blue{border-color:rgba(100,181,246,.3);color:var(--blue);background:rgba(100,181,246,.08)}
-
-/* ── PROSPECT CARD ── */
-.lead-card{background:var(--card);border:1px solid var(--border);border-radius:18px;margin-bottom:10px;overflow:hidden;transition:border-color .2s,background .3s}
-.lead-card.hot-card{border-color:var(--accentBorder)}
-[data-theme="light"] .lead-card{box-shadow:0 2px 6px var(--shadow)}
-.lc-main{padding:13px 14px 11px}
-.lc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
-.lc-name{font-size:15px;font-weight:600;line-height:1.25;margin-bottom:3px;display:flex;align-items:center;flex-wrap:wrap;gap:5px}
-.hot-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--accentDim);color:var(--accent);border:1px solid var(--accentBorder);font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
-.zone-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:6px;background:rgba(100,181,246,.1);color:var(--blue);border:1px solid rgba(100,181,246,.2)}
-.lc-tags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px}
-.lc-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:6px;background:var(--bg4);border:1px solid var(--border2);color:var(--text2)}
-.lc-tag.no-web{color:var(--accent);border-color:var(--accentBorder);background:var(--accentDim)}
-.lc-addr{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:3px}
-.lc-addr svg{width:10px;height:10px;stroke:var(--text3);flex-shrink:0}
-
-/* SCORE */
-.score-box{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
-.sc-hot{background:rgba(0,230,118,.14);border:1px solid rgba(0,230,118,.28)}
-.sc-warm{background:rgba(255,179,0,.1);border:1px solid rgba(255,179,0,.22)}
-.sc-cold{background:var(--bg4);border:1px solid var(--border)}
-.sn{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:500;line-height:1}
-.sn-hot{color:#00E676}
-[data-theme="light"] .sn-hot{color:#00A854}
-.sn-warm{color:#FFB300}
-[data-theme="light"] .sn-warm{color:#E65100}
-.sn-cold{color:var(--text3)}
-.sl{font-size:8px;color:var(--text3);margin-top:1px}
-
-/* BREAKDOWN */
-.score-breakdown{background:var(--bg4);border-radius:10px;padding:8px 10px;margin-bottom:9px;display:none}
-.score-breakdown.open{display:block}
-.sb-row{display:flex;justify-content:space-between;align-items:flex-start;font-size:11px;color:var(--text3);padding:2px 0;gap:8px}
-.sb-row span:last-child{font-family:'JetBrains Mono',monospace;font-weight:500;flex-shrink:0}
-.sb-row span:last-child.p{color:var(--accent)}
-.sb-row span:last-child.n{color:var(--text3)}
-.sb-reason{font-size:11px;color:var(--text2);text-align:right;max-width:190px;line-height:1.3}
-
-/* META */
-.lc-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px}
-.meta-item{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--text3)}
-.meta-item svg{width:11px;height:11px;stroke:var(--text3);flex-shrink:0}
-.meta-item a{color:var(--blue);text-decoration:none}
-
-/* WA PREVIEW */
-.wa-preview{background:var(--bg4);border-radius:10px;padding:8px 11px;margin-bottom:9px;font-size:11px;color:var(--text2);line-height:1.5;border-left:2px solid var(--accent)}
-.wa-label{font-size:9px;color:var(--text3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
-
-/* CONTACT BUTTONS */
-.lc-contact{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
-.cbtn{padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--bg3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .2s}
-.cbtn:active{transform:scale(.91)}
-.cbtn svg{width:15px;height:15px;stroke-width:1.8}
-.cbtn span{font-size:9px;font-weight:500;color:var(--text3)}
-.cb-call{border-color:rgba(100,181,246,.28)}.cb-call svg{stroke:var(--blue)}
-.cb-wa{border-color:var(--accentBorder)}.cb-wa svg{stroke:var(--accent)}
-.cb-email{border-color:rgba(255,179,0,.28)}.cb-email svg{stroke:var(--amber)}
-.cb-save{border-color:var(--accentBorder)}.cb-save svg{stroke:var(--accent)}.cb-save span{color:var(--accent)}
-.cb-del svg{stroke:var(--red)}.cb-del span{color:var(--red)}
-
-/* STATUS ROW */
-.status-row{display:flex;gap:4px;padding:7px 13px;border-top:1px solid var(--border);background:var(--bg3)}
-.stbtn{flex:1;padding:5px 2px;border-radius:8px;font-size:9px;font-weight:700;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .2s;text-transform:uppercase;letter-spacing:.3px}
-.stbtn:active{transform:scale(.93)}
-.st-n.on{background:rgba(206,147,216,.15);border-color:rgba(206,147,216,.4);color:#CE93D8}
-.st-c.on{background:rgba(100,181,246,.12);border-color:rgba(100,181,246,.3);color:var(--blue)}
-.st-i.on{background:var(--accentDim);border-color:var(--accentBorder);color:var(--accent)}
-.st-d.on{background:rgba(255,82,82,.1);border-color:rgba(255,82,82,.25);color:var(--red)}
-
-/* ── EXPLORE CARD (Mode B) ── */
-.explore-card{
-  background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:13px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;
-  transition:background .3s,border-color .3s;
-}
-[data-theme="light"] .explore-card{box-shadow:0 1px 4px var(--shadow)}
-.explore-card:active{background:var(--bg3)}
-.ec-left{flex:1;min-width:0}
-.ec-name{font-size:14px;font-weight:600;margin-bottom:3px;line-height:1.25}
-.ec-zone{font-size:10px;color:var(--blue);font-weight:500;margin-bottom:5px;display:flex;align-items:center;gap:3px}
-.ec-zone svg{width:9px;height:9px;stroke:var(--blue)}
-.ec-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-.ec-meta-item{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:3px}
-.ec-meta-item svg{width:10px;height:10px;stroke:var(--text3)}
-.ec-meta-item a{color:var(--blue);text-decoration:none;font-size:11px}
-.ec-actions{display:flex;gap:5px;flex-wrap:wrap}
-.ec-btn{padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);cursor:pointer;display:flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--text3);transition:all .2s;white-space:nowrap}
-.ec-btn:active{transform:scale(.93)}
-.ec-btn svg{width:12px;height:12px;stroke:currentColor;stroke-width:2}
-.ec-btn.call{border-color:rgba(100,181,246,.28);color:var(--blue)}
-.ec-btn.wa{border-color:var(--accentBorder);color:var(--accent)}
-.ec-btn.web{border-color:rgba(206,147,216,.28);color:var(--purple)}
-.ec-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
-.ec-rating{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber);display:flex;align-items:center;gap:3px}
-.ec-rating svg{width:12px;height:12px;fill:var(--amber);stroke:none}
-.ec-reviews{font-size:10px;color:var(--text3)}
-.ec-sector-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:6px;background:var(--bg4);border:1px solid var(--border2);color:var(--text2)}
-
-/* ── EMPTY / LOADING ── */
-.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;gap:12px}
-.empty-icon{width:64px;height:64px;border-radius:20px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
-.empty-icon svg{width:28px;height:28px;stroke:var(--text3)}
-.empty-title{font-size:16px;font-weight:600}
-.empty-desc{font-size:13px;color:var(--text3);line-height:1.5;max-width:270px}
-.loading{padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
-.spin-ring{width:68px;height:68px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative}
-.spin-ring::before{content:'';position:absolute;inset:4px;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent);animation:spin .9s linear infinite}
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%;overflow:hidden}
+[data-theme="dark"]{--bg:#080C0A;--bg2:#0E1410;--bg3:#141C16;--bg4:#1C261E;--accent:#00E676;--accent2:#69F0AE;--accentDim:rgba(0,230,118,0.1);--accentBorder:rgba(0,230,118,0.22);--amber:#FFB300;--red:#FF5252;--blue:#64B5F6;--purple:#CE93D8;--text:#E8F5E9;--text2:#81C784;--text3:#4A6B4E;--border:#1A2E1C;--border2:#2A4A2C;--card:#0E1410}
+[data-theme="light"]{--bg:#F0F4F1;--bg2:#FFFFFF;--bg3:#F5F8F5;--bg4:#EAF0EB;--accent:#00A854;--accent2:#00C762;--accentDim:rgba(0,168,84,0.07);--accentBorder:rgba(0,168,84,0.18);--amber:#E65100;--red:#D32F2F;--blue:#1565C0;--purple:#6A1B9A;--text:#1B2E1D;--text2:#2E7D32;--text3:#78909C;--border:#D4E4D6;--border2:#B8D4BA;--card:#FFFFFF}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-ui,sans-serif;font-size:14px;line-height:1.5;overflow:hidden}
+.app{max-width:430px;margin:0 auto;height:100vh;height:100dvh;display:flex;flex-direction:column;background:var(--bg);position:relative;overflow:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+.header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.logo{font-size:18px;font-weight:700;color:var(--accent);margin:0;letter-spacing:-0.4px}
+.logo::before{content:"‚óè";margin-right:6px;font-size:10px;vertical-align:middle;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.header-actions{display:flex;gap:6px}
+.icon-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:10px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.icon-btn:hover{background:var(--bg3);border-color:var(--border2)}
+.icon-btn:active{transform:scale(0.93)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 6px;text-align:center}
+.stat-val{display:block;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--accent);line-height:1.1}
+.stat-lbl{display:block;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-top:3px;font-weight:500}
+.main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:80px}
+.tab-content{display:none;padding:14px 16px 20px}
+.tab-content.active{display:block}
+.mode-selector{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;background:var(--bg2);padding:4px;border-radius:12px;border:1px solid var(--border)}
+.mode-btn{background:transparent;border:none;color:var(--text2);padding:10px 6px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s;line-height:1.2}
+.mode-btn.active{background:var(--accent);color:#001B0A}
+.mode-btn.active[data-mode="explore"]{background:var(--blue);color:#fff}
+.selectors{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.select-wrap{position:relative}
+.select-wrap label{display:block;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px;font-weight:600}
+select{width:100%;background:var(--bg2);color:var(--text);border:1px solid var(--border);padding:11px 32px 11px 12px;border-radius:10px;font-size:14px;font-family:inherit;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--accent) 50%),linear-gradient(135deg,var(--accent) 50%,transparent 50%);background-position:calc(100% - 16px) center,calc(100% - 11px) center;background-size:5px 5px;background-repeat:no-repeat;font-weight:500}
+select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accentDim)}
+.island-badge{display:none;background:var(--accentDim);border:1px solid var(--accentBorder);color:var(--accent);padding:8px 12px;border-radius:10px;font-size:12px;font-weight:600;margin-bottom:10px;text-align:center}
+.island-badge.show{display:block}
+.search-btn{width:100%;background:var(--accent);color:#001B0A;border:none;padding:14px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.15s;letter-spacing:-0.2px;box-shadow:0 4px 16px var(--accentDim)}
+.search-btn.explore{background:var(--blue);color:#fff}
+.search-btn:active:not(:disabled){transform:translateY(1px) scale(0.99)}
+.search-btn:disabled{opacity:0.6;cursor:wait}
+.results{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+.loading{text-align:center;padding:40px 20px;color:var(--text2);font-size:13px}
+.loading::after{content:"";display:inline-block;width:14px;height:14px;border:2px solid var(--accent);border-right-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;margin-left:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.spin-ring svg{width:24px;height:24px;stroke:var(--accent)}
-.ldots{display:flex;gap:4px;margin-top:6px;justify-content:center}
-.ldots span{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:ld 1.4s ease-in-out infinite}
-.ldots span:nth-child(2){animation-delay:.2s}.ldots span:nth-child(3){animation-delay:.4s}
-@keyframes ld{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
-
-/* ── SCREENS ── */
-.screen{flex:1;display:none;flex-direction:column}
-.screen.active{display:flex}
-.saved-screen{padding:10px 16px 100px}
-.saved-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.saved-title{font-size:18px;font-weight:700}
-
-/* ── BOTTOM NAV ── */
-.bottom-nav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:430px;z-index:200;background:var(--bg);
-  border-top:1px solid var(--border);padding:7px 0 max(7px,env(safe-area-inset-bottom));
-  display:flex;justify-content:space-around;transition:background .3s;
-}
-[data-theme="dark"] .bottom-nav{backdrop-filter:blur(20px);background:rgba(8,12,10,0.95)}
-[data-theme="light"] .bottom-nav{box-shadow:0 -1px 6px var(--shadow)}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 18px;cursor:pointer;opacity:.4;transition:opacity .2s;position:relative}
-.nav-item.active{opacity:1}
-.nav-item svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8}
-.nav-item.active svg{stroke:var(--accent)}
-.nav-label{font-size:10px;font-weight:500}
-.nav-item.active .nav-label{color:var(--accent)}
-.nav-badge{min-width:16px;height:16px;border-radius:8px;background:var(--accent);color:var(--bg);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;font-family:'JetBrains Mono',monospace;position:absolute;top:-1px;right:8px}
-
-/* ── MODAL ── */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:flex-end;justify-content:center}
-.modal-overlay.open{display:flex}
-.modal{width:100%;max-width:430px;background:var(--bg2);border-top:1px solid var(--border);border-radius:22px 22px 0 0;padding:18px 16px;max-height:80vh;overflow-y:auto;position:relative;transition:background .3s}
-.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--border2);margin:0 auto 14px}
-.modal-title{font-size:16px;font-weight:700;margin-bottom:14px}
-.modal-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:9px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer}
-.modal-close svg{width:14px;height:14px;stroke:var(--text3)}
-.filter-group{margin-bottom:14px}
-.filter-label{font-size:11px;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:7px;font-weight:500}
-.filter-chips{display:flex;gap:5px;flex-wrap:wrap}
-.fc{font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg3);color:var(--text3);cursor:pointer;transition:all .2s;font-weight:500}
-.fc.on{background:var(--accentDim);border-color:var(--accentBorder);color:var(--accent)}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-size:13px;font-weight:700;padding:10px 20px;border-radius:20px;opacity:0;transition:opacity .3s;z-index:500;pointer-events:none;white-space:nowrap;font-family:'Space Grotesk',sans-serif}
-.toast.show{opacity:1}
+.error{background:rgba(255,82,82,0.1);border:1px solid rgba(255,82,82,0.3);color:var(--red);padding:14px;border-radius:10px;font-size:13px;text-align:center}
+.empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;transition:border-color 0.15s;position:relative}
+.card:hover{border-color:var(--border2)}
+.card.hot{border-color:var(--accentBorder);box-shadow:0 0 0 1px var(--accentDim)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.card-name{font-size:15px;font-weight:700;color:var(--text);line-height:1.25;letter-spacing:-0.2px;flex:1}
+.hot-badge{background:var(--accent);color:#001B0A;padding:2px 7px;border-radius:5px;font-size:9px;font-weight:800;letter-spacing:0.5px;font-family:'JetBrains Mono',monospace}
+.score{background:var(--bg3);border:1px solid var(--border2);padding:6px 10px;border-radius:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;min-width:42px;transition:all 0.15s}
+.score:hover{background:var(--bg4);transform:translateY(-1px)}
+.score-val{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--accent);line-height:1}
+.score.high .score-val{color:var(--accent)}
+.score.mid .score-val{color:var(--amber)}
+.score.low .score-val{color:var(--text3)}
+.score-lbl{font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;font-weight:600}
+.score-breakdown{margin-top:8px;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;font-size:11px;display:none}
+.score-breakdown.show{display:block}
+.score-reason{color:var(--text2);font-style:italic;margin-bottom:6px;line-height:1.4}
+.score-points{display:grid;gap:3px;color:var(--text3)}
+.score-points span{display:flex;justify-content:space-between}
+.score-points strong{color:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.tag{font-size:9px;padding:3px 7px;border-radius:5px;background:var(--bg3);color:var(--text2);font-weight:600;letter-spacing:0.3px;text-transform:uppercase;border:1px solid var(--border)}
+.tag.no-web{background:rgba(255,82,82,0.12);color:var(--red);border-color:rgba(255,82,82,0.2)}
+.tag.zone{background:var(--accentDim);color:var(--accent);border-color:var(--accentBorder)}
+.tag.size{background:rgba(100,181,246,0.1);color:var(--blue);border-color:rgba(100,181,246,0.2)}
+.meta{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;font-size:12px;color:var(--text2)}
+.meta-row{display:flex;align-items:center;gap:7px}
+.meta-row a{color:var(--text2);text-decoration:none;border-bottom:1px dashed var(--border2);padding-bottom:1px}
+.meta-row a:hover{color:var(--accent)}
+.meta-icon{width:14px;text-align:center;color:var(--text3);font-size:12px}
+.rating{display:inline-flex;align-items:center;gap:3px;color:var(--amber);font-weight:600}
+.rating-count{color:var(--text3);font-weight:400;font-size:11px}
+.wa-preview{background:var(--bg3);border:1px solid var(--border);border-left:3px solid #25D366;padding:8px 10px;border-radius:8px;font-size:11px;color:var(--text2);margin-bottom:10px;line-height:1.4;font-style:italic}
+.wa-preview strong{color:#25D366;font-style:normal;font-weight:700}
+.actions{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:8px}
+.actions.mode-b{grid-template-columns:repeat(5,1fr)}
+.act-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 4px;border-radius:8px;font-size:13px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:inherit;transition:all 0.15s}
+.act-btn:hover{background:var(--bg4);border-color:var(--border2)}
+.act-btn:active{transform:scale(0.93)}
+.act-btn.primary{background:var(--accent);color:#001B0A;border-color:var(--accent)}
+.act-btn.wa{background:#25D366;color:#fff;border-color:#25D366}
+.act-btn.disabled{opacity:0.35;pointer-events:none}
+.act-btn span{font-size:9px;font-weight:600;letter-spacing:0.3px}
+.status-row{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.status-btn{background:transparent;border:1px solid var(--border);color:var(--text3);padding:6px 4px;border-radius:7px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.status-btn:hover{border-color:var(--border2);color:var(--text2)}
+.status-btn.active{background:var(--accentDim);border-color:var(--accent);color:var(--accent)}
+.status-btn.active[data-status="contacted"]{background:rgba(100,181,246,0.15);border-color:var(--blue);color:var(--blue)}
+.status-btn.active[data-status="interested"]{background:rgba(255,179,0,0.15);border-color:var(--amber);color:var(--amber)}
+.status-btn.active[data-status="discarded"]{background:rgba(255,82,82,0.12);border-color:var(--red);color:var(--red)}
+.address{font-size:11px;color:var(--text3);margin-top:4px;line-height:1.4}
+.pipeline-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.pipeline-header h2{margin:0;font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.4px}
+.clear-btn{background:transparent;border:1px solid var(--border);color:var(--text3);padding:7px 12px;border-radius:9px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.clear-btn:hover{border-color:var(--red);color:var(--red)}
+.pipeline-list{display:flex;flex-direction:column;gap:10px}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;padding:8px 16px 14px;padding-bottom:max(14px,env(safe-area-inset-bottom));z-index:5}
+.nav-btn{background:transparent;border:none;color:var(--text3);padding:8px;border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:inherit;transition:all 0.15s}
+.nav-btn span{font-size:10px;font-weight:600;letter-spacing:0.3px}
+.nav-btn.active{color:var(--accent)}
+.nav-btn-icon{font-size:18px;line-height:1}
+.filters-panel{position:absolute;top:60px;right:16px;background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:14px;z-index:15;min-width:220px;box-shadow:0 10px 30px rgba(0,0,0,0.4);display:none}
+.filters-panel.show{display:block}
+.filter-item{display:flex;align-items:center;gap:8px;padding:7px 0;font-size:13px;color:var(--text2);cursor:pointer}
+.filter-item input{accent-color:var(--accent);width:16px;height:16px;cursor:pointer}
+.filter-item:hover{color:var(--text)}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--accent);color:#001B0A;padding:10px 18px;border-radius:10px;font-weight:600;font-size:13px;z-index:20;box-shadow:0 4px 20px var(--accentDim);opacity:0;transition:opacity 0.2s,transform 0.2s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+.maps-link{font-size:11px;color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:3px;margin-left:6px}
+.maps-link:hover{text-decoration:underline}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@media (max-width:380px){.stats{grid-template-columns:repeat(2,1fr)}.stat-val{font-size:16px}}
 </style>
 </head>
 <body>
 <div class="app">
-
-<!-- HEADER -->
-<header class="header">
-  <div class="header-top">
-    <div class="logo-wrap">
-      <div class="logo-dot">
-        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      </div>
-      <span class="logo-text">Prospector</span>
-      <span class="logo-badge">AI</span>
-    </div>
+  <header class="header">
+    <h1 class="logo">Prospector AI</h1>
     <div class="header-actions">
-      <div class="theme-toggle" onclick="toggleTheme()">
-        <div class="toggle-thumb" id="toggleThumb">🌙</div>
-      </div>
-      <div class="hbtn" onclick="exportCSV()" title="Exportar CSV">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      </div>
-      <div class="hbtn" onclick="showModal('filterModal')">
-        <svg viewBox="0 0 24 24" fill="none"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-      </div>
+      <button class="icon-btn" id="themeBtn" title="Cambiar tema">üåô</button>
+      <button class="icon-btn" id="csvBtn" title="Exportar CSV">üì•</button>
+      <button class="icon-btn" id="filterBtn" title="Filtros">‚öôÔ∏è</button>
     </div>
+    <div class="filters-panel" id="filtersPanel">
+      <label class="filter-item"><input type="checkbox" id="filterNoWeb"> Solo sin web</label>
+      <label class="filter-item"><input type="checkbox" id="filterHot"> Solo calientes (‚â•8)</label>
+      <label class="filter-item"><input type="checkbox" id="filterHasPhone" checked> Con tel√©fono</label>
+      <label class="filter-item"><input type="checkbox" id="filterMinRating"> Rating ‚â• 4.5</label>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-val mono" id="statTotal">0</span><span class="stat-lbl">Total</span></div>
+    <div class="stat"><span class="stat-val mono" id="statHot">0</span><span class="stat-lbl">Calientes</span></div>
+    <div class="stat"><span class="stat-val mono" id="statContacted">0</span><span class="stat-lbl">Contactados</span></div>
+    <div class="stat"><span class="stat-val mono" id="statInterested">0</span><span class="stat-lbl">Interesados</span></div>
   </div>
-  <div class="stats-bar">
-    <div class="stat-pill"><span class="stat-num" id="statTotal">0</span><span class="stat-label">Total</span></div>
-    <div class="stat-pill"><span class="stat-num g" id="statHot">0</span><span class="stat-label">Calientes</span></div>
-    <div class="stat-pill"><span class="stat-num a" id="statCont">0</span><span class="stat-label">Contactados</span></div>
-    <div class="stat-pill"><span class="stat-num b" id="statInt">0</span><span class="stat-label">Interesados</span></div>
-  </div>
-</header>
 
-<!-- SEARCH SCREEN -->
-<div class="screen active" id="screen-search">
-  <div class="search-area">
-
-    <!-- MODE TOGGLE -->
-    <div class="mode-toggle">
-      <div class="mode-btn active-a" id="modeA" onclick="setMode('prospects')">
-        <div class="mode-icon">🎯</div>
-        <div class="mode-label">Clientes potenciales</div>
-        <div class="mode-desc">Score IA · Pipeline · WhatsApp personalizado</div>
+  <main class="main">
+    <section id="searchTab" class="tab-content active">
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="prospects">üéØ Clientes potenciales</button>
+        <button class="mode-btn" data-mode="explore">üó∫Ô∏è Explorar empresas</button>
       </div>
-      <div class="mode-btn" id="modeB" onclick="setMode('explore')">
-        <div class="mode-icon">🗺️</div>
-        <div class="mode-label">Explorar empresas</div>
-        <div class="mode-desc">Vista limpia · Sin evaluación · Mapa del mercado</div>
+
+      <div class="selectors">
+        <div class="select-wrap">
+          <label>Isla</label>
+          <select id="islandSelect"></select>
+        </div>
+        <div class="select-wrap">
+          <label>Zona</label>
+          <select id="zoneSelect"></select>
+        </div>
+        <div class="select-wrap">
+          <label>Sector</label>
+          <select id="sectorSelect"></select>
+        </div>
+        <div class="select-wrap">
+          <label>N√∫mero de resultados</label>
+          <select id="countSelect">
+            <option value="8">8 leads</option>
+            <option value="12" selected>12 leads</option>
+            <option value="20">20 leads</option>
+            <option value="30">30 leads</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <!-- ISLAND / ZONE SELECTORS -->
-    <div class="sel-row">
-      <select id="selIsland" onchange="updateZones()">
-        <option value="">— Selecciona isla —</option>
-        <option value="gran_canaria">🌋 Gran Canaria</option>
-        <option value="lanzarote">🌊 Lanzarote</option>
-        <option value="tenerife">⛰️ Tenerife</option>
-        <option value="fuerteventura">🏜️ Fuerteventura</option>
-        <option value="la_palma">🌿 La Palma</option>
-        <option value="la_gomera">🌳 La Gomera</option>
-        <option value="el_hierro">🔥 El Hierro</option>
-      </select>
-      <select id="selZona"></select>
-    </div>
-    <div class="sel-row">
-      <select id="selSector"></select>
-      <select id="selLimit">
-        <option value="8">8 resultados</option>
-        <option value="12" selected>12 resultados</option>
-        <option value="20">20 resultados</option>
-        <option value="30">30 resultados</option>
-      </select>
-    </div>
+      <div class="island-badge" id="islandBadge">üåê Buscando en TODA la isla</div>
 
-    <div class="island-badge" id="islandBadge" style="display:none">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      <span id="islandBadgeText">Búsqueda en toda la isla</span>
-    </div>
+      <button id="searchBtn" class="search-btn">üéØ Buscar clientes potenciales</button>
 
-    <button class="search-btn btn-prospects" id="searchBtn" onclick="doSearch()">
-      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span id="searchBtnText">Buscar clientes potenciales</span>
-    </button>
-  </div>
-  <div class="leads-area" id="leadsArea">
-    <div class="empty">
-      <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
-      <div class="empty-title">Elige modo y busca</div>
-      <div class="empty-desc">Selecciona isla, zona o toda la isla, el sector y el modo de búsqueda.</div>
-    </div>
-  </div>
+      <div id="results" class="results"></div>
+    </section>
+
+    <section id="pipelineTab" class="tab-content">
+      <div class="pipeline-header">
+        <h2>Pipeline (<span id="pipelineCount" class="mono">0</span>)</h2>
+        <button class="clear-btn" id="clearAllBtn">üóëÔ∏è Limpiar todo</button>
+      </div>
+      <div id="pipelineList" class="pipeline-list"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="search"><span class="nav-btn-icon">üîç</span><span>Buscar</span></button>
+    <button class="nav-btn" data-tab="pipeline"><span class="nav-btn-icon">üìã</span><span>Pipeline</span></button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
 </div>
-
-<!-- SAVED SCREEN -->
-<div class="screen" id="screen-saved">
-  <div class="saved-screen">
-    <div class="saved-header">
-      <span class="saved-title">Pipeline guardado</span>
-      <div class="chip" onclick="clearSaved()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>Limpiar</div>
-    </div>
-    <div id="savedList"></div>
-  </div>
-</div>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <div class="nav-item active" id="nav-search" onclick="showScreen('search')">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <span class="nav-label">Buscar</span>
-  </div>
-  <div class="nav-item" id="nav-saved" onclick="showScreen('saved')">
-    <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-    <span class="nav-label">Pipeline</span>
-    <div class="nav-badge" id="savedBadge" style="display:none">0</div>
-  </div>
-</nav>
-</div>
-
-<!-- FILTER MODAL (only for prospects mode) -->
-<div class="modal-overlay" id="filterModal" onclick="if(event.target===this)closeModal('filterModal')">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-close" onclick="closeModal('filterModal')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
-    <div class="modal-title">Filtros</div>
-    <div class="filter-group">
-      <div class="filter-label">Score mínimo IA</div>
-      <div class="filter-chips">
-        <div class="fc on" id="f0" onclick="setScoreFilter(0)">Todos</div>
-        <div class="fc" id="f6" onclick="setScoreFilter(6)">≥ 6</div>
-        <div class="fc" id="f7" onclick="setScoreFilter(7)">≥ 7</div>
-        <div class="fc" id="f8" onclick="setScoreFilter(8)">≥ 8 Caliente</div>
-        <div class="fc" id="f9" onclick="setScoreFilter(9)">≥ 9 Top</div>
-      </div>
-    </div>
-    <div class="filter-group">
-      <div class="filter-label">Estado del lead</div>
-      <div class="filter-chips">
-        <div class="fc on" id="fs-all" onclick="setStFilter('all')">Todos</div>
-        <div class="fc" id="fs-nuevo" onclick="setStFilter('nuevo')">Nuevos</div>
-        <div class="fc" id="fs-contactado" onclick="setStFilter('contactado')">Contactados</div>
-        <div class="fc" id="fs-interesado" onclick="setStFilter('interesado')">Interesados</div>
-      </div>
-    </div>
-    <div class="filter-group">
-      <div class="filter-label">Presencia digital</div>
-      <div class="filter-chips">
-        <div class="fc on" id="fw-all" onclick="setWebFilter('all')">Todos</div>
-        <div class="fc" id="fw-noweb" onclick="setWebFilter('noweb')">Sin web</div>
-        <div class="fc" id="fw-noemail" onclick="setWebFilter('noemail')">Sin email</div>
-        <div class="fc" id="fw-email" onclick="setWebFilter('email')">Con email</div>
-      </div>
-    </div>
-    <div class="filter-group">
-      <div class="filter-label">Ordenar por</div>
-      <div class="filter-chips">
-        <div class="fc on" id="sort-score" onclick="setSortFilter('score')">Score IA</div>
-        <div class="fc" id="sort-rating" onclick="setSortFilter('rating')">Rating Google</div>
-        <div class="fc" id="sort-reviews" onclick="setSortFilter('reviews')">Nº reseñas</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-const KEY='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';
+const GKEY = 'AIzaSyAaSisTHJOI0KiID4JSTiLCcfD1HGwvfCw';
+const AKEY = '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';
+const MODEL = 'claude-sonnet-4-5-20250929';
+const STORAGE_KEY = 'pro_leads';
+const THEME_KEY = 'pro_theme';
 
-// ─── ISLANDS & ZONES ──────────────────────────────────────────────────────────
-const ISLANDS={
-  gran_canaria:{
-    label:'Gran Canaria',
-    zones:['TODA Gran Canaria','Las Palmas — Centro/Triana','Las Palmas — Mesa y López','Las Palmas — Vegueta','Las Palmas — Las Canteras','Las Palmas — Ciudad Alta','Las Palmas — Schamann','Telde','Santa Lucía de Tirajana','Arucas','Gáldar','Agüimes','Vecindario','Playa del Inglés','Maspalomas','Puerto Rico','Mogán','Arguineguín','San Agustín'],
-  },
-  lanzarote:{
-    label:'Lanzarote',
-    zones:['TODA Lanzarote','Arrecife — Centro','Puerto del Carmen','Costa Teguise','Playa Blanca','Teguise','Yaiza','San Bartolomé'],
-  },
-  tenerife:{
-    label:'Tenerife',
-    zones:['TODO Tenerife','Santa Cruz de Tenerife','La Laguna','Los Cristianos','Adeje','Costa Adeje','Puerto de la Cruz','Las Américas','Los Gigantes','Candelaria'],
-  },
-  fuerteventura:{
-    label:'Fuerteventura',
-    zones:['TODA Fuerteventura','Puerto del Rosario','Corralejo','Jandia','Morro Jable','Costa Calma','Gran Tarajal'],
-  },
-  la_palma:{
-    label:'La Palma',
-    zones:['TODA La Palma','Santa Cruz de La Palma','Los Llanos de Aridane','El Paso'],
-  },
-  la_gomera:{
-    label:'La Gomera',
-    zones:['TODA La Gomera','San Sebastián de La Gomera','Valle Gran Rey'],
-  },
-  el_hierro:{
-    label:'El Hierro',
-    zones:['TODO El Hierro','Valverde'],
-  },
+const ZONES = {
+  'Gran Canaria': ['TODA Gran Canaria','Las Palmas ‚Äî Centro/Triana','Las Palmas ‚Äî Mesa y L√≥pez','Las Palmas ‚Äî Vegueta','Las Palmas ‚Äî Las Canteras','Las Palmas ‚Äî Ciudad Alta','Telde','Santa Luc√≠a','Arucas','G√°ldar','Ag√ºimes','Vecindario','Playa del Ingl√©s','Maspalomas','Puerto Rico','Mog√°n'],
+  'Lanzarote': ['TODA Lanzarote','Arrecife','Puerto del Carmen','Costa Teguise','Playa Blanca','T√≠as','Yaiza','San Bartolom√©','Teguise','Har√≠a','Tinajo'],
+  'Tenerife': ['TODA Tenerife','Santa Cruz de Tenerife','La Laguna','La Orotava','Puerto de la Cruz','Adeje','Arona','Los Cristianos','Playa de las Am√©ricas','Costa Adeje','Granadilla de Abona','G√º√≠mar','Icod de los Vinos','Tacoronte','Candelaria'],
+  'Fuerteventura': ['TODA Fuerteventura','Puerto del Rosario','Corralejo','Caleta de Fuste','Costa Calma','Morro Jable','Gran Tarajal','Antigua','La Oliva','P√°jara','Tuineje'],
+  'La Palma': ['TODA La Palma','Santa Cruz de La Palma','Los Llanos de Aridane','Tazacorte','El Paso','Bre√±a Alta','Bre√±a Baja','Mazo','Fuencaliente','San Andr√©s y Sauces','Barlovento'],
+  'La Gomera': ['TODA La Gomera','San Sebasti√°n de La Gomera','Valle Gran Rey','Hermigua','Agulo','Vallehermoso','Alajer√≥','Playa de Santiago'],
+  'El Hierro': ['TODA El Hierro','Valverde','Frontera','El Pinar','La Restinga','Tamaduste','Tigaday']
 };
 
-// ─── SECTORS ──────────────────────────────────────────────────────────────────
-const SECTORS=[
-  {id:'hosteleria',label:'🍽️ Hostelería y restauración'},
-  {id:'restauracion_rapida',label:'🍔 Cafeterías y fast food'},
-  {id:'catering',label:'🥂 Catering y banquetes'},
-  {id:'odontologia',label:'🦷 Clínicas dentales'},
-  {id:'fisioterapia',label:'💪 Fisioterapia'},
-  {id:'salud_general',label:'🏥 Salud y medicina'},
-  {id:'psicologia',label:'🧠 Psicología'},
-  {id:'veterinaria',label:'🐾 Veterinaria'},
-  {id:'optica',label:'👓 Óptica'},
-  {id:'farmacia',label:'💊 Farmacias'},
-  {id:'inmobiliaria',label:'🏠 Inmobiliaria'},
-  {id:'construccion',label:'🏗️ Construcción y obras'},
-  {id:'reformas',label:'🔨 Reformas del hogar'},
-  {id:'fontaneria',label:'🔧 Fontanería'},
-  {id:'electricidad',label:'⚡ Electricidad'},
-  {id:'climatizacion',label:'❄️ Climatización y A/C'},
-  {id:'carpinteria',label:'🪵 Carpintería y cerrajería'},
-  {id:'pintura',label:'🖌️ Pintura y decoración'},
-  {id:'automocion',label:'🚗 Talleres y mecánica'},
-  {id:'concesionarios',label:'🚘 Concesionarios'},
-  {id:'gruas',label:'🚛 Grúas y asistencia vial'},
-  {id:'prevencion',label:'🦺 Prevención riesgos laborales'},
-  {id:'seguridad',label:'🔒 Seguridad y vigilancia'},
-  {id:'limpieza',label:'🧹 Limpieza industrial'},
-  {id:'gestoria',label:'📊 Gestorías y asesorías'},
-  {id:'abogados',label:'⚖️ Abogados y notarías'},
-  {id:'educacion',label:'📚 Academias y formación'},
-  {id:'informatica',label:'💻 Informática y tecnología'},
-  {id:'marketing',label:'📱 Marketing digital'},
-  {id:'peluqueria',label:'✂️ Peluquería y estética'},
-  {id:'gimnasios',label:'🏋️ Gimnasios y fitness'},
-  {id:'eventos',label:'📸 Eventos y fotografía'},
-  {id:'transporte',label:'🚚 Transporte y logística'},
-  {id:'alimentacion',label:'🛒 Alimentación y mercados'},
-  {id:'ferreteria',label:'🔩 Ferreterías'},
-  {id:'moda',label:'👗 Moda, joyería y accesorios'},
+const SECTORS = [
+  {id:'hosteleria',name:'Hosteler√≠a',emoji:'üçΩÔ∏è',query:'restaurante'},
+  {id:'cafeterias',name:'Cafeter√≠as',emoji:'‚òï',query:'cafeter√≠a'},
+  {id:'catering',name:'Catering',emoji:'üç±',query:'catering empresa'},
+  {id:'dental',name:'Dental',emoji:'ü¶∑',query:'cl√≠nica dental'},
+  {id:'fisioterapia',name:'Fisioterapia',emoji:'üí™',query:'fisioterapia centro'},
+  {id:'salud',name:'Salud',emoji:'üè•',query:'cl√≠nica m√©dica'},
+  {id:'psicologia',name:'Psicolog√≠a',emoji:'üß†',query:'psic√≥logo consulta'},
+  {id:'veterinaria',name:'Veterinaria',emoji:'üêæ',query:'cl√≠nica veterinaria'},
+  {id:'optica',name:'√ìptica',emoji:'üëì',query:'√≥ptica'},
+  {id:'farmacia',name:'Farmacia',emoji:'üíä',query:'farmacia'},
+  {id:'inmobiliaria',name:'Inmobiliaria',emoji:'üè†',query:'inmobiliaria'},
+  {id:'construccion',name:'Construcci√≥n',emoji:'üèóÔ∏è',query:'empresa construcci√≥n'},
+  {id:'reformas',name:'Reformas',emoji:'üî®',query:'empresa reformas'},
+  {id:'fontaneria',name:'Fontaner√≠a',emoji:'üîß',query:'fontanero'},
+  {id:'electricidad',name:'Electricidad',emoji:'‚ö°',query:'electricista'},
+  {id:'climatizacion',name:'Climatizaci√≥n',emoji:'‚ùÑÔ∏è',query:'aire acondicionado instalaci√≥n'},
+  {id:'carpinteria',name:'Carpinter√≠a',emoji:'ü™µ',query:'carpinter√≠a'},
+  {id:'pintura',name:'Pintura',emoji:'üé®',query:'pintor empresa'},
+  {id:'talleres',name:'Talleres',emoji:'üî©',query:'taller mec√°nico'},
+  {id:'concesionarios',name:'Concesionarios',emoji:'üöó',query:'concesionario coches'},
+  {id:'gruas',name:'Gr√∫as',emoji:'üöõ',query:'gr√∫as servicio'},
+  {id:'prevencion',name:'Prevenci√≥n laboral',emoji:'ü¶∫',query:'prevenci√≥n riesgos laborales'},
+  {id:'seguridad',name:'Seguridad',emoji:'üõ°Ô∏è',query:'empresa seguridad'},
+  {id:'limpieza',name:'Limpieza',emoji:'üßπ',query:'empresa limpieza'},
+  {id:'gestoria',name:'Gestor√≠a',emoji:'üìã',query:'gestor√≠a'},
+  {id:'abogados',name:'Abogados',emoji:'‚öñÔ∏è',query:'abogado despacho'},
+  {id:'academias',name:'Academias',emoji:'üéì',query:'academia formaci√≥n'},
+  {id:'informatica',name:'Inform√°tica',emoji:'üíª',query:'inform√°tica empresa'},
+  {id:'marketing',name:'Marketing',emoji:'üìä',query:'agencia marketing'},
+  {id:'peluqueria',name:'Peluquer√≠a',emoji:'üíá',query:'peluquer√≠a'},
+  {id:'gimnasios',name:'Gimnasios',emoji:'üèãÔ∏è',query:'gimnasio'},
+  {id:'eventos',name:'Eventos',emoji:'üéâ',query:'organizaci√≥n eventos'},
+  {id:'transporte',name:'Transporte',emoji:'üöö',query:'empresa transporte'},
+  {id:'alimentacion',name:'Alimentaci√≥n',emoji:'üçé',query:'supermercado alimentaci√≥n'},
+  {id:'ferreteria',name:'Ferreter√≠a',emoji:'üî®',query:'ferreter√≠a'},
+  {id:'moda',name:'Moda',emoji:'üëó',query:'tienda ropa moda'}
 ];
 
-// ─── WHATSAPP MESSAGES ────────────────────────────────────────────────────────
-const WA={
-  hosteleria:'Hola, soy Javier de Tryvor en Canarias. Automatizamos reservas y atención al cliente de restaurantes con IA — el bot responde WhatsApp 24h. ¿Demo gratuita de 15 min?',
-  restauracion_rapida:'Hola, soy Javier de Tryvor. Automatizo pedidos y atención al cliente de cafeterías con IA. Bot WhatsApp 24h para gestionar encargos. ¿Demo gratis?',
-  catering:'Hola, soy Javier de Tryvor. Automatizo presupuestos y gestión de eventos de catering con IA. De consulta a propuesta PDF en segundos. ¿Demo gratuita?',
-  odontologia:'Hola, soy Javier de Tryvor. Bot IA para clínicas dentales: gestiona citas, envía recordatorios y responde FAQs. -60% llamadas. ¿Demo gratis?',
-  fisioterapia:'Hola, soy Javier de Tryvor. Automatizo la agenda de fisioterapia con IA — recordatorios y citas por WhatsApp. ¿Demo gratuita?',
-  salud_general:'Hola, soy Javier de Tryvor. Automatizo citas y recordatorios de centros médicos con IA. ¿Demo gratuita de 15 min?',
-  psicologia:'Hola, soy Javier de Tryvor. Sistema de citas y recordatorios para consultas de psicología. Privado y profesional. ¿Demo gratuita?',
-  veterinaria:'Hola, soy Javier de Tryvor. Bot IA para clínicas veterinarias: citas, recordatorios de vacunas y consultas 24h. ¿Demo gratis?',
-  optica:'Hola, soy Javier de Tryvor. Automatizo citas y seguimiento de clientes de óptica con IA. ¿Demo gratuita?',
-  farmacia:'Hola, soy Javier de Tryvor. Bot IA para farmacias: consultas, horarios y pedidos por WhatsApp 24h. ¿Demo gratis?',
-  inmobiliaria:'Hola, soy Javier de Tryvor. Propuestas inmobiliarias PDF con IA en 30 segundos + bot consultas 24h. ¿Demo gratuita?',
-  construccion:'Hola, soy Javier de Tryvor. Automatizo presupuestos y seguimiento de clientes de constructoras con IA. ¿Demo gratuita?',
-  reformas:'Hola, soy Javier de Tryvor. Bot IA para reformas: presupuestos automáticos y seguimiento de obras por WhatsApp. ¿Demo gratis?',
-  fontaneria:'Hola, soy Javier de Tryvor. Bot IA para fontaneros: urgencias 24h, presupuestos automáticos y seguimiento de clientes. ¿Demo gratis?',
-  electricidad:'Hola, soy Javier de Tryvor. Bot IA para electricistas: urgencias 24h, presupuestos y agenda de instalaciones. ¿Demo gratuita?',
-  climatizacion:'Hola, soy Javier de Tryvor. Bot IA para empresas de A/C: solicitudes de mantenimiento y urgencias 24h. ¿Demo gratis?',
-  carpinteria:'Hola, soy Javier de Tryvor. Automatizo presupuestos y seguimiento de pedidos de carpintería con IA. ¿Demo gratis?',
-  pintura:'Hola, soy Javier de Tryvor. Bot IA para pintores: presupuestos automáticos y seguimiento de obras. ¿Demo gratis?',
-  automocion:'Hola, soy Javier de Tryvor. Bot IA para talleres: citas automáticas, presupuestos y seguimiento de reparaciones. ¿Demo de 15 min?',
-  concesionarios:'Hola, soy Javier de Tryvor. Automatizo atención al cliente y seguimiento de leads de concesionarios con IA. ¿Demo gratis?',
-  gruas:'Hola, soy Javier de Tryvor. Bot IA para grúas: urgencias 24h y seguimiento de clientes. ¿Demo gratis?',
-  prevencion:'Hola, soy Javier de Tryvor. Automatizo documentación y seguimiento de clientes de prevención de riesgos con IA. ¿Demo gratuita?',
-  seguridad:'Hola, soy Javier de Tryvor. Bot IA para seguridad: presupuestos automáticos y seguimiento de contratos. ¿Demo gratis?',
-  limpieza:'Hola, soy Javier de Tryvor. Bot IA para limpieza: presupuestos, contratos y seguimiento por WhatsApp. ¿Demo gratuita?',
-  gestoria:'Hola, soy Javier de Tryvor. Automatizo captación y gestión de consultas de gestorías con IA. ¿Demo gratis?',
-  abogados:'Hola, soy Javier de Tryvor. Bot IA para despachos: primera consulta automática y seguimiento de casos. ¿Demo gratuita?',
-  educacion:'Hola, soy Javier de Tryvor. Bot IA para academias: consultas, matrículas y seguimiento de alumnos. ¿Demo gratis?',
-  informatica:'Hola, soy Javier de Tryvor. Bot IA para empresas IT: soporte 24h y seguimiento de tickets automático. ¿Demo gratis?',
-  marketing:'Hola, soy Javier de Tryvor. Bot IA para agencias: captación de leads y seguimiento de clientes automático. ¿Hablamos?',
-  peluqueria:'Hola, soy Javier de Tryvor. Bot IA para peluquerías: reservas 24h y recordatorios automáticos. ¿Demo gratis?',
-  gimnasios:'Hola, soy Javier de Tryvor. Bot IA para gimnasios: altas de socios, clases y renovaciones por WhatsApp. ¿Demo gratis?',
-  eventos:'Hola, soy Javier de Tryvor. Bot IA para eventos y fotografía: presupuestos automáticos y seguimiento. ¿Demo gratis?',
-  transporte:'Hola, soy Javier de Tryvor. Bot IA para transporte: solicitudes y seguimiento de envíos por WhatsApp. ¿Demo gratis?',
-  alimentacion:'Hola, soy Javier de Tryvor. Bot IA para alimentación: pedidos y atención al cliente 24h. ¿Demo gratis?',
-  ferreteria:'Hola, soy Javier de Tryvor. Bot IA para ferreterías: consultas de stock y pedidos por WhatsApp. ¿Demo gratis?',
-  moda:'Hola, soy Javier de Tryvor. Bot IA para tiendas: atención 24h y seguimiento de pedidos. ¿Demo gratis?',
+const WHATSAPP = {
+  hosteleria: 'Hola, soy Javier de Tryvor en Canarias. Tenemos un sistema TPV optimizado para restaurantes con gesti√≥n de mesas, comandas y delivery integrado. ¬øDemo gratuita de 15 min?',
+  cafeterias: 'Hola, soy Javier de Tryvor en Canarias. Sistema TPV pensado para cafeter√≠as con pedidos r√°pidos, fidelizaci√≥n y control de stock. ¬øDemo gratuita de 15 min?',
+  catering: 'Hola, soy Javier de Tryvor en Canarias. Software para gesti√≥n de eventos, presupuestos automatizados y log√≠stica de catering. ¬øDemo gratuita de 15 min?',
+  dental: 'Hola, soy Javier de Tryvor en Canarias. Sistema de gesti√≥n cl√≠nica con agenda online, historial digital y recordatorios autom√°ticos para tus pacientes. ¬øDemo gratuita de 15 min?',
+  fisioterapia: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n para centros de fisio con agenda, historiales y facturaci√≥n integrada. ¬øDemo gratuita de 15 min?',
+  salud: 'Hola, soy Javier de Tryvor en Canarias. Plataforma de gesti√≥n sanitaria con citas online, expediente electr√≥nico y facturaci√≥n. ¬øDemo gratuita de 15 min?',
+  psicologia: 'Hola, soy Javier de Tryvor en Canarias. Software para consultas psicol√≥gicas con agenda, notas de sesi√≥n cifradas y facturaci√≥n. ¬øDemo gratuita de 15 min?',
+  veterinaria: 'Hola, soy Javier de Tryvor en Canarias. Sistema de gesti√≥n veterinaria con historiales, agenda y control de stock de productos. ¬øDemo gratuita de 15 min?',
+  optica: 'Hola, soy Javier de Tryvor en Canarias. TPV especializado para √≥pticas con gesti√≥n de graduaciones, stock y citas. ¬øDemo gratuita de 15 min?',
+  farmacia: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n farmac√©utica con control de stock, recetas y fidelizaci√≥n. ¬øDemo gratuita de 15 min?',
+  inmobiliaria: 'Hola, soy Javier de Tryvor en Canarias. CRM inmobiliario con portal web, gesti√≥n de propiedades y firma digital de contratos. ¬øDemo gratuita de 15 min?',
+  construccion: 'Hola, soy Javier de Tryvor en Canarias. Software para gesti√≥n de obras, presupuestos, partes diarios y control de costes. ¬øDemo gratuita de 15 min?',
+  reformas: 'Hola, soy Javier de Tryvor en Canarias. Software para empresas de reformas con presupuestos autom√°ticos, partes y facturaci√≥n. ¬øDemo gratuita de 15 min?',
+  fontaneria: 'Hola, soy Javier de Tryvor en Canarias. App para gestionar avisos, presupuestos al instante y facturaci√≥n desde el m√≥vil. ¬øDemo gratuita de 15 min?',
+  electricidad: 'Hola, soy Javier de Tryvor en Canarias. Software para electricistas con gesti√≥n de partes, presupuestos y facturaci√≥n m√≥vil. ¬øDemo gratuita de 15 min?',
+  climatizacion: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n integral de instalaciones de clima: presupuestos, mantenimientos programados y partes. ¬øDemo gratuita de 15 min?',
+  carpinteria: 'Hola, soy Javier de Tryvor en Canarias. Software de presupuestos por m¬≤ y gesti√≥n de pedidos para carpinter√≠as. ¬øDemo gratuita de 15 min?',
+  pintura: 'Hola, soy Javier de Tryvor en Canarias. App para empresas de pintura: presupuestos al instante desde el m√≥vil y facturaci√≥n. ¬øDemo gratuita de 15 min?',
+  talleres: 'Hola, soy Javier de Tryvor en Canarias. Software para talleres con gesti√≥n de OR, recambios, citas y facturaci√≥n. ¬øDemo gratuita de 15 min?',
+  concesionarios: 'Hola, soy Javier de Tryvor en Canarias. CRM para concesionarios con gesti√≥n de leads, stock y postventa. ¬øDemo gratuita de 15 min?',
+  gruas: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n de servicios de gr√∫a con localizaci√≥n GPS, partes y facturaci√≥n. ¬øDemo gratuita de 15 min?',
+  prevencion: 'Hola, soy Javier de Tryvor en Canarias. Plataforma de PRL con documentaci√≥n, formaci√≥n online y vigilancia de la salud. ¬øDemo gratuita de 15 min?',
+  seguridad: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n para empresas de seguridad: cuadrantes, rondas y partes. ¬øDemo gratuita de 15 min?',
+  limpieza: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n integral para empresas de limpieza: cuadrantes, fichaje y partes diarios. ¬øDemo gratuita de 15 min?',
+  gestoria: 'Hola, soy Javier de Tryvor en Canarias. Software para gestor√≠as con portal cliente, firma digital y automatizaci√≥n fiscal. ¬øDemo gratuita de 15 min?',
+  abogados: 'Hola, soy Javier de Tryvor en Canarias. CRM legal con expedientes, calendario procesal y facturaci√≥n por horas. ¬øDemo gratuita de 15 min?',
+  academias: 'Hola, soy Javier de Tryvor en Canarias. Plataforma para academias con matriculaci√≥n online, cobros y aula virtual. ¬øDemo gratuita de 15 min?',
+  informatica: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n integral para empresas de IT: tickets, contratos, facturaci√≥n y partes t√©cnicos. ¬øDemo gratuita de 15 min?',
+  marketing: 'Hola, soy Javier de Tryvor en Canarias. CRM para agencias de marketing con gesti√≥n de campa√±as, clientes y facturaci√≥n. ¬øDemo gratuita de 15 min?',
+  peluqueria: 'Hola, soy Javier de Tryvor en Canarias. TPV para peluquer√≠as con agenda online, fidelizaci√≥n y control de caja. ¬øDemo gratuita de 15 min?',
+  gimnasios: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n para gimnasios con cobros autom√°ticos, control de acceso y app de socios. ¬øDemo gratuita de 15 min?',
+  eventos: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n integral de eventos: presupuestos, proveedores, asistentes y facturaci√≥n. ¬øDemo gratuita de 15 min?',
+  transporte: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n de flotas con rutas, partes y facturaci√≥n autom√°tica. ¬øDemo gratuita de 15 min?',
+  alimentacion: 'Hola, soy Javier de Tryvor en Canarias. TPV para alimentaci√≥n con control de stock, balanzas integradas y fidelizaci√≥n. ¬øDemo gratuita de 15 min?',
+  ferreteria: 'Hola, soy Javier de Tryvor en Canarias. TPV para ferreter√≠as con gesti√≥n de referencias m√∫ltiples y stock por almac√©n. ¬øDemo gratuita de 15 min?',
+  moda: 'Hola, soy Javier de Tryvor en Canarias. TPV para tiendas de moda con gesti√≥n de tallas, colores y fidelizaci√≥n. ¬øDemo gratuita de 15 min?'
 };
 
-// ─── DATABASE ─────────────────────────────────────────────────────────────────
-// Key format: "sector|zona"
-const DB={
-  'hosteleria|Las Palmas — Centro/Triana':[
-    {n:'Casa Montesdeoca',a:'C/ Montesdeoca 10',p:'+34 928 333 466',e:'info@casamontesdeoca.com',w:'casamontesdeoca.com',r:4.9,rv:2341,em:'grande',ig:true,fb:true,ob:false},
-    {n:'Restaurante El Herreño',a:'C/ Mendizábal 5',p:'+34 928 310 513',e:'',w:'elherreno.es',r:4.7,rv:1247,em:'mediano',ig:false,fb:true,ob:false},
-    {n:'La Trastienda Grill',a:'C/ Buenos Aires 11',p:'+34 928 276 982',e:'reservas@latrastienda.es',w:'latrastienda.es',r:4.8,rv:1089,em:'mediano',ig:true,fb:true,ob:true},
-    {n:'Restaurante Amaiur',a:'C/ Pérez Galdós 2',p:'+34 928 370 717',e:'',w:'',r:4.6,rv:634,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'El Churrasco Las Palmas',a:'C/ Remedios 3',p:'+34 928 311 400',e:'',w:'',r:4.4,rv:567,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Taberna El Jamón',a:'C/ Triana 34',p:'+34 928 361 234',e:'',w:'',r:4.2,rv:289,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Restaurante Cho Zacarias',a:'Av. Mesa y López 45',p:'+34 928 265 412',e:'',w:'',r:4.5,rv:423,em:'pequeño',ig:false,fb:true,ob:false},
-  ],
-  'hosteleria|Las Palmas — Las Canteras':[
-    {n:'La Marinera Las Palmas',a:'Paseo Las Canteras 28',p:'+34 928 463 802',e:'',w:'lamarinera.es',r:4.5,rv:892,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'Chiringuito Las Alcaravaneras',a:'Playa Alcaravaneras 2',p:'+34 928 462 890',e:'',w:'',r:4.3,rv:312,em:'pequeño',ig:false,fb:true,ob:false},
-    {n:'El Paseo Canteras Café',a:'Paseo Las Canteras 45',p:'+34 928 460 234',e:'',w:'',r:4.4,rv:456,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'hosteleria|Playa del Inglés':[
-    {n:'El Palmeral Playa del Inglés',a:'C.C. Faro 2',p:'+34 928 762 310',e:'info@elpalmeral.com',w:'elpalmeral.com',r:4.5,rv:2156,em:'grande',ig:true,fb:true,ob:true},
-    {n:'Grill La Kasbah',a:'Av. de Tirajana 58',p:'+34 928 771 234',e:'',w:'lakasbah.es',r:4.4,rv:1123,em:'mediano',ig:true,fb:false,ob:false},
-    {n:'La Bodeguita del Medio',a:'Av. Tirajana 38',p:'+34 928 762 890',e:'',w:'',r:4.3,rv:987,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Bamira Playa',a:'C/ Las Retamas 1',p:'+34 928 762 501',e:'info@bamira.com',w:'bamira.com',r:4.5,rv:1032,em:'mediano',ig:true,fb:true,ob:false},
-  ],
-  'hosteleria|Arrecife — Centro':[
-    {n:'Restaurante Lilium',a:'Av. Fred Olsen, Arrecife',p:'+34 928 524 978',e:'',w:'restaurantelilium.com',r:4.8,rv:1876,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'El Varadero Arrecife',a:'Puerto de Arrecife',p:'+34 928 803 355',e:'',w:'',r:4.6,rv:1234,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Mesón El Puerto',a:'Muelle de La Pescadería',p:'+34 928 801 234',e:'',w:'',r:4.3,rv:567,em:'pequeño',ig:false,fb:true,ob:false},
-  ],
-  'hosteleria|Puerto del Carmen':[
-    {n:'La Cañada Lanzarote',a:'Av. de las Playas 22',p:'+34 928 510 234',e:'',w:'',r:4.5,rv:1234,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'El Tomate Lanzarote',a:'C/ Teide 3',p:'+34 928 511 890',e:'',w:'eltomate.es',r:4.6,rv:890,em:'pequeño',ig:true,fb:false,ob:false},
-  ],
-  'hosteleria|Teguise|Yaiza':[
-    {n:'La Tegala',a:'C/ Mácher 12, Tinajo',p:'+34 928 524 324',e:'reservas@lategala.com',w:'lategala.com',r:4.9,rv:3421,em:'grande',ig:true,fb:true,ob:true},
-    {n:'Bodega El Chupadero',a:'C/ Buenavista 12, Teguise',p:'+34 928 845 037',e:'',w:'',r:4.7,rv:987,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'El Almacén Lanzarote',a:'C/ Herrerita 23, Arrecife',p:'+34 928 800 240',e:'',w:'elalmacen.es',r:4.8,rv:1456,em:'mediano',ig:true,fb:true,ob:false},
-  ],
-  'hosteleria|Santa Cruz de Tenerife':[
-    {n:'Restaurante El Coto de Antonio',a:'C/ General Goded 13',p:'+34 922 272 105',e:'info@elcotodeantonio.com',w:'elcotodeantonio.com',r:4.8,rv:1567,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'Kazan Restaurante',a:'C/ Dr. Pérez Zamora 32',p:'+34 922 281 425',e:'',w:'kazantenerife.com',r:4.7,rv:934,em:'mediano',ig:false,fb:true,ob:false},
-    {n:'La Hierbita',a:'C/ El Clavel 19',p:'+34 922 245 617',e:'',w:'',r:4.6,rv:712,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Mesón El Monasterio',a:'C/ San Agustín 24',p:'+34 922 242 422',e:'',w:'',r:4.5,rv:543,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'hosteleria|Corralejo':[
-    {n:'La Marquesina',a:'Puerto de Corralejo',p:'+34 928 535 435',e:'info@lamarquesina.com',w:'lamarquesina.com',r:4.7,rv:1123,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'El Molino Corralejo',a:'Av. Grandes Playas 3',p:'+34 928 535 234',e:'',w:'',r:4.4,rv:567,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'odontologia|Las Palmas — Centro/Triana':[
-    {n:'Clínica Dental Smile LP',a:'C/ Triana 78',p:'+34 928 362 100',e:'citas@smilecanarias.es',w:'smilecanarias.es',r:4.8,rv:432,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'Clínica Dental Estetic',a:'C/ León y Castillo 320',p:'+34 928 278 900',e:'info@clinicaestetic.es',w:'clinicaestetic.es',r:4.6,rv:523,em:'mediano',ig:false,fb:true,ob:false},
-    {n:'Clínica Dental Viera',a:'C/ Viera y Clavijo 45',p:'+34 928 361 450',e:'',w:'',r:4.4,rv:234,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'OdontoClinic LP',a:'Av. Mesa y López 67',p:'+34 928 262 890',e:'info@odontoclinic.es',w:'odontoclinic.es',r:4.5,rv:345,em:'mediano',ig:true,fb:false,ob:false},
-  ],
-  'odontologia|Playa del Inglés':[
-    {n:'Clínica Dental Maspalomas',a:'Av. Touroperador 22',p:'+34 928 769 801',e:'citas@dentalmaspalomas.es',w:'',r:4.7,rv:312,em:'mediano',ig:false,fb:true,ob:false},
-    {n:'Dental Sur',a:'C.C. Faro 2, Local 45',p:'+34 928 770 234',e:'',w:'',r:4.4,rv:198,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'fisioterapia|Las Palmas — Centro/Triana':[
-    {n:'Fisioterapia Sport Canarias',a:'C/ Perojo 23',p:'+34 928 480 213',e:'fisio@sportcanarias.es',w:'',r:4.7,rv:312,em:'pequeño',ig:false,fb:true,ob:false},
-    {n:'Clínica Fisio Las Canteras',a:'Paseo Las Canteras 56',p:'+34 928 464 300',e:'info@fisiocanteras.es',w:'fisiocanteras.es',r:4.7,rv:189,em:'pequeño',ig:true,fb:false,ob:false},
-    {n:'Centro Fisio & Salud LP',a:'Av. Mesa y López 23',p:'+34 928 261 890',e:'',w:'',r:4.5,rv:145,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'inmobiliaria|Las Palmas — Centro/Triana':[
-    {n:'RE/MAX Canarias',a:'C/ Veintiún de Agosto 17',p:'+34 928 497 800',e:'canarias@remax.es',w:'remaxcanarias.com',r:4.7,rv:456,em:'grande',ig:true,fb:true,ob:false},
-    {n:'Century 21 Las Palmas',a:'Av. Mesa y López 12',p:'+34 928 293 080',e:'',w:'century21lp.es',r:4.6,rv:312,em:'mediano',ig:false,fb:true,ob:false},
-    {n:'Donpiso Las Palmas',a:'C/ León y Castillo 44',p:'+34 928 240 404',e:'lp@donpiso.com',w:'donpiso.com',r:4.3,rv:178,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Fincas Canarias',a:'C/ Triana 56',p:'+34 928 361 534',e:'',w:'fincascanarias.es',r:4.5,rv:234,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'inmobiliaria|Playa del Inglés':[
-    {n:'DreamHomes Maspalomas',a:'Av. Touroperador Neckermann 16',p:'+34 928 765 432',e:'info@dreamhomescanarias.es',w:'dreamhomescanarias.es',r:4.8,rv:543,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'Gran Canaria Properties',a:'C.C. El Veril, San Agustín',p:'+34 928 760 123',e:'',w:'gcproperties.es',r:4.6,rv:345,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'fontaneria|Las Palmas — Centro/Triana':[
-    {n:'Fontanería López 24h',a:'C/ Doctor Chil 23',p:'+34 928 251 890',e:'',w:'',r:4.5,rv:189,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Instalaciones Hidráulicas GC',a:'Polígono Las Longueras',p:'+34 928 389 012',e:'info@hidrogc.es',w:'',r:4.3,rv:123,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Fontanería Hernández',a:'C/ Pérez Muñoz 12',p:'+34 928 479 345',e:'',w:'',r:4.6,rv:234,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'SOS Fontanería Canarias',a:'Av. Escaleritas 34',p:'+34 600 234 567',e:'sos@fontaneriacanarias.es',w:'',r:4.4,rv:156,em:'pequeño',ig:false,fb:true,ob:false},
-  ],
-  'electricidad|Las Palmas — Centro/Triana':[
-    {n:'Electricidad Rodríguez LP',a:'C/ Galicia 45',p:'+34 928 272 345',e:'',w:'',r:4.5,rv:167,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Instalaciones Eléctricas Canarias',a:'Polígono Industrial Norte 5',p:'+34 928 476 890',e:'iec@instalacionescanarias.es',w:'instalacionescanarias.es',r:4.4,rv:234,em:'mediano',ig:false,fb:false,ob:false},
-    {n:'Electro Servicio 24h LP',a:'Av. Escaleritas 78',p:'+34 600 345 678',e:'',w:'',r:4.3,rv:145,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Electricidad García e Hijos',a:'C/ Pérez Galdós 56',p:'+34 928 370 234',e:'',w:'',r:4.6,rv:189,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'automocion|Las Palmas — Centro/Triana':[
-    {n:'Talleres Hermanos Santana',a:'Av. Escaleritas 98',p:'+34 928 251 678',e:'',w:'',r:4.6,rv:234,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Toyota Canarias Las Palmas',a:'Ctra. del Centro km 3',p:'+34 928 251 100',e:'lp@toyotacanarias.es',w:'toyotacanarias.es',r:4.5,rv:567,em:'grande',ig:true,fb:true,ob:true},
-    {n:'Talleres González e Hijos',a:'Polígono Industrial Las Longueras',p:'+34 928 389 234',e:'',w:'',r:4.7,rv:189,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Renault Canarias LP',a:'Av. Marítima del Norte 20',p:'+34 928 464 500',e:'',w:'renaultcanarias.es',r:4.4,rv:312,em:'grande',ig:true,fb:true,ob:false},
-    {n:'Reparauto Las Palmas',a:'C/ Doctor Chil 67',p:'+34 928 252 890',e:'',w:'',r:4.3,rv:145,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'prevencion|Las Palmas — Centro/Triana':[
-    {n:'Prevención Canarias SL',a:'C/ León y Castillo 89',p:'+34 928 270 567',e:'info@prevencioncanarias.es',w:'prevencioncanarias.es',r:4.5,rv:89,em:'mediano',ig:false,fb:false,ob:false},
-    {n:'Seguridad Laboral GC',a:'Av. Mesa y López 67',p:'+34 928 262 890',e:'',w:'',r:4.3,rv:67,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Premap Canarias',a:'C/ Perojo 34',p:'+34 928 480 123',e:'',w:'premap.es',r:4.2,rv:123,em:'grande',ig:false,fb:false,ob:false},
-    {n:'MC Mutual Canarias',a:'C/ Triana 123',p:'+34 928 362 456',e:'asesor@mcmutual.es',w:'mcmutual.es',r:4.4,rv:156,em:'grande',ig:false,fb:false,ob:false},
-  ],
-  'peluqueria|Las Palmas — Centro/Triana':[
-    {n:'Spa Wellness Hotel Santa Catalina',a:'Parque Doramas s/n',p:'+34 928 243 040',e:'spa@santacatalina.es',w:'spasantacatalina.es',r:4.9,rv:567,em:'grande',ig:true,fb:true,ob:true},
-    {n:'Salón Miriam Beauty',a:'C/ Viera y Clavijo 56',p:'+34 928 363 712',e:'',w:'',r:4.8,rv:234,em:'pequeño',ig:true,fb:true,ob:false},
-    {n:'Clínica Estética Belleza Total',a:'Av. Juan XXIII 8',p:'+34 928 368 432',e:'info@bellezatotal.es',w:'bellezatotal.es',r:4.6,rv:189,em:'pequeño',ig:true,fb:false,ob:false},
-    {n:'Nails & Co Las Palmas',a:'CC Las Arenas Local 22',p:'+34 928 461 234',e:'',w:'',r:4.5,rv:145,em:'pequeño',ig:true,fb:false,ob:false},
-    {n:'Instituto Capilar Canarias',a:'C/ Mesa y López 34',p:'+34 928 262 890',e:'',w:'',r:4.4,rv:198,em:'pequeño',ig:false,fb:true,ob:false},
-  ],
-  'marketing|Las Palmas — Centro/Triana':[
-    {n:'Agencia Digital Canarias',a:'C/ Triana 98',p:'+34 928 362 780',e:'hola@agenciadigitalcanarias.es',w:'agenciadigitalcanarias.es',r:4.8,rv:123,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'Social Media GC',a:'C/ Mesa y López 34',p:'+34 928 261 234',e:'info@socialmediagc.es',w:'socialmediagc.es',r:4.7,rv:89,em:'pequeño',ig:true,fb:true,ob:false},
-    {n:'SEO Canarias Pro',a:'C/ Viera y Clavijo 12',p:'+34 928 363 901',e:'',w:'',r:4.7,rv:56,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Diseño Web Canarias',a:'C/ León y Castillo 78',p:'+34 928 270 890',e:'',w:'',r:4.6,rv:78,em:'pequeño',ig:true,fb:false,ob:false},
-  ],
-  'educacion|Las Palmas — Centro/Triana':[
-    {n:'English Now Gran Canaria',a:'C/ Galicia 34',p:'+34 928 272 890',e:'info@englishnowgc.es',w:'englishnowgc.es',r:4.7,rv:456,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'Centro de Idiomas Canarias',a:'Av. Mesa y López 23',p:'+34 928 264 700',e:'',w:'idiomascn.es',r:4.5,rv:234,em:'pequeño',ig:false,fb:true,ob:false},
-    {n:'Academia Oposiciones Islas',a:'C/ Perojo 45',p:'+34 928 460 321',e:'info@opoislas.es',w:'',r:4.6,rv:178,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'gestoria|Las Palmas — Centro/Triana':[
-    {n:'Gestoría Díaz & Asociados',a:'C/ Triana 67',p:'+34 928 362 456',e:'info@gestoriadiaz.es',w:'gestoriadiaz.es',r:4.6,rv:178,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Asesoría García LP',a:'Av. Mesa y López 89',p:'+34 928 262 123',e:'',w:'',r:4.4,rv:134,em:'pequeño',ig:false,fb:false,ob:false},
-    {n:'Gestoría Canaria Integral',a:'C/ León y Castillo 23',p:'+34 928 240 567',e:'contacto@gci.es',w:'gci.es',r:4.5,rv:89,em:'pequeño',ig:false,fb:false,ob:false},
-  ],
-  'gimnasios|Las Palmas — Centro/Triana':[
-    {n:'Fitness Canarias Centro',a:'Av. Mesa y López 12',p:'+34 928 262 345',e:'info@fitnesscanarias.es',w:'fitnesscanarias.es',r:4.5,rv:345,em:'mediano',ig:true,fb:true,ob:false},
-    {n:'CrossFit Las Palmas',a:'Polígono Industrial Norte',p:'+34 928 476 567',e:'',w:'',r:4.7,rv:234,em:'pequeño',ig:true,fb:false,ob:false},
-    {n:'Gimnasio Olympia LP',a:'C/ Doctor Chil 89',p:'+34 928 252 456',e:'',w:'',r:4.3,rv:189,em:'mediano',ig:false,fb:true,ob:false},
-  ],
+const FALLBACK_NAMES = {
+  hosteleria: ['Restaurante El Mirador','Asador La Brasa','Tasca Canaria','Restaurante Las Velas','Mes√≥n Atl√°ntico'],
+  cafeterias: ['Caf√© Atl√°ntico','La Cafeter√≠a','Caf√© Central','Coffee Lab','Caf√© del Puerto'],
+  dental: ['Cl√≠nica Dental Canarias','Dental Sonrisa','Centro Odontol√≥gico','Dental Plus','Cl√≠nica Dr. Garc√≠a'],
+  inmobiliaria: ['Canarias Homes','Inmo Atl√°ntica','Casas Canarias','Inmobiliaria del Sur','Real Estate Tenerife'],
+  reformas: ['Reformas Canarias','Reformas Integrales SUR','Construcciones Atl√°ntico','Reformas El Norte','Obras y Reformas Las Palmas'],
+  fontaneria: ['Fontaner√≠a Express','Fontaneros 24h','Fontaner√≠a Canaria','Aqua Servicios','Fontasur'],
+  peluqueria: ['Peluquer√≠a Estilo','Sal√≥n de Belleza','Hair Studio','Peluquer√≠a D&G','Est√©tica y Peluquer√≠a']
 };
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
-let mode='prospects'; // 'prospects' | 'explore'
-let allLeads=[], savedLeads=JSON.parse(localStorage.getItem('pro3_leads')||'[]');
-let scoreFilter=0, stFilter='all', webFilter='all', sortFilter='score';
-let isDark=localStorage.getItem('pro3_theme')!=='light';
+let state = {
+  mode: 'prospects',
+  currentTab: 'search',
+  leads: [],
+  savedLeads: [],
+  filters: { noWeb:false, hot:false, hasPhone:true, minRating:false }
+};
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-(function init(){
-  const ss=document.getElementById('selSector');
-  SECTORS.forEach(s=>{const o=document.createElement('option');o.value=s.id;o.textContent=s.label;ss.appendChild(o);});
-  updateZones();
-  applyTheme(isDark);
+let _gmapsReady = false;
+let _placesService = null;
+
+window.initGoogleMaps = function() {
+  _gmapsReady = true;
+};
+
+function loadGoogleMaps() {
+  return new Promise((resolve, reject) => {
+    if (_gmapsReady && window.google && window.google.maps && window.google.maps.places) {
+      resolve();
+      return;
+    }
+    if (document.querySelector('script[data-gm]')) {
+      const wait = () => (_gmapsReady && window.google && window.google.maps && window.google.maps.places) ? resolve() : setTimeout(wait, 100);
+      wait();
+      return;
+    }
+    const s = document.createElement('script');
+    s.setAttribute('data-gm', '1');
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${GKEY}&libraries=places&language=es&callback=initGoogleMaps`;
+    s.async = true;
+    s.defer = true;
+    s.onerror = () => reject(new Error('Google Maps no disponible'));
+    document.head.appendChild(s);
+    const wait = () => _gmapsReady ? resolve() : setTimeout(wait, 100);
+    wait();
+  });
+}
+
+function getPlacesService() {
+  if (!_placesService) {
+    _placesService = new google.maps.places.PlacesService(document.createElement('div'));
+  }
+  return _placesService;
+}
+
+function textSearch(query) {
+  return new Promise(resolve => {
+    getPlacesService().textSearch({ query, language: 'es' }, (results, status) => {
+      resolve({ results: results || [], status });
+    });
+  });
+}
+
+function getDetails(placeId) {
+  return new Promise(resolve => {
+    getPlacesService().getDetails({
+      placeId,
+      fields: ['name','formatted_phone_number','website','rating','user_ratings_total','formatted_address','place_id','types','business_status'],
+      language: 'es'
+    }, (result, status) => resolve(status === 'OK' ? result : null));
+  });
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function escapeAttr(str) {
+  return escapeHtml(str).replace(/`/g,'&#96;');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function loadSaved() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    state.savedLeads = raw ? JSON.parse(raw) : [];
+  } catch(e) { state.savedLeads = []; }
+}
+
+function persistSaved() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.savedLeads)); } catch(e) {}
+}
+
+function isSaved(id) {
+  return state.savedLeads.some(l => l.id === id);
+}
+
+function toggleSave(lead) {
+  if (isSaved(lead.id)) {
+    state.savedLeads = state.savedLeads.filter(l => l.id !== lead.id);
+    showToast('Eliminado del pipeline');
+  } else {
+    state.savedLeads.push({...lead});
+    showToast('Guardado en pipeline');
+  }
+  persistSaved();
   updateStats();
-  updateSavedBadge();
-})();
+  if (state.currentTab === 'pipeline') renderPipeline();
+  if (state.currentTab === 'search') {
+    const leadInList = state.leads.find(l => l.id === lead.id);
+    if (leadInList) renderResults();
+  }
+}
 
-function updateZones(){
-  const island=document.getElementById('selIsland').value;
-  const sz=document.getElementById('selZona');
-  sz.innerHTML='';
-  if(!island){
-    sz.innerHTML='<option value="">— Primero elige isla —</option>';
-    document.getElementById('islandBadge').style.display='none';
+function updateLeadStatus(id, status) {
+  const inList = state.leads.find(l => l.id === id);
+  if (inList) inList.status = status;
+  const inSaved = state.savedLeads.find(l => l.id === id);
+  if (inSaved) {
+    inSaved.status = status;
+    persistSaved();
+  } else if (inList && status !== 'new') {
+    state.savedLeads.push({...inList});
+    persistSaved();
+  }
+  updateStats();
+}
+
+function updateStats() {
+  const allTracked = [...state.savedLeads];
+  state.leads.forEach(l => {
+    if (!allTracked.find(s => s.id === l.id)) allTracked.push(l);
+  });
+  const total = allTracked.length;
+  const hot = allTracked.filter(l => (l.score||0) >= 8).length;
+  const contacted = allTracked.filter(l => l.status === 'contacted' || l.status === 'interested').length;
+  const interested = allTracked.filter(l => l.status === 'interested').length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statHot').textContent = hot;
+  document.getElementById('statContacted').textContent = contacted;
+  document.getElementById('statInterested').textContent = interested;
+  document.getElementById('pipelineCount').textContent = state.savedLeads.length;
+}
+
+function populateIslands() {
+  const sel = document.getElementById('islandSelect');
+  sel.innerHTML = Object.keys(ZONES).map(i => `<option value="${escapeAttr(i)}">${escapeHtml(i)}</option>`).join('');
+}
+
+function populateZones() {
+  const island = document.getElementById('islandSelect').value;
+  const sel = document.getElementById('zoneSelect');
+  const list = ZONES[island] || [];
+  sel.innerHTML = list.map(z => `<option value="${escapeAttr(z)}">${escapeHtml(z)}</option>`).join('');
+  updateIslandBadge();
+}
+
+function populateSectors() {
+  const sel = document.getElementById('sectorSelect');
+  sel.innerHTML = SECTORS.map(s => `<option value="${s.id}">${s.emoji} ${escapeHtml(s.name)}</option>`).join('');
+}
+
+function updateIslandBadge() {
+  const zone = document.getElementById('zoneSelect').value;
+  const badge = document.getElementById('islandBadge');
+  if (zone && zone.startsWith('TODA')) {
+    badge.classList.add('show');
+    badge.textContent = `üåê Buscando en ${zone}`;
+  } else {
+    badge.classList.remove('show');
+  }
+}
+
+function updateSearchButton() {
+  const btn = document.getElementById('searchBtn');
+  if (state.mode === 'prospects') {
+    btn.textContent = 'üéØ Buscar clientes potenciales';
+    btn.classList.remove('explore');
+  } else {
+    btn.textContent = 'üó∫Ô∏è Explorar empresas';
+    btn.classList.add('explore');
+  }
+}
+
+function generateGeneric(sectorObj, zone, island, count) {
+  const names = FALLBACK_NAMES[sectorObj.id] || [`${sectorObj.name} Canarias`,`${sectorObj.name} Atl√°ntico`,`${sectorObj.name} del Sur`,`${sectorObj.name} Centro`,`${sectorObj.name} Express`];
+  const out = [];
+  const zoneLabel = zone.startsWith('TODA') ? island : zone;
+  for (let i = 0; i < count; i++) {
+    const baseName = names[i % names.length];
+    const suffix = i >= names.length ? ` ${Math.floor(i/names.length)+1}` : '';
+    out.push({
+      id: 'gen_' + Date.now() + '_' + i,
+      name: baseName + suffix,
+      phone: '',
+      website: '',
+      email: '',
+      address: zoneLabel + ', ' + island,
+      rating: 0,
+      reviews: 0,
+      mapsUrl: '',
+      zone: zoneLabel,
+      island: island,
+      sector: sectorObj.id,
+      sectorName: sectorObj.name,
+      status: 'new',
+      generic: true
+    });
+  }
+  return out;
+}
+
+function deriveEmail(website) {
+  if (!website) return '';
+  try {
+    const url = new URL(website);
+    const host = url.hostname.replace(/^www\./,'');
+    if (!host) return '';
+    return 'info@' + host;
+  } catch(e) { return ''; }
+}
+
+function sizeFromReviews(reviews) {
+  if (!reviews) return 'peque√±a';
+  if (reviews > 500) return 'grande';
+  if (reviews > 150) return 'mediana';
+  return 'peque√±a';
+}
+
+async function scoreProsects(leads) {
+  if (!leads.length) return;
+  const payload = leads.map((l,i) => ({
+    i,
+    name: l.name,
+    web: !!l.website,
+    email: !!l.email,
+    rating: l.rating || 0,
+    reviews: l.reviews || 0,
+    sector: l.sectorName || l.sector,
+    zone: l.zone
+  }));
+  const prompt = `Eres analista de leads B2B en Canarias. Punt√∫a cada negocio del 1 al 10 seg√∫n probabilidad de venta de software de gesti√≥n.
+
+CRITERIOS DE PUNTUACI√ìN:
+- EMAIL VISIBLE = +3pts (prioridad m√°xima)
+- Sin web = +2pts
+- Sin reservas online aparente = +1pt
+- Sin redes sociales aparentes = +1pt
+- M√°s de 500 rese√±as = +1pt
+- Rating >= 4.7 = +0.5pts
+- Base: 4-5pts
+
+DATOS:
+${JSON.stringify(payload)}
+
+Responde SOLO JSON sin texto adicional, array con un objeto por lead en el mismo orden, formato exacto:
+[{"s":9,"r":"motivo breve"},{"s":7,"r":"motivo breve"}]`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': AKEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1024,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    if (!res.ok) throw new Error('AI HTTP ' + res.status);
+    const data = await res.json();
+    const text = (data.content && data.content[0] && data.content[0].text) || '';
+    const jsonMatch = text.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) throw new Error('No JSON');
+    const scored = JSON.parse(jsonMatch[0]);
+    leads.forEach((l, i) => {
+      const sc = scored[i];
+      if (sc) {
+        l.score = Math.max(1, Math.min(10, Number(sc.s) || 5));
+        l.scoreReason = sc.r || '';
+      } else {
+        l.score = computeFallbackScore(l);
+        l.scoreReason = 'Score autom√°tico';
+      }
+    });
+  } catch(e) {
+    leads.forEach(l => {
+      l.score = computeFallbackScore(l);
+      l.scoreReason = 'Score local (IA no disponible)';
+    });
+  }
+}
+
+function computeFallbackScore(l) {
+  let s = 4.5;
+  if (l.email) s += 3;
+  if (!l.website) s += 2;
+  if ((l.reviews||0) > 500) s += 1;
+  if ((l.rating||0) >= 4.7) s += 0.5;
+  if (!l.phone) s -= 1;
+  return Math.max(1, Math.min(10, Math.round(s)));
+}
+
+async function doSearch() {
+  const islandSel = document.getElementById('islandSelect');
+  const zoneSel = document.getElementById('zoneSelect');
+  const sectorSel = document.getElementById('sectorSelect');
+  const countSel = document.getElementById('countSelect');
+  const island = islandSel.value;
+  const zone = zoneSel.value;
+  const sectorId = sectorSel.value;
+  const count = parseInt(countSel.value, 10);
+  const sectorObj = SECTORS.find(s => s.id === sectorId);
+  const btn = document.getElementById('searchBtn');
+  const resultsDiv = document.getElementById('results');
+
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = '‚è≥ Buscando...';
+  resultsDiv.innerHTML = '<div class="loading">Buscando en Google Maps</div>';
+
+  try {
+    await loadGoogleMaps();
+
+    let zonesToSearch = [];
+    if (zone.startsWith('TODA')) {
+      zonesToSearch = (ZONES[island] || []).filter(z => !z.startsWith('TODA')).slice(0, 6);
+    } else {
+      zonesToSearch = [zone];
+    }
+
+    let allResults = [];
+    for (const z of zonesToSearch) {
+      const q = `${sectorObj.query} en ${z}, ${island}, Canarias, Espa√±a`;
+      const { results } = await textSearch(q);
+      allResults = allResults.concat(results);
+      if (allResults.length >= count * 2) break;
+    }
+
+    const seen = new Set();
+    allResults = allResults.filter(r => {
+      if (!r.place_id || seen.has(r.place_id)) return false;
+      seen.add(r.place_id);
+      return true;
+    });
+
+    const top = allResults.slice(0, count);
+    let leads = [];
+
+    if (top.length > 0) {
+      resultsDiv.innerHTML = '<div class="loading">Obteniendo detalles de contacto</div>';
+      const detailed = await Promise.all(top.map(async (r) => {
+        const d = await getDetails(r.place_id);
+        return d || r;
+      }));
+
+      leads = detailed.map((d, i) => {
+        const website = d.website || '';
+        return {
+          id: d.place_id || ('gp_' + Date.now() + '_' + i),
+          name: d.name || 'Sin nombre',
+          phone: d.formatted_phone_number || '',
+          website: website,
+          email: deriveEmail(website),
+          address: d.formatted_address || '',
+          rating: d.rating || 0,
+          reviews: d.user_ratings_total || 0,
+          mapsUrl: d.place_id ? `https://www.google.com/maps/place/?q=place_id:${d.place_id}` : '',
+          zone: zone.startsWith('TODA') ? island : zone,
+          island: island,
+          sector: sectorId,
+          sectorName: sectorObj.name,
+          sectorEmoji: sectorObj.emoji,
+          status: 'new'
+        };
+      });
+    }
+
+    if (leads.length === 0) {
+      resultsDiv.innerHTML = '<div class="loading">Sin resultados en Google, generando muestra local</div>';
+      leads = generateGeneric(sectorObj, zone, island, count);
+    }
+
+    if (state.mode === 'prospects' && leads.length > 0) {
+      resultsDiv.innerHTML = '<div class="loading">Puntuando leads con IA</div>';
+      await scoreProsects(leads);
+      leads.sort((a,b) => (b.score||0) - (a.score||0));
+    }
+
+    leads.forEach(l => {
+      if (isSaved(l.id)) {
+        const saved = state.savedLeads.find(s => s.id === l.id);
+        if (saved && saved.status) l.status = saved.status;
+      }
+    });
+
+    state.leads = leads;
+    renderResults();
+    updateStats();
+  } catch(e) {
+    console.error(e);
+    resultsDiv.innerHTML = `<div class="error">Error: ${escapeHtml(e.message || 'desconocido')}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+    updateSearchButton();
+  }
+}
+
+function applyFilters(leads) {
+  return leads.filter(l => {
+    if (state.filters.noWeb && l.website) return false;
+    if (state.filters.hot && (l.score||0) < 8) return false;
+    if (state.filters.hasPhone && !l.phone) return false;
+    if (state.filters.minRating && (l.rating||0) < 4.5) return false;
+    return true;
+  });
+}
+
+function renderResults() {
+  const div = document.getElementById('results');
+  const filtered = applyFilters(state.leads);
+  if (!state.leads.length) {
+    div.innerHTML = '<div class="empty">Busca para ver resultados</div>';
     return;
   }
-  const iData=ISLANDS[island];
-  iData.zones.forEach((z,i)=>{
-    const o=document.createElement('option');o.value=z;
-    o.textContent=i===0?`🌐 ${z}`:z;
-    if(i===0)o.style.fontWeight='600';
-    sz.appendChild(o);
-  });
-  sz.onchange=checkIslandBadge;
-  checkIslandBadge();
-}
-
-function checkIslandBadge(){
-  const v=document.getElementById('selZona').value;
-  const badge=document.getElementById('islandBadge');
-  const isAll=v.startsWith('TODA')||v.startsWith('TODO');
-  badge.style.display=isAll?'flex':'none';
-  if(isAll){
-    const island=ISLANDS[document.getElementById('selIsland').value];
-    document.getElementById('islandBadgeText').textContent=`Buscando en toda ${island?.label||'la isla'} — todas las zonas`;
+  if (!filtered.length) {
+    div.innerHTML = '<div class="empty">Ning√∫n lead pasa los filtros actuales</div>';
+    return;
   }
-}
-
-// ─── THEME ────────────────────────────────────────────────────────────────────
-function toggleTheme(){isDark=!isDark;localStorage.setItem('pro3_theme',isDark?'dark':'light');applyTheme(isDark);}
-function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');document.getElementById('themeColor').content=dark?'#080C0A':'#F0F4F1';document.getElementById('toggleThumb').textContent=dark?'🌙':'☀️';}
-
-// ─── MODE ────────────────────────────────────────────────────────────────────
-function setMode(m){
-  mode=m;
-  const a=document.getElementById('modeA'),b=document.getElementById('modeB');
-  const btn=document.getElementById('searchBtn'),txt=document.getElementById('searchBtnText');
-  if(m==='prospects'){
-    a.classList.add('active-a');a.classList.remove('active-b');
-    b.classList.remove('active-b');b.classList.add('');
-    btn.className='search-btn btn-prospects';
-    btn.querySelector('svg').style.stroke='var(--bg)';
-    txt.textContent='Buscar clientes potenciales';
+  if (state.mode === 'prospects') {
+    div.innerHTML = filtered.map(l => buildProspectCard(l, false)).join('');
   } else {
-    b.classList.add('active-b');b.classList.remove('active-a');
-    a.classList.remove('active-a');
-    btn.className='search-btn btn-explore';
-    txt.textContent='Explorar empresas de la zona';
+    div.innerHTML = filtered.map(l => buildExploreCard(l)).join('');
   }
+  attachCardHandlers(div);
 }
 
-// ─── NAVIGATION ───────────────────────────────────────────────────────────────
-function showScreen(n){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(v=>v.classList.remove('active'));
-  document.getElementById('screen-'+n).classList.add('active');
-  document.getElementById('nav-'+n).classList.add('active');
-  if(n==='saved')renderSaved();
-}
-function showModal(id){document.getElementById(id).classList.add('open');}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-
-// ─── SEARCH ───────────────────────────────────────────────────────────────────
-// ─── GOOGLE PLACES API ────────────────────────────────────────────────────────
-const GKEY='AIzaSyAaSisTHJOI0KiID4JSTiLCcfD1HGwvfCw';
-
-const SECTOR_QUERY={
-  hosteleria:'restaurantes',restauracion_rapida:'cafeterías bares',catering:'catering banquetes',
-  odontologia:'clínica dental',fisioterapia:'fisioterapia',salud_general:'centro médico clínica',
-  psicologia:'psicólogo psicología',veterinaria:'veterinario clínica veterinaria',
-  optica:'óptica',farmacia:'farmacia',inmobiliaria:'inmobiliaria agencia inmobiliaria',
-  construccion:'empresa construcción obras',reformas:'reformas hogar',
-  fontaneria:'fontanero fontanería',electricidad:'electricista instalaciones eléctricas',
-  climatizacion:'climatización aire acondicionado',carpinteria:'carpintería cerrajería',
-  pintura:'pintura decoración',automocion:'taller mecánico automóvil',
-  concesionarios:'concesionario automóviles',gruas:'grúa asistencia vial',
-  prevencion:'prevención riesgos laborales',seguridad:'empresa seguridad vigilancia',
-  limpieza:'empresa limpieza',gestoria:'gestoría asesoría',abogados:'abogado despacho',
-  educacion:'academia clases idiomas',informatica:'informática tecnología',
-  marketing:'agencia marketing digital publicidad',peluqueria:'peluquería estética belleza',
-  gimnasios:'gimnasio fitness',eventos:'eventos fotografía',
-  transporte:'transporte logística mensajería',alimentacion:'supermercado alimentación',
-  ferreteria:'ferretería materiales construcción',moda:'moda ropa joyería',
-};
-
-// Load Google Maps JS SDK dynamically
-let _mapsLoaded=false;
-let _mapsService=null;
-function loadGoogleMaps(){
-  return new Promise((resolve,reject)=>{
-    if(_mapsLoaded&&window.google?.maps){resolve();return;}
-    window._gmapsCallback=()=>{_mapsLoaded=true;resolve();};
-    const s=document.createElement('script');
-    s.src=`https://maps.googleapis.com/maps/api/js?key=${GKEY}&libraries=places&language=es&callback=_gmapsCallback`;
-    s.onerror=()=>reject(new Error('No se pudo cargar Google Maps'));
-    document.head.appendChild(s);
-  });
-}
-
-function getPlacesService(){
-  if(!_mapsService){
-    const el=document.createElement('div');
-    _mapsService=new google.maps.places.PlacesService(el);
+function renderPipeline() {
+  const div = document.getElementById('pipelineList');
+  if (!state.savedLeads.length) {
+    div.innerHTML = '<div class="empty">A√∫n no has guardado ning√∫n lead</div>';
+    return;
   }
-  return _mapsService;
+  const sorted = [...state.savedLeads].sort((a,b) => (b.score||0) - (a.score||0));
+  div.innerHTML = sorted.map(l => buildProspectCard(l, true)).join('');
+  attachCardHandlers(div);
 }
 
-function textSearchPromise(query){
-  return new Promise((resolve)=>{
-    const svc=getPlacesService();
-    svc.textSearch({query,language:'es'}, (results,status)=>{
-      resolve({results:results||[],status});
-    });
-  });
+function buildProspectCard(l, isSavedView) {
+  const score = l.score || 0;
+  const isHot = score >= 8;
+  const scoreCls = score >= 8 ? 'high' : score >= 6 ? 'mid' : 'low';
+  const tags = [];
+  if (!l.website) tags.push('<span class="tag no-web">Sin web</span>');
+  tags.push(`<span class="tag zone">${escapeHtml(l.zone||'')}</span>`);
+  tags.push(`<span class="tag size">${sizeFromReviews(l.reviews)}</span>`);
+  const wa = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor en Canarias. ¬øTienes 15 min para una demo gratuita?';
+  const waPreview = wa.length > 110 ? wa.slice(0,110) + '‚Ä¶' : wa;
+  const saved = isSaved(l.id);
+  const status = l.status || 'new';
+
+  const breakdown = `
+    <div class="score-breakdown" data-breakdown="${escapeAttr(l.id)}">
+      <div class="score-reason">${escapeHtml(l.scoreReason || 'An√°lisis IA del lead')}</div>
+      <div class="score-points">
+        <span>Email visible <strong>${l.email ? '+3' : '0'}</strong></span>
+        <span>Sin web <strong>${!l.website ? '+2' : '0'}</strong></span>
+        <span>Rese√±as (${l.reviews||0}) <strong>${(l.reviews||0)>500?'+1':'0'}</strong></span>
+        <span>Rating (${(l.rating||0).toFixed(1)}) <strong>${(l.rating||0)>=4.7?'+0.5':'0'}</strong></span>
+      </div>
+    </div>
+  `;
+
+  return `
+    <article class="card ${isHot?'hot':''}" data-id="${escapeAttr(l.id)}">
+      <div class="card-head">
+        <div style="flex:1">
+          <div class="card-name">${escapeHtml(l.name)} ${isHot?'<span class="hot-badge mono">HOT</span>':''}</div>
+        </div>
+        <button class="score ${scoreCls}" data-act="score" data-id="${escapeAttr(l.id)}">
+          <span class="score-val mono">${score||'¬∑'}</span>
+          <span class="score-lbl">Score</span>
+        </button>
+      </div>
+      <div class="tags">${tags.join('')}</div>
+      ${breakdown}
+      <div class="meta">
+        ${l.phone?`<div class="meta-row"><span class="meta-icon">üìû</span><a href="tel:${escapeAttr(l.phone)}">${escapeHtml(l.phone)}</a></div>`:''}
+        ${l.email?`<div class="meta-row"><span class="meta-icon">‚úâÔ∏è</span><a href="mailto:${escapeAttr(l.email)}">${escapeHtml(l.email)}</a></div>`:''}
+        ${l.website?`<div class="meta-row"><span class="meta-icon">üåê</span><a href="${escapeAttr(l.website)}" target="_blank" rel="noopener">${escapeHtml(shortUrl(l.website))}</a></div>`:''}
+        ${l.rating?`<div class="meta-row"><span class="meta-icon">‚≠ê</span><span class="rating">${l.rating.toFixed(1)} <span class="rating-count">(${l.reviews||0})</span></span>${l.mapsUrl?`<a class="maps-link" href="${escapeAttr(l.mapsUrl)}" target="_blank" rel="noopener">üìç Maps</a>`:''}</div>`:''}
+        ${l.address?`<div class="address">${escapeHtml(l.address)}</div>`:''}
+      </div>
+      <div class="wa-preview"><strong>WhatsApp:</strong> ${escapeHtml(waPreview)}</div>
+      <div class="actions">
+        <button class="act-btn ${!l.phone?'disabled':''}" data-act="call" data-id="${escapeAttr(l.id)}">üìû<span>Llamar</span></button>
+        <button class="act-btn wa ${!l.phone?'disabled':''}" data-act="wa" data-id="${escapeAttr(l.id)}">üí¨<span>WhatsApp</span></button>
+        <button class="act-btn ${!l.email?'disabled':''}" data-act="email" data-id="${escapeAttr(l.id)}">‚úâÔ∏è<span>Email</span></button>
+        <button class="act-btn" data-act="copy" data-id="${escapeAttr(l.id)}">üìã<span>Copiar</span></button>
+        <button class="act-btn ${saved?'primary':''}" data-act="save" data-id="${escapeAttr(l.id)}">${saved?'‚òÖ':'‚òÜ'}<span>${saved?'Quitar':'Guardar'}</span></button>
+      </div>
+      <div class="status-row">
+        <button class="status-btn ${status==='new'?'active':''}" data-act="status" data-status="new" data-id="${escapeAttr(l.id)}">Nuevo</button>
+        <button class="status-btn ${status==='contacted'?'active':''}" data-act="status" data-status="contacted" data-id="${escapeAttr(l.id)}">Contactado</button>
+        <button class="status-btn ${status==='interested'?'active':''}" data-act="status" data-status="interested" data-id="${escapeAttr(l.id)}">Interesado</button>
+        <button class="status-btn ${status==='discarded'?'active':''}" data-act="status" data-status="discarded" data-id="${escapeAttr(l.id)}">Descartar</button>
+      </div>
+    </article>
+  `;
 }
 
-function getDetailsPromise(placeId){
-  return new Promise((resolve)=>{
-    const svc=getPlacesService();
-    svc.getDetails({
-      placeId,
-      fields:['name','formatted_phone_number','website','rating','user_ratings_total','formatted_address','place_id'],
-      language:'es'
-    },(result,status)=>{
-      resolve(status==='OK'?result:null);
-    });
-  });
+function buildExploreCard(l) {
+  return `
+    <article class="card" data-id="${escapeAttr(l.id)}">
+      <div class="card-head">
+        <div style="flex:1">
+          <div class="card-name">${escapeHtml(l.name)}</div>
+        </div>
+        ${l.rating?`<div style="text-align:right"><div class="rating mono" style="font-size:14px">‚≠ê ${l.rating.toFixed(1)}</div><div class="rating-count">${l.reviews||0} rese√±as</div></div>`:''}
+      </div>
+      <div class="tags"><span class="tag zone">${escapeHtml(l.zone||'')}</span></div>
+      <div class="meta">
+        ${l.phone?`<div class="meta-row"><span class="meta-icon">üìû</span><a href="tel:${escapeAttr(l.phone)}">${escapeHtml(l.phone)}</a></div>`:''}
+        ${l.email?`<div class="meta-row"><span class="meta-icon">‚úâÔ∏è</span><a href="mailto:${escapeAttr(l.email)}">${escapeHtml(l.email)}</a></div>`:''}
+        ${l.website?`<div class="meta-row"><span class="meta-icon">üåê</span><a href="${escapeAttr(l.website)}" target="_blank" rel="noopener">${escapeHtml(shortUrl(l.website))}</a></div>`:''}
+        ${l.address?`<div class="meta-row"><span class="meta-icon">üìç</span><span>${escapeHtml(l.address)}</span></div>`:''}
+      </div>
+      <div class="actions mode-b">
+        <button class="act-btn ${!l.phone?'disabled':''}" data-act="call" data-id="${escapeAttr(l.id)}">üìû<span>Llamar</span></button>
+        <button class="act-btn wa ${!l.phone?'disabled':''}" data-act="wa" data-id="${escapeAttr(l.id)}">üí¨<span>WhatsApp</span></button>
+        <button class="act-btn ${!l.website?'disabled':''}" data-act="web" data-id="${escapeAttr(l.id)}">üåê<span>Web</span></button>
+        <button class="act-btn ${!l.mapsUrl?'disabled':''}" data-act="maps" data-id="${escapeAttr(l.id)}">üó∫Ô∏è<span>Maps</span></button>
+        <button class="act-btn" data-act="copy" data-id="${escapeAttr(l.id)}">üìã<span>Copiar</span></button>
+      </div>
+    </article>
+  `;
 }
 
-function placeToLead(p, zona, sector){
-  const phone=p.formatted_phone_number||'';
-  const cleanPhone=phone.startsWith('+')?phone:(phone?'+34 '+phone.replace(/^[\s0]+/,''):'');
-  return {
-    n:name,
-    a:(p.formatted_address||p.vicinity||'').replace(', España','').replace(', Spain',''),
-    p:cleanPhone,
-    e:'',
-    w:web?web.replace(/^https?:\/\//,'').replace(/\/$/,''):'',
-    r:p.rating||0,
-    rv:p.user_ratings_total||0,
-    em:'desconocido',ig:false,fb:false,ob:false,
-    zona,sector,
-    placeId:p.place_id,
-    _gmaps:placeId?`https://www.google.com/maps/place/?q=place_id:${placeId}`:'',
-  };
+function shortUrl(u) {
+  try {
+    const url = new URL(u);
+    return url.hostname.replace(/^www\./,'');
+  } catch(e) { return u; }
 }
 
-async function gSearch(query){
-  try{
-    const {Place}=await google.maps.importLibrary('places');
-    const req={textQuery:query,fields:['displayName','formattedAddress','nationalPhoneNumber','websiteURI','rating','userRatingCount','id'],language:'es'};
-    const {places}=await Place.searchByText(req);
-    return {results:places||[],status:'OK'};
-  }catch(e){console.warn('gSearch:',e.message);return {results:[],status:'ERROR'};}
+function findLead(id) {
+  return state.leads.find(l => l.id === id) || state.savedLeads.find(l => l.id === id);
 }
 
-async function gDetails(placeId){
-  try{
-    const {Place}=await google.maps.importLibrary('places');
-    const place=new Place({id:placeId});
-    await place.fetchFields({fields:['displayName','formattedAddress','nationalPhoneNumber','websiteURI','rating','userRatingCount','id']});
-    return place;
-  }catch(e){return null;}
-}
-
-async function doSearch(){
-  const island=document.getElementById('selIsland').value;
-  const zona=document.getElementById('selZona').value;
-  const sector=document.getElementById('selSector').value;
-  const limit=parseInt(document.getElementById('selLimit').value);
-  if(!island){showToast('Selecciona una isla primero');return;}
-  const btn=document.getElementById('searchBtn');
-  btn.disabled=true;
-  const secLabel=SECTORS.find(s=>s.id===sector)?.label||sector;
-  const isAll=zona.startsWith('TODA')||zona.startsWith('TODO');
-  const iData=ISLANDS[island];
-  const area=document.getElementById('leadsArea');
-  const secQuery=SECTOR_QUERY[sector]||secLabel.split(' ').slice(1).join(' ');
-  const zoneName=isAll?iData.label:zona.split('—')[1]?.trim()||zona;
-
-  area.innerHTML=`<div class="loading"><div class="spin-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><div><strong style="font-size:14px;display:block;margin-bottom:4px">Buscando en Google Maps...</strong><span style="font-size:12px;color:var(--text3)">${secQuery} en ${zoneName}</span><div class="ldots"><span></span><span></span><span></span></div></div></div>`;
-
-  let raw=[];
-  let usedGoogle=false;
-  try{
-    await loadGoogleMaps();
-    const zonesToSearch=isAll?iData.zones.slice(1,5):[zona];
-    const seen=new Set();
-    for(const z of zonesToSearch){
-      const city=(z.split('—')[1]||z.replace(/^(TODA|TODO)\s+/i,'')).trim();
-      const q=secQuery+' '+city+' Canarias';
-      const {results,status}=await textSearchPromise(q);
-      if(status==='OK'&&results.length){
-        usedGoogle=true;
-        const slice=results.slice(0,isAll?Math.ceil(limit/zonesToSearch.length):limit);
-        for(const p of slice){
-          if(seen.has(p.place_id))continue;
-          seen.add(p.place_id);
-          const det=await getDetailsPromise(p.place_id);
-          raw.push(placeToLead(det||p,z,sector));
+function attachCardHandlers(container) {
+  container.querySelectorAll('[data-act]').forEach(el => {
+    el.onclick = (ev) => {
+      ev.preventDefault();
+      const act = el.dataset.act;
+      const id = el.dataset.id;
+      const l = findLead(id);
+      if (!l) return;
+      switch (act) {
+        case 'score': {
+          const bd = container.querySelector(`[data-breakdown="${CSS.escape(id)}"]`);
+          if (bd) bd.classList.toggle('show');
+          break;
         }
+        case 'call':
+          if (l.phone) window.location.href = 'tel:' + l.phone.replace(/\s/g,'');
+          break;
+        case 'wa': {
+          if (!l.phone) return;
+          const clean = l.phone.replace(/[^\d]/g,'');
+          const withCode = clean.startsWith('34') ? clean : ('34' + clean);
+          const msg = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor en Canarias. ¬øTienes 15 min para una demo gratuita?';
+          window.open(`https://wa.me/${withCode}?text=${encodeURIComponent(msg)}`, '_blank');
+          break;
+        }
+        case 'email':
+          if (l.email) window.location.href = 'mailto:' + l.email;
+          break;
+        case 'web':
+          if (l.website) window.open(l.website, '_blank');
+          break;
+        case 'maps':
+          if (l.mapsUrl) window.open(l.mapsUrl, '_blank');
+          break;
+        case 'copy': {
+          const txt = `${l.name}\n${l.phone||''}\n${l.email||''}\n${l.website||''}\n${l.address||''}`;
+          navigator.clipboard.writeText(txt).then(() => showToast('Copiado al portapapeles'));
+          break;
+        }
+        case 'save':
+          toggleSave(l);
+          break;
+        case 'status':
+          updateLeadStatus(id, el.dataset.status);
+          if (state.currentTab === 'pipeline') renderPipeline();
+          else renderResults();
+          break;
       }
-      if(zonesToSearch.length>1)await new Promise(r=>setTimeout(r,300));
-    }
-  }catch(e){console.warn('Places SDK:',e.message);}
-
-  if(!raw.length){
-    const zz=isAll?iData.zones.slice(1):[zona];
-    for(const z of zz){
-      const key=sector+'|'+z;
-      if(DB[key])DB[key].forEach(b=>raw.push({...b,zona:z}));
-      else{const mk=Object.keys(DB).find(k=>k.startsWith(sector+'|')&&k.toLowerCase().includes(z.split('—')[0].trim().toLowerCase()));if(mk)DB[mk].forEach(b=>raw.push({...b,zona:z}));}
-    }
-    if(!raw.length)raw=generateGeneric(sector,zoneName,limit).map(b=>({...b,zona:zona||iData.label}));
-    if(!usedGoogle)showToast('⚠️ Usando datos demo — conecta Google Places');
-  }
-
-  const s2=new Set();
-  raw=raw.filter(b=>{const k=(b.n||'').toLowerCase();if(s2.has(k))return false;s2.add(k);return true;}).slice(0,limit);
-
-  if(mode==='explore'){
-    allLeads=raw.map((b,i)=>({...b,id:Date.now()+i,sector,waMsg:WA[sector]||WA.hosteleria}));
-    renderExplore();
-  }else{
-    await scoreProsects(raw,sector,secLabel,zona||iData.label);
-  }
-  updateStats();
-  btn.disabled=false;
-}
-
-// Score for prospects mode
-async function scoreProsects(raw,sector,secLabel,zonaLabel){
-  try{
-    const lt=raw.map((l,i)=>`${i+1}. ${l.n} | Rating: ${l.r} | ${l.rv} reseñas | Web: ${l.w?'sí':'no'} | Email: ${l.e?'sí':'no'} | Booking: ${l.ob?'sí':'no'} | IG: ${l.ig?'sí':'no'}`).join('\n');
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'x-api-key':KEY,'anthropic-version':'2023-06-01','content-type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-5-20250929',max_tokens:500,
-        messages:[{role:'user',content:`Evalúa ${raw.length} negocios de "${secLabel}" en Canarias para automatización IA. Sin web/email/booking/redes = más necesidad = score más alto. Score 1-10. Responde SOLO JSON: [{"s":8,"r":"Sin web ni email"},...].\n${lt}`}]})
-    });
-    const data=await res.json();
-    const txt=data.content?.[0]?.text||'[]';
-    const match=txt.match(/\[[\s\S]*?\]/);
-    let scores=[];
-    if(match){try{scores=JSON.parse(match[0]);}catch{}}
-    allLeads=raw.map((l,i)=>({...l,score:scores[i]?.s||calcScore(l),scoreReason:scores[i]?.r||'Calculado automáticamente',sector,status:'nuevo',id:Date.now()+i,waMsg:WA[sector]||WA.hosteleria}));
-  }catch(e){
-    allLeads=raw.map((l,i)=>({...l,score:calcScore(l),scoreReason:'Calculado localmente',sector,status:'nuevo',id:Date.now()+i,waMsg:WA[sector]||WA.hosteleria}));
-  }
-  if(sortFilter==='rating')allLeads.sort((a,b)=>b.r-a.r);
-  else if(sortFilter==='reviews')allLeads.sort((a,b)=>b.rv-a.rv);
-  else allLeads.sort((a,b)=>b.score-a.score);
-  renderProspects();
-}
-
-function calcScore(l){let s=5;if(!l.w)s+=2;if(!l.e)s+=1;if(!l.ob)s+=1;if(!l.ig&&!l.fb)s+=1;if(l.rv>500)s+=.5;if(l.r>=4.7)s+=.5;return Math.min(10,Math.round(s));}
-
-function generateGeneric(sector,zona,limit){
-  const sl=SECTORS.find(s=>s.id===sector)?.label.split(' ').slice(1).join(' ')||sector;
-  const city=zona.split('—')[1]?.trim()||zona.split(' ')[0];
-  return Array.from({length:Math.min(limit,6)},(_,i)=>({
-    n:`${sl} ${city} ${['Central','Norte','Sur','Express','Plus','Pro'][i]||i+1}`,
-    a:`C/ Ejemplo ${10+i*5}, ${city}`,
-    p:`+34 928 ${String(300+i*41).padStart(3,'0')} ${String(100+i*27).padStart(3,'0')}`,
-    e:i<2?`info@${sector.slice(0,5)}${city.slice(0,3).toLowerCase()}${i}.es`:'',
-    w:i===0?`${sector.slice(0,5)}${city.slice(0,4).toLowerCase()}.es`:'',
-    r:Number((3.9+Math.random()*1).toFixed(1)),rv:Math.floor(40+Math.random()*500),
-    em:i<2?'mediano':'pequeño',ig:i===0,fb:i<2,ob:false,zona,
-  }));
-}
-
-// ─── RENDER PROSPECTS ────────────────────────────────────────────────────────
-function renderProspects(){
-  const area=document.getElementById('leadsArea');
-  let fl=allLeads.filter(l=>l.score>=scoreFilter);
-  if(stFilter!=='all')fl=fl.filter(l=>l.status===stFilter);
-  if(webFilter==='noweb')fl=fl.filter(l=>!l.w);
-  if(webFilter==='noemail')fl=fl.filter(l=>!l.e);
-  if(webFilter==='email')fl=fl.filter(l=>l.e);
-  const hot=fl.filter(l=>l.score>=8).length;
-  area.innerHTML=`<div class="leads-header">
-    <span class="leads-count">${fl.length} leads${hot?` · <span>${hot} calientes</span>`:''}</span>
-    <div class="leads-actions">
-      <div class="chip hot" onclick="saveAll()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Guardar todo</div>
-      <div class="chip" onclick="exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>CSV</div>
-    </div>
-  </div>`+fl.map(l=>buildProspectCard(l,false)).join('');
-}
-
-function buildProspectCard(l,isSaved){
-  const sc=l.score||0;
-  const scClass=sc>=9?'sc-hot':sc>=7?'sc-warm':'sc-cold';
-  const snClass=sc>=9?'sn-hot':sc>=7?'sn-warm':'sn-cold';
-  const ph=l.p?.replace(/\s/g,'')||'';
-  const wa=ph.replace('+','');
-  const waText=encodeURIComponent(l.waMsg||WA.hosteleria);
-  return `<div class="lead-card ${sc>=8?'hot-card':''}" id="card-${l.id}">
-    <div class="lc-main">
-      <div class="lc-top">
-        <div style="flex:1;min-width:0">
-          <div class="lc-name">${l.n}${sc>=8?'<span class="hot-badge">HOT</span>':''}</div>
-          <div class="lc-tags">
-            ${!l.w?'<span class="lc-tag no-web">Sin web</span>':''}
-            ${l.em?`<span class="lc-tag">${l.em}</span>`:''}
-            ${l.zona&&l.zona!==document.getElementById('selZona').value?`<span class="zone-badge">${l.zona.split('—')[0].trim()}</span>`:''}
-          </div>
-          <div class="lc-addr"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${l.a}</div>
-        </div>
-        <div class="score-box ${scClass}" onclick="toggleBD(${l.id})">
-          <span class="sn ${snClass}">${sc}</span><span class="sl">/10 ▾</span>
-        </div>
-      </div>
-      <div class="score-breakdown" id="sb-${l.id}">
-        <div class="sb-row"><span>Motivo IA</span><span class="sb-reason">${l.scoreReason||'—'}</span></div>
-        ${!l.w?'<div class="sb-row"><span>Sin página web</span><span class="p">+2 pts</span></div>':''}
-        ${!l.e?'<div class="sb-row"><span>Sin email visible</span><span class="p">+1 pt</span></div>':''}
-        ${!l.ob?'<div class="sb-row"><span>Sin reservas online</span><span class="p">+1 pt</span></div>':''}
-        ${!l.ig&&!l.fb?'<div class="sb-row"><span>Sin redes sociales</span><span class="p">+1 pt</span></div>':''}
-        <div class="sb-row"><span>Rating</span><span class="${l.r>=4.7?'p':'n'}">${l.r}★ (${(l.rv||0).toLocaleString()})</span></div>
-      </div>
-      <div class="lc-meta">
-        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>${l.p}</div>
-        ${l.e?`<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:${l.e}">${l.e}</a></div>`:''}
-        ${l.w?`<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg><a href="https://${l.w}" target="_blank">${l.w}</a></div>`:''}
-        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>${l.r} (${(l.rv||0).toLocaleString()})</div>
-      </div>
-      <div class="wa-preview"><div class="wa-label">Mensaje WhatsApp</div>${l.waMsg||WA.hosteleria}</div>
-      <div class="lc-contact">
-        <div class="cbtn cb-call" onclick="window.location.href='tel:${l.p}'"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72"/></svg><span>Llamar</span></div>
-        <div class="cbtn cb-wa" onclick="window.open('https://wa.me/${wa}?text=${waText}','_blank')"><svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6"/></svg><span>WhatsApp</span></div>
-        ${l.e?`<div class="cbtn cb-email" onclick="window.location.href='mailto:${l.e}?subject=Demo%20gratuita%20Tryvor%20IA'"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Email</span></div>`:`<div class="cbtn" style="opacity:.25"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12"/></svg><span>Sin email</span></div>`}
-        <div class="cbtn" onclick="copyLead(${l.id})"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copiar</span></div>
-        <div class="cbtn ${isSaved?'cb-del':'cb-save'}" onclick="${isSaved?`removeSaved(${l.id})`:`saveLead(${l.id})`}">
-          ${isSaved?`<svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg><span style="color:var(--red)">Quitar</span>`:`<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span>Guardar</span>`}
-        </div>
-      </div>
-    </div>
-    <div class="status-row">
-      <button class="stbtn st-n ${l.status==='nuevo'?'on':''}" onclick="${isSaved?`setSS(${l.id},'nuevo')`:`setStatus(${l.id},'nuevo')`}">Nuevo</button>
-      <button class="stbtn st-c ${l.status==='contactado'?'on':''}" onclick="${isSaved?`setSS(${l.id},'contactado')`:`setStatus(${l.id},'contactado')`}">Contactado</button>
-      <button class="stbtn st-i ${l.status==='interesado'?'on':''}" onclick="${isSaved?`setSS(${l.id},'interesado')`:`setStatus(${l.id},'interesado')`}">Interesado</button>
-      <button class="stbtn st-d ${l.status==='descartado'?'on':''}" onclick="${isSaved?`setSS(${l.id},'descartado')`:`setStatus(${l.id},'descartado')`}">Descartar</button>
-    </div>
-  </div>`;
-}
-
-// ─── RENDER EXPLORE (Mode B — no scores) ─────────────────────────────────────
-function renderExplore(){
-  const area=document.getElementById('leadsArea');
-  const fl=allLeads;
-  area.innerHTML=`<div class="leads-header">
-    <span class="leads-count">${fl.length} empresas encontradas</span>
-    <div class="leads-actions">
-      <div class="chip blue" onclick="exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar CSV</div>
-    </div>
-  </div>`+fl.map(l=>buildExploreCard(l)).join('');
-}
-
-function buildExploreCard(l){
-  const ph=l.p?.replace(/\s/g,'')||'';
-  const wa=ph.replace('+','');
-  const secLabel=SECTORS.find(s=>s.id===l.sector)?.label.split(' ').slice(1).join(' ')||l.sector;
-  return `<div class="explore-card">
-    <div class="ec-left">
-      <div class="ec-name">${l.n}</div>
-      <div class="ec-zone"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${l.zona||'—'}</div>
-      <div class="ec-meta">
-        <div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>${l.p}</div>
-        ${l.e?`<div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:${l.e}">${l.e}</a></div>`:''}
-        ${l.w?`<div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg><a href="https://${l.w}" target="_blank">${l.w}</a></div>`:''}
-        <div class="ec-meta-item">${l.a}</div>
-      </div>
-      <div class="ec-actions">
-        <div class="ec-btn call" onclick="window.location.href='tel:${l.p}'"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>Llamar</div>
-        <div class="ec-btn wa" onclick="window.open('https://wa.me/${wa}','_blank')"><svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7"/></svg>WhatsApp</div>
-        ${l.w?`<div class="ec-btn web" onclick="window.open('https://${l.w}','_blank')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Web</div>`:''}
-        ${l._gmaps?`<div class="ec-btn" style="border-color:rgba(255,179,0,.28);color:var(--amber)" onclick="window.open('${l._gmaps}','_blank')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Maps</div>`:''}
-        <div class="ec-btn" onclick="copyExplore(${l.id})"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar</div>
-      </div>
-    </div>
-    <div class="ec-right">
-      <div class="ec-rating"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>${l.r}</div>
-      <div class="ec-reviews">${(l.rv||0).toLocaleString()} reseñas</div>
-      <div class="ec-sector-tag">${secLabel}</div>
-    </div>
-  </div>`;
-}
-
-function copyExplore(id){
-  const l=allLeads.find(l=>l.id===id);if(!l)return;
-  const t=`${l.n}\n📍 ${l.a}\n📞 ${l.p}${l.e?'\n✉️ '+l.e:''}${l.w?'\n🌐 '+l.w:''}\n⭐ ${l.r} (${l.rv} reseñas)`;
-  navigator.clipboard.writeText(t).then(()=>showToast('Copiado ✓'));
-}
-
-// ─── ACTIONS ──────────────────────────────────────────────────────────────────
-function toggleBD(id){document.getElementById('sb-'+id)?.classList.toggle('open');}
-function setStatus(id,st){const l=allLeads.find(l=>l.id===id);if(l){l.status=st;renderProspects();updateStats();}const s=savedLeads.find(l=>l.id===id);if(s){s.status=st;save();}}
-function setSS(id,st){const l=savedLeads.find(l=>l.id===id);if(l){l.status=st;save();renderSaved();updateStats();}}
-function saveLead(id){const l=allLeads.find(l=>l.id===id);if(!l)return;if(savedLeads.find(s=>s.id===id)){showToast('Ya guardado');return;}savedLeads.unshift({...l});save();updateStats();updateSavedBadge();showToast('Guardado ✓');}
-function saveAll(){let n=0;allLeads.forEach(l=>{if(!savedLeads.find(s=>s.id===l.id)){savedLeads.unshift({...l});n++;}});save();updateStats();updateSavedBadge();showToast(n+' leads guardados ✓');}
-function removeSaved(id){savedLeads=savedLeads.filter(l=>l.id!==id);save();renderSaved();updateStats();updateSavedBadge();}
-function clearSaved(){if(confirm('¿Eliminar todos los leads guardados?')){savedLeads=[];save();renderSaved();updateStats();updateSavedBadge();}}
-function save(){localStorage.setItem('pro3_leads',JSON.stringify(savedLeads));}
-function copyLead(id){
-  const l=allLeads.find(l=>l.id===id)||savedLeads.find(l=>l.id===id);if(!l)return;
-  const t=`${l.n}\n📍 ${l.a}\n📞 ${l.p}${l.e?'\n✉️ '+l.e:''}${l.w?'\n🌐 '+l.w:''}\n⭐ ${l.r} (${l.rv} reseñas)\nScore IA: ${l.score||'—'}/10\n\n${l.waMsg||''}`;
-  navigator.clipboard.writeText(t).then(()=>showToast('Copiado ✓'));
-}
-
-function renderSaved(){
-  const list=document.getElementById('savedList');
-  if(!savedLeads.length){list.innerHTML=`<div class="empty"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><div class="empty-title">Pipeline vacío</div><div class="empty-desc">Guarda leads desde el modo "Clientes potenciales" para gestionarlos aquí.</div></div>`;return;}
-  list.innerHTML=savedLeads.map(l=>buildProspectCard(l,true)).join('');
-}
-
-// ─── FILTERS ──────────────────────────────────────────────────────────────────
-function setScoreFilter(v){scoreFilter=v;document.querySelectorAll('[id^="f"]').forEach(e=>e.classList.remove('on'));document.getElementById('f'+v)?.classList.add('on');if(allLeads.length&&mode==='prospects')renderProspects();}
-function setStFilter(v){stFilter=v;document.querySelectorAll('[id^="fs-"]').forEach(e=>e.classList.remove('on'));document.getElementById('fs-'+v)?.classList.add('on');if(allLeads.length&&mode==='prospects')renderProspects();}
-function setWebFilter(v){webFilter=v;document.querySelectorAll('[id^="fw-"]').forEach(e=>e.classList.remove('on'));document.getElementById('fw-'+v)?.classList.add('on');if(allLeads.length&&mode==='prospects')renderProspects();}
-function setSortFilter(v){sortFilter=v;document.querySelectorAll('[id^="sort-"]').forEach(e=>e.classList.remove('on'));document.getElementById('sort-'+v)?.classList.add('on');}
-
-// ─── STATS ────────────────────────────────────────────────────────────────────
-function updateStats(){
-  const all=[...allLeads,...savedLeads.filter(s=>!allLeads.find(a=>a.id===s.id))];
-  const u=[...new Map(all.map(l=>[l.id,l])).values()];
-  document.getElementById('statTotal').textContent=u.length;
-  document.getElementById('statHot').textContent=u.filter(l=>l.score>=8).length;
-  document.getElementById('statCont').textContent=u.filter(l=>l.status==='contactado').length;
-  document.getElementById('statInt').textContent=u.filter(l=>l.status==='interesado').length;
-}
-function updateSavedBadge(){const b=document.getElementById('savedBadge');if(savedLeads.length){b.style.display='flex';b.textContent=savedLeads.length;}else b.style.display='none';}
-
-// ─── EXPORT ───────────────────────────────────────────────────────────────────
-function exportCSV(){
-  const leads=allLeads.length?allLeads:savedLeads;
-  if(!leads.length){showToast('No hay datos para exportar');return;}
-  const isEx=mode==='explore'&&allLeads.length;
-  const headers=isEx?['Negocio','Sector','Zona','Teléfono','Email','Web','Rating','Reseñas','Dirección']:['Negocio','Sector','Zona','Teléfono','Email','Web','Rating','Reseñas','Empleados','Score IA','Razón Score','Estado','Dirección','Instagram','Facebook','Reservas Online','Mensaje WhatsApp'];
-  const rows=[headers];
-  leads.forEach(l=>{
-    if(isEx) rows.push([l.n,l.sector||'',l.zona||'',l.p||'',l.e||'',l.w||'',l.r||'',l.rv||'',l.a||'']);
-    else rows.push([l.n,l.sector||'',l.zona||'',l.p||'',l.e||'',l.w||'',l.r||'',l.rv||'',l.em||'',l.score||'',l.scoreReason||'',l.status||'',l.a||'',l.ig?'Sí':'No',l.fb?'Sí':'No',l.ob?'Sí':'No',l.waMsg||'']);
+    };
   });
-  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=`prospector_${mode}_${new Date().toISOString().slice(0,10)}.csv`;a.click();URL.revokeObjectURL(url);
-  showToast('CSV exportado ✓');
 }
 
-// ─── TOAST ────────────────────────────────────────────────────────────────────
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function exportCSV() {
+  const all = state.currentTab === 'pipeline' ? state.savedLeads : state.leads;
+  if (!all.length) { showToast('Nada que exportar'); return; }
+  const headers = ['Nombre','Tel√©fono','Email','Web','Direcci√≥n','Zona','Sector','Score','Status','Rating','Rese√±as'];
+  const rows = all.map(l => [
+    l.name||'', l.phone||'', l.email||'', l.website||'', l.address||'',
+    l.zone||'', l.sectorName||l.sector||'', l.score||'', l.status||'', l.rating||'', l.reviews||''
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['Ôªø' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `prospector_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('CSV descargado');
+}
 
-// PWA
-const mb=new Blob([JSON.stringify({name:'Prospector AI Canarias',short_name:'Prospector',theme_color:isDark?'#080C0A':'#F0F4F1',background_color:isDark?'#080C0A':'#F0F4F1',display:'standalone',start_url:'.',icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2300E676'/><text y='.9em' font-size='65' x='18'>📍</text></svg>",sizes:'192x192'}]})],{type:'application/json'});
-const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(mb);document.head.appendChild(ml);
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeBtn').textContent = theme === 'dark' ? 'üåô' : '‚òÄÔ∏è';
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#080C0A' : '#F0F4F1');
+  try { localStorage.setItem(THEME_KEY, theme); } catch(e) {}
+}
+
+function switchTab(tab) {
+  state.currentTab = tab;
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tab + 'Tab').classList.add('active');
+  document.querySelector(`.nav-btn[data-tab="${tab}"]`).classList.add('active');
+  if (tab === 'pipeline') renderPipeline();
+  updateStats();
+}
+
+function init() {
+  loadSaved();
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    setTheme(saved || 'dark');
+  } catch(e) { setTheme('dark'); }
+
+  populateIslands();
+  populateZones();
+  populateSectors();
+  updateSearchButton();
+  updateStats();
+
+  document.getElementById('islandSelect').addEventListener('change', populateZones);
+  document.getElementById('zoneSelect').addEventListener('change', updateIslandBadge);
+
+  document.querySelectorAll('.mode-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.mode-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      state.mode = b.dataset.mode;
+      updateSearchButton();
+      if (state.leads.length) renderResults();
+    });
+  });
+
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.addEventListener('click', () => switchTab(b.dataset.tab));
+  });
+
+  document.getElementById('searchBtn').addEventListener('click', doSearch);
+
+  document.getElementById('themeBtn').addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+
+  document.getElementById('csvBtn').addEventListener('click', exportCSV);
+
+  document.getElementById('filterBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('filtersPanel').classList.toggle('show');
+  });
+
+  document.addEventListener('click', (e) => {
+    const panel = document.getElementById('filtersPanel');
+    if (!panel.contains(e.target) && e.target.id !== 'filterBtn') {
+      panel.classList.remove('show');
+    }
+  });
+
+  ['filterNoWeb','filterHot','filterHasPhone','filterMinRating'].forEach(id => {
+    document.getElementById(id).addEventListener('change', (e) => {
+      const key = id.replace('filter','').replace(/^./, c => c.toLowerCase());
+      state.filters[key] = e.target.checked;
+      if (state.currentTab === 'search') renderResults();
+      else renderPipeline();
+    });
+  });
+
+  document.getElementById('clearAllBtn').addEventListener('click', () => {
+    if (!state.savedLeads.length) return;
+    if (confirm('¬øEliminar todos los leads guardados?')) {
+      state.savedLeads = [];
+      persistSaved();
+      renderPipeline();
+      updateStats();
+      showToast('Pipeline vaciado');
+    }
+  });
+
+  document.getElementById('results').innerHTML = '<div class="empty">Selecciona zona y sector, luego pulsa buscar</div>';
+}
+
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
