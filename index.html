@@ -863,6 +863,24 @@ function placeToLead(p, zona, sector){
   };
 }
 
+async function gSearch(query){
+  try{
+    const {Place}=await google.maps.importLibrary('places');
+    const req={textQuery:query,fields:['displayName','formattedAddress','nationalPhoneNumber','websiteURI','rating','userRatingCount','id'],language:'es'};
+    const {places}=await Place.searchByText(req);
+    return {results:places||[],status:'OK'};
+  }catch(e){console.warn('gSearch:',e.message);return {results:[],status:'ERROR'};}
+}
+
+async function gDetails(placeId){
+  try{
+    const {Place}=await google.maps.importLibrary('places');
+    const place=new Place({id:placeId});
+    await place.fetchFields({fields:['displayName','formattedAddress','nationalPhoneNumber','websiteURI','rating','userRatingCount','id']});
+    return place;
+  }catch(e){return null;}
+}
+
 async function doSearch(){
   const island=document.getElementById('selIsland').value;
   const zona=document.getElementById('selZona').value;
