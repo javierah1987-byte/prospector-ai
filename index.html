@@ -18,7 +18,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-u
 .mono{font-family:'JetBrains Mono',monospace}
 .header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .logo{font-size:18px;font-weight:700;color:var(--accent);margin:0;letter-spacing:-0.4px}
-.logo::before{content:"‚óè";margin-right:6px;font-size:10px;vertical-align:middle;animation:pulse 2s infinite}
+.logo::before{content:"●";margin-right:6px;font-size:10px;vertical-align:middle;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .header-actions{display:flex;gap:6px}
 .icon-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:10px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
@@ -150,9 +150,9 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
     </div>
     <div class="filters-panel" id="filtersPanel">
       <label class="filter-item"><input type="checkbox" id="filterNoWeb"> Solo sin web</label>
-      <label class="filter-item"><input type="checkbox" id="filterHot"> Solo calientes (‚â•8)</label>
-      <label class="filter-item"><input type="checkbox" id="filterHasPhone" checked> Con tel√©fono</label>
-      <label class="filter-item"><input type="checkbox" id="filterMinRating"> Rating ‚â• 4.5</label>
+      <label class="filter-item"><input type="checkbox" id="filterHot"> Solo calientes (≥8)</label>
+      <label class="filter-item"><input type="checkbox" id="filterHasPhone" checked> Con teléfono</label>
+      <label class="filter-item"><input type="checkbox" id="filterMinRating"> Rating ≥ 4.5</label>
     </div>
   </header>
 
@@ -184,7 +184,7 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
           <select id="sectorSelect"></select>
         </div>
         <div class="select-wrap">
-          <label>N√∫mero de resultados</label>
+          <label>Número de resultados</label>
           <select id="countSelect">
             <option value="8">8 leads</option>
             <option value="12" selected>12 leads</option>
@@ -253,101 +253,101 @@ function icon(name, size, filled) {
 }
 
 const ZONES = {
-  'Gran Canaria': ['TODA Gran Canaria','Las Palmas ‚Äî Centro/Triana','Las Palmas ‚Äî Mesa y L√≥pez','Las Palmas ‚Äî Vegueta','Las Palmas ‚Äî Las Canteras','Las Palmas ‚Äî Ciudad Alta','Telde','Santa Luc√≠a','Arucas','G√°ldar','Ag√ºimes','Vecindario','Playa del Ingl√©s','Maspalomas','Puerto Rico','Mog√°n'],
-  'Lanzarote': ['TODA Lanzarote','Arrecife','Puerto del Carmen','Costa Teguise','Playa Blanca','T√≠as','Yaiza','San Bartolom√©','Teguise','Har√≠a','Tinajo'],
-  'Tenerife': ['TODA Tenerife','Santa Cruz de Tenerife','La Laguna','La Orotava','Puerto de la Cruz','Adeje','Arona','Los Cristianos','Playa de las Am√©ricas','Costa Adeje','Granadilla de Abona','G√º√≠mar','Icod de los Vinos','Tacoronte','Candelaria'],
-  'Fuerteventura': ['TODA Fuerteventura','Puerto del Rosario','Corralejo','Caleta de Fuste','Costa Calma','Morro Jable','Gran Tarajal','Antigua','La Oliva','P√°jara','Tuineje'],
-  'La Palma': ['TODA La Palma','Santa Cruz de La Palma','Los Llanos de Aridane','Tazacorte','El Paso','Bre√±a Alta','Bre√±a Baja','Mazo','Fuencaliente','San Andr√©s y Sauces','Barlovento'],
-  'La Gomera': ['TODA La Gomera','San Sebasti√°n de La Gomera','Valle Gran Rey','Hermigua','Agulo','Vallehermoso','Alajer√≥','Playa de Santiago'],
+  'Gran Canaria': ['TODA Gran Canaria','Las Palmas — Centro/Triana','Las Palmas — Mesa y López','Las Palmas — Vegueta','Las Palmas — Las Canteras','Las Palmas — Ciudad Alta','Telde','Santa Lucía','Arucas','Gáldar','Agüimes','Vecindario','Playa del Inglés','Maspalomas','Puerto Rico','Mogán'],
+  'Lanzarote': ['TODA Lanzarote','Arrecife','Puerto del Carmen','Costa Teguise','Playa Blanca','Tías','Yaiza','San Bartolomé','Teguise','Haría','Tinajo'],
+  'Tenerife': ['TODA Tenerife','Santa Cruz de Tenerife','La Laguna','La Orotava','Puerto de la Cruz','Adeje','Arona','Los Cristianos','Playa de las Américas','Costa Adeje','Granadilla de Abona','Güímar','Icod de los Vinos','Tacoronte','Candelaria'],
+  'Fuerteventura': ['TODA Fuerteventura','Puerto del Rosario','Corralejo','Caleta de Fuste','Costa Calma','Morro Jable','Gran Tarajal','Antigua','La Oliva','Pájara','Tuineje'],
+  'La Palma': ['TODA La Palma','Santa Cruz de La Palma','Los Llanos de Aridane','Tazacorte','El Paso','Breña Alta','Breña Baja','Mazo','Fuencaliente','San Andrés y Sauces','Barlovento'],
+  'La Gomera': ['TODA La Gomera','San Sebastián de La Gomera','Valle Gran Rey','Hermigua','Agulo','Vallehermoso','Alajeró','Playa de Santiago'],
   'El Hierro': ['TODA El Hierro','Valverde','Frontera','El Pinar','La Restinga','Tamaduste','Tigaday']
 };
 
 const SECTORS = [
-  {id:'hosteleria',name:'Hosteler√≠a',emoji:'üçΩÔ∏è',query:'restaurante'},
-  {id:'cafeterias',name:'Cafeter√≠as',emoji:'‚òï',query:'cafeter√≠a'},
-  {id:'catering',name:'Catering',emoji:'üç±',query:'catering empresa'},
-  {id:'dental',name:'Dental',emoji:'ü¶∑',query:'cl√≠nica dental'},
-  {id:'fisioterapia',name:'Fisioterapia',emoji:'üí™',query:'fisioterapia centro'},
-  {id:'salud',name:'Salud',emoji:'üè•',query:'cl√≠nica m√©dica'},
-  {id:'psicologia',name:'Psicolog√≠a',emoji:'üß†',query:'psic√≥logo consulta'},
-  {id:'veterinaria',name:'Veterinaria',emoji:'üêæ',query:'cl√≠nica veterinaria'},
-  {id:'optica',name:'√ìptica',emoji:'üëì',query:'√≥ptica'},
-  {id:'farmacia',name:'Farmacia',emoji:'üíä',query:'farmacia'},
-  {id:'inmobiliaria',name:'Inmobiliaria',emoji:'üè†',query:'inmobiliaria'},
-  {id:'construccion',name:'Construcci√≥n',emoji:'üèóÔ∏è',query:'empresa construcci√≥n'},
-  {id:'reformas',name:'Reformas',emoji:'üî®',query:'empresa reformas'},
-  {id:'fontaneria',name:'Fontaner√≠a',emoji:'üîß',query:'fontanero'},
-  {id:'electricidad',name:'Electricidad',emoji:'‚ö°',query:'electricista'},
-  {id:'climatizacion',name:'Climatizaci√≥n',emoji:'‚ùÑÔ∏è',query:'aire acondicionado instalaci√≥n'},
-  {id:'carpinteria',name:'Carpinter√≠a',emoji:'ü™µ',query:'carpinter√≠a'},
-  {id:'pintura',name:'Pintura',emoji:'üé®',query:'pintor empresa'},
-  {id:'talleres',name:'Talleres',emoji:'üî©',query:'taller mec√°nico'},
-  {id:'concesionarios',name:'Concesionarios',emoji:'üöó',query:'concesionario coches'},
-  {id:'gruas',name:'Gr√∫as',emoji:'üöõ',query:'gr√∫as servicio'},
-  {id:'prevencion',name:'Prevenci√≥n laboral',emoji:'ü¶∫',query:'prevenci√≥n riesgos laborales'},
-  {id:'seguridad',name:'Seguridad',emoji:'üõ°Ô∏è',query:'empresa seguridad'},
-  {id:'limpieza',name:'Limpieza',emoji:'üßπ',query:'empresa limpieza'},
-  {id:'gestoria',name:'Gestor√≠a',emoji:'üìã',query:'gestor√≠a'},
-  {id:'abogados',name:'Abogados',emoji:'‚öñÔ∏è',query:'abogado despacho'},
-  {id:'academias',name:'Academias',emoji:'üéì',query:'academia formaci√≥n'},
-  {id:'informatica',name:'Inform√°tica',emoji:'üíª',query:'inform√°tica empresa'},
-  {id:'marketing',name:'Marketing',emoji:'üìä',query:'agencia marketing'},
-  {id:'peluqueria',name:'Peluquer√≠a',emoji:'üíá',query:'peluquer√≠a'},
-  {id:'gimnasios',name:'Gimnasios',emoji:'üèãÔ∏è',query:'gimnasio'},
-  {id:'eventos',name:'Eventos',emoji:'üéâ',query:'organizaci√≥n eventos'},
-  {id:'transporte',name:'Transporte',emoji:'üöö',query:'empresa transporte'},
-  {id:'alimentacion',name:'Alimentaci√≥n',emoji:'üçé',query:'supermercado alimentaci√≥n'},
-  {id:'ferreteria',name:'Ferreter√≠a',emoji:'üî®',query:'ferreter√≠a'},
-  {id:'moda',name:'Moda',emoji:'üëó',query:'tienda ropa moda'}
+  {id:'hosteleria',name:'Hostelería',emoji:'🍽️',query:'restaurante'},
+  {id:'cafeterias',name:'Cafeterías',emoji:'☕',query:'cafetería'},
+  {id:'catering',name:'Catering',emoji:'🍱',query:'catering empresa'},
+  {id:'dental',name:'Dental',emoji:'🦷',query:'clínica dental'},
+  {id:'fisioterapia',name:'Fisioterapia',emoji:'💪',query:'fisioterapia centro'},
+  {id:'salud',name:'Salud',emoji:'🏥',query:'clínica médica'},
+  {id:'psicologia',name:'Psicología',emoji:'🧠',query:'psicólogo consulta'},
+  {id:'veterinaria',name:'Veterinaria',emoji:'🐾',query:'clínica veterinaria'},
+  {id:'optica',name:'Óptica',emoji:'👓',query:'óptica'},
+  {id:'farmacia',name:'Farmacia',emoji:'💊',query:'farmacia'},
+  {id:'inmobiliaria',name:'Inmobiliaria',emoji:'🏠',query:'inmobiliaria'},
+  {id:'construccion',name:'Construcción',emoji:'🏗️',query:'empresa construcción'},
+  {id:'reformas',name:'Reformas',emoji:'🔨',query:'empresa reformas'},
+  {id:'fontaneria',name:'Fontanería',emoji:'🔧',query:'fontanero'},
+  {id:'electricidad',name:'Electricidad',emoji:'⚡',query:'electricista'},
+  {id:'climatizacion',name:'Climatización',emoji:'❄️',query:'aire acondicionado instalación'},
+  {id:'carpinteria',name:'Carpintería',emoji:'🪵',query:'carpintería'},
+  {id:'pintura',name:'Pintura',emoji:'🎨',query:'pintor empresa'},
+  {id:'talleres',name:'Talleres',emoji:'🔩',query:'taller mecánico'},
+  {id:'concesionarios',name:'Concesionarios',emoji:'🚗',query:'concesionario coches'},
+  {id:'gruas',name:'Grúas',emoji:'🚛',query:'grúas servicio'},
+  {id:'prevencion',name:'Prevención laboral',emoji:'🦺',query:'prevención riesgos laborales'},
+  {id:'seguridad',name:'Seguridad',emoji:'🛡️',query:'empresa seguridad'},
+  {id:'limpieza',name:'Limpieza',emoji:'🧹',query:'empresa limpieza'},
+  {id:'gestoria',name:'Gestoría',emoji:'📋',query:'gestoría'},
+  {id:'abogados',name:'Abogados',emoji:'⚖️',query:'abogado despacho'},
+  {id:'academias',name:'Academias',emoji:'🎓',query:'academia formación'},
+  {id:'informatica',name:'Informática',emoji:'💻',query:'informática empresa'},
+  {id:'marketing',name:'Marketing',emoji:'📊',query:'agencia marketing'},
+  {id:'peluqueria',name:'Peluquería',emoji:'💇',query:'peluquería'},
+  {id:'gimnasios',name:'Gimnasios',emoji:'🏋️',query:'gimnasio'},
+  {id:'eventos',name:'Eventos',emoji:'🎉',query:'organización eventos'},
+  {id:'transporte',name:'Transporte',emoji:'🚚',query:'empresa transporte'},
+  {id:'alimentacion',name:'Alimentación',emoji:'🍎',query:'supermercado alimentación'},
+  {id:'ferreteria',name:'Ferretería',emoji:'🔨',query:'ferretería'},
+  {id:'moda',name:'Moda',emoji:'👗',query:'tienda ropa moda'}
 ];
 
 const WHATSAPP = {
-  hosteleria: 'Hola, soy Javier de Tryvor en Canarias. Tenemos un sistema TPV optimizado para restaurantes con gesti√≥n de mesas, comandas y delivery integrado. ¬øDemo gratuita de 15 min?',
-  cafeterias: 'Hola, soy Javier de Tryvor en Canarias. Sistema TPV pensado para cafeter√≠as con pedidos r√°pidos, fidelizaci√≥n y control de stock. ¬øDemo gratuita de 15 min?',
-  catering: 'Hola, soy Javier de Tryvor en Canarias. Software para gesti√≥n de eventos, presupuestos automatizados y log√≠stica de catering. ¬øDemo gratuita de 15 min?',
-  dental: 'Hola, soy Javier de Tryvor en Canarias. Sistema de gesti√≥n cl√≠nica con agenda online, historial digital y recordatorios autom√°ticos para tus pacientes. ¬øDemo gratuita de 15 min?',
-  fisioterapia: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n para centros de fisio con agenda, historiales y facturaci√≥n integrada. ¬øDemo gratuita de 15 min?',
-  salud: 'Hola, soy Javier de Tryvor en Canarias. Plataforma de gesti√≥n sanitaria con citas online, expediente electr√≥nico y facturaci√≥n. ¬øDemo gratuita de 15 min?',
-  psicologia: 'Hola, soy Javier de Tryvor en Canarias. Software para consultas psicol√≥gicas con agenda, notas de sesi√≥n cifradas y facturaci√≥n. ¬øDemo gratuita de 15 min?',
-  veterinaria: 'Hola, soy Javier de Tryvor en Canarias. Sistema de gesti√≥n veterinaria con historiales, agenda y control de stock de productos. ¬øDemo gratuita de 15 min?',
-  optica: 'Hola, soy Javier de Tryvor en Canarias. TPV especializado para √≥pticas con gesti√≥n de graduaciones, stock y citas. ¬øDemo gratuita de 15 min?',
-  farmacia: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n farmac√©utica con control de stock, recetas y fidelizaci√≥n. ¬øDemo gratuita de 15 min?',
-  inmobiliaria: 'Hola, soy Javier de Tryvor en Canarias. CRM inmobiliario con portal web, gesti√≥n de propiedades y firma digital de contratos. ¬øDemo gratuita de 15 min?',
-  construccion: 'Hola, soy Javier de Tryvor en Canarias. Software para gesti√≥n de obras, presupuestos, partes diarios y control de costes. ¬øDemo gratuita de 15 min?',
-  reformas: 'Hola, soy Javier de Tryvor en Canarias. Software para empresas de reformas con presupuestos autom√°ticos, partes y facturaci√≥n. ¬øDemo gratuita de 15 min?',
-  fontaneria: 'Hola, soy Javier de Tryvor en Canarias. App para gestionar avisos, presupuestos al instante y facturaci√≥n desde el m√≥vil. ¬øDemo gratuita de 15 min?',
-  electricidad: 'Hola, soy Javier de Tryvor en Canarias. Software para electricistas con gesti√≥n de partes, presupuestos y facturaci√≥n m√≥vil. ¬øDemo gratuita de 15 min?',
-  climatizacion: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n integral de instalaciones de clima: presupuestos, mantenimientos programados y partes. ¬øDemo gratuita de 15 min?',
-  carpinteria: 'Hola, soy Javier de Tryvor en Canarias. Software de presupuestos por m¬≤ y gesti√≥n de pedidos para carpinter√≠as. ¬øDemo gratuita de 15 min?',
-  pintura: 'Hola, soy Javier de Tryvor en Canarias. App para empresas de pintura: presupuestos al instante desde el m√≥vil y facturaci√≥n. ¬øDemo gratuita de 15 min?',
-  talleres: 'Hola, soy Javier de Tryvor en Canarias. Software para talleres con gesti√≥n de OR, recambios, citas y facturaci√≥n. ¬øDemo gratuita de 15 min?',
-  concesionarios: 'Hola, soy Javier de Tryvor en Canarias. CRM para concesionarios con gesti√≥n de leads, stock y postventa. ¬øDemo gratuita de 15 min?',
-  gruas: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n de servicios de gr√∫a con localizaci√≥n GPS, partes y facturaci√≥n. ¬øDemo gratuita de 15 min?',
-  prevencion: 'Hola, soy Javier de Tryvor en Canarias. Plataforma de PRL con documentaci√≥n, formaci√≥n online y vigilancia de la salud. ¬øDemo gratuita de 15 min?',
-  seguridad: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n para empresas de seguridad: cuadrantes, rondas y partes. ¬øDemo gratuita de 15 min?',
-  limpieza: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n integral para empresas de limpieza: cuadrantes, fichaje y partes diarios. ¬øDemo gratuita de 15 min?',
-  gestoria: 'Hola, soy Javier de Tryvor en Canarias. Software para gestor√≠as con portal cliente, firma digital y automatizaci√≥n fiscal. ¬øDemo gratuita de 15 min?',
-  abogados: 'Hola, soy Javier de Tryvor en Canarias. CRM legal con expedientes, calendario procesal y facturaci√≥n por horas. ¬øDemo gratuita de 15 min?',
-  academias: 'Hola, soy Javier de Tryvor en Canarias. Plataforma para academias con matriculaci√≥n online, cobros y aula virtual. ¬øDemo gratuita de 15 min?',
-  informatica: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n integral para empresas de IT: tickets, contratos, facturaci√≥n y partes t√©cnicos. ¬øDemo gratuita de 15 min?',
-  marketing: 'Hola, soy Javier de Tryvor en Canarias. CRM para agencias de marketing con gesti√≥n de campa√±as, clientes y facturaci√≥n. ¬øDemo gratuita de 15 min?',
-  peluqueria: 'Hola, soy Javier de Tryvor en Canarias. TPV para peluquer√≠as con agenda online, fidelizaci√≥n y control de caja. ¬øDemo gratuita de 15 min?',
-  gimnasios: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n para gimnasios con cobros autom√°ticos, control de acceso y app de socios. ¬øDemo gratuita de 15 min?',
-  eventos: 'Hola, soy Javier de Tryvor en Canarias. Gesti√≥n integral de eventos: presupuestos, proveedores, asistentes y facturaci√≥n. ¬øDemo gratuita de 15 min?',
-  transporte: 'Hola, soy Javier de Tryvor en Canarias. Software de gesti√≥n de flotas con rutas, partes y facturaci√≥n autom√°tica. ¬øDemo gratuita de 15 min?',
-  alimentacion: 'Hola, soy Javier de Tryvor en Canarias. TPV para alimentaci√≥n con control de stock, balanzas integradas y fidelizaci√≥n. ¬øDemo gratuita de 15 min?',
-  ferreteria: 'Hola, soy Javier de Tryvor en Canarias. TPV para ferreter√≠as con gesti√≥n de referencias m√∫ltiples y stock por almac√©n. ¬øDemo gratuita de 15 min?',
-  moda: 'Hola, soy Javier de Tryvor en Canarias. TPV para tiendas de moda con gesti√≥n de tallas, colores y fidelizaci√≥n. ¬øDemo gratuita de 15 min?'
+  hosteleria: 'Hola, soy Javier de Tryvor en Canarias. Tenemos un sistema TPV optimizado para restaurantes con gestión de mesas, comandas y delivery integrado. ¿Demo gratuita de 15 min?',
+  cafeterias: 'Hola, soy Javier de Tryvor en Canarias. Sistema TPV pensado para cafeterías con pedidos rápidos, fidelización y control de stock. ¿Demo gratuita de 15 min?',
+  catering: 'Hola, soy Javier de Tryvor en Canarias. Software para gestión de eventos, presupuestos automatizados y logística de catering. ¿Demo gratuita de 15 min?',
+  dental: 'Hola, soy Javier de Tryvor en Canarias. Sistema de gestión clínica con agenda online, historial digital y recordatorios automáticos para tus pacientes. ¿Demo gratuita de 15 min?',
+  fisioterapia: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión para centros de fisio con agenda, historiales y facturación integrada. ¿Demo gratuita de 15 min?',
+  salud: 'Hola, soy Javier de Tryvor en Canarias. Plataforma de gestión sanitaria con citas online, expediente electrónico y facturación. ¿Demo gratuita de 15 min?',
+  psicologia: 'Hola, soy Javier de Tryvor en Canarias. Software para consultas psicológicas con agenda, notas de sesión cifradas y facturación. ¿Demo gratuita de 15 min?',
+  veterinaria: 'Hola, soy Javier de Tryvor en Canarias. Sistema de gestión veterinaria con historiales, agenda y control de stock de productos. ¿Demo gratuita de 15 min?',
+  optica: 'Hola, soy Javier de Tryvor en Canarias. TPV especializado para ópticas con gestión de graduaciones, stock y citas. ¿Demo gratuita de 15 min?',
+  farmacia: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión farmacéutica con control de stock, recetas y fidelización. ¿Demo gratuita de 15 min?',
+  inmobiliaria: 'Hola, soy Javier de Tryvor en Canarias. CRM inmobiliario con portal web, gestión de propiedades y firma digital de contratos. ¿Demo gratuita de 15 min?',
+  construccion: 'Hola, soy Javier de Tryvor en Canarias. Software para gestión de obras, presupuestos, partes diarios y control de costes. ¿Demo gratuita de 15 min?',
+  reformas: 'Hola, soy Javier de Tryvor en Canarias. Software para empresas de reformas con presupuestos automáticos, partes y facturación. ¿Demo gratuita de 15 min?',
+  fontaneria: 'Hola, soy Javier de Tryvor en Canarias. App para gestionar avisos, presupuestos al instante y facturación desde el móvil. ¿Demo gratuita de 15 min?',
+  electricidad: 'Hola, soy Javier de Tryvor en Canarias. Software para electricistas con gestión de partes, presupuestos y facturación móvil. ¿Demo gratuita de 15 min?',
+  climatizacion: 'Hola, soy Javier de Tryvor en Canarias. Gestión integral de instalaciones de clima: presupuestos, mantenimientos programados y partes. ¿Demo gratuita de 15 min?',
+  carpinteria: 'Hola, soy Javier de Tryvor en Canarias. Software de presupuestos por m² y gestión de pedidos para carpinterías. ¿Demo gratuita de 15 min?',
+  pintura: 'Hola, soy Javier de Tryvor en Canarias. App para empresas de pintura: presupuestos al instante desde el móvil y facturación. ¿Demo gratuita de 15 min?',
+  talleres: 'Hola, soy Javier de Tryvor en Canarias. Software para talleres con gestión de OR, recambios, citas y facturación. ¿Demo gratuita de 15 min?',
+  concesionarios: 'Hola, soy Javier de Tryvor en Canarias. CRM para concesionarios con gestión de leads, stock y postventa. ¿Demo gratuita de 15 min?',
+  gruas: 'Hola, soy Javier de Tryvor en Canarias. Gestión de servicios de grúa con localización GPS, partes y facturación. ¿Demo gratuita de 15 min?',
+  prevencion: 'Hola, soy Javier de Tryvor en Canarias. Plataforma de PRL con documentación, formación online y vigilancia de la salud. ¿Demo gratuita de 15 min?',
+  seguridad: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión para empresas de seguridad: cuadrantes, rondas y partes. ¿Demo gratuita de 15 min?',
+  limpieza: 'Hola, soy Javier de Tryvor en Canarias. Gestión integral para empresas de limpieza: cuadrantes, fichaje y partes diarios. ¿Demo gratuita de 15 min?',
+  gestoria: 'Hola, soy Javier de Tryvor en Canarias. Software para gestorías con portal cliente, firma digital y automatización fiscal. ¿Demo gratuita de 15 min?',
+  abogados: 'Hola, soy Javier de Tryvor en Canarias. CRM legal con expedientes, calendario procesal y facturación por horas. ¿Demo gratuita de 15 min?',
+  academias: 'Hola, soy Javier de Tryvor en Canarias. Plataforma para academias con matriculación online, cobros y aula virtual. ¿Demo gratuita de 15 min?',
+  informatica: 'Hola, soy Javier de Tryvor en Canarias. Gestión integral para empresas de IT: tickets, contratos, facturación y partes técnicos. ¿Demo gratuita de 15 min?',
+  marketing: 'Hola, soy Javier de Tryvor en Canarias. CRM para agencias de marketing con gestión de campañas, clientes y facturación. ¿Demo gratuita de 15 min?',
+  peluqueria: 'Hola, soy Javier de Tryvor en Canarias. TPV para peluquerías con agenda online, fidelización y control de caja. ¿Demo gratuita de 15 min?',
+  gimnasios: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión para gimnasios con cobros automáticos, control de acceso y app de socios. ¿Demo gratuita de 15 min?',
+  eventos: 'Hola, soy Javier de Tryvor en Canarias. Gestión integral de eventos: presupuestos, proveedores, asistentes y facturación. ¿Demo gratuita de 15 min?',
+  transporte: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión de flotas con rutas, partes y facturación automática. ¿Demo gratuita de 15 min?',
+  alimentacion: 'Hola, soy Javier de Tryvor en Canarias. TPV para alimentación con control de stock, balanzas integradas y fidelización. ¿Demo gratuita de 15 min?',
+  ferreteria: 'Hola, soy Javier de Tryvor en Canarias. TPV para ferreterías con gestión de referencias múltiples y stock por almacén. ¿Demo gratuita de 15 min?',
+  moda: 'Hola, soy Javier de Tryvor en Canarias. TPV para tiendas de moda con gestión de tallas, colores y fidelización. ¿Demo gratuita de 15 min?'
 };
 
 const FALLBACK_NAMES = {
-  hosteleria: ['Restaurante El Mirador','Asador La Brasa','Tasca Canaria','Restaurante Las Velas','Mes√≥n Atl√°ntico'],
-  cafeterias: ['Caf√© Atl√°ntico','La Cafeter√≠a','Caf√© Central','Coffee Lab','Caf√© del Puerto'],
-  dental: ['Cl√≠nica Dental Canarias','Dental Sonrisa','Centro Odontol√≥gico','Dental Plus','Cl√≠nica Dr. Garc√≠a'],
-  inmobiliaria: ['Canarias Homes','Inmo Atl√°ntica','Casas Canarias','Inmobiliaria del Sur','Real Estate Tenerife'],
-  reformas: ['Reformas Canarias','Reformas Integrales SUR','Construcciones Atl√°ntico','Reformas El Norte','Obras y Reformas Las Palmas'],
-  fontaneria: ['Fontaner√≠a Express','Fontaneros 24h','Fontaner√≠a Canaria','Aqua Servicios','Fontasur'],
-  peluqueria: ['Peluquer√≠a Estilo','Sal√≥n de Belleza','Hair Studio','Peluquer√≠a D&G','Est√©tica y Peluquer√≠a']
+  hosteleria: ['Restaurante El Mirador','Asador La Brasa','Tasca Canaria','Restaurante Las Velas','Mesón Atlántico'],
+  cafeterias: ['Café Atlántico','La Cafetería','Café Central','Coffee Lab','Café del Puerto'],
+  dental: ['Clínica Dental Canarias','Dental Sonrisa','Centro Odontológico','Dental Plus','Clínica Dr. García'],
+  inmobiliaria: ['Canarias Homes','Inmo Atlántica','Casas Canarias','Inmobiliaria del Sur','Real Estate Tenerife'],
+  reformas: ['Reformas Canarias','Reformas Integrales SUR','Construcciones Atlántico','Reformas El Norte','Obras y Reformas Las Palmas'],
+  fontaneria: ['Fontanería Express','Fontaneros 24h','Fontanería Canaria','Aqua Servicios','Fontasur'],
+  peluqueria: ['Peluquería Estilo','Salón de Belleza','Hair Studio','Peluquería D&G','Estética y Peluquería']
 };
 
 let state = {
@@ -534,7 +534,7 @@ function updateSearchButton() {
 }
 
 function generateGeneric(sectorObj, zone, island, count) {
-  const names = FALLBACK_NAMES[sectorObj.id] || [`${sectorObj.name} Canarias`,`${sectorObj.name} Atl√°ntico`,`${sectorObj.name} del Sur`,`${sectorObj.name} Centro`,`${sectorObj.name} Express`];
+  const names = FALLBACK_NAMES[sectorObj.id] || [`${sectorObj.name} Canarias`,`${sectorObj.name} Atlántico`,`${sectorObj.name} del Sur`,`${sectorObj.name} Centro`,`${sectorObj.name} Express`];
   const out = [];
   const zoneLabel = zone.startsWith('TODA') ? island : zone;
   for (let i = 0; i < count; i++) {
@@ -572,10 +572,10 @@ function deriveEmail(website) {
 }
 
 function sizeFromReviews(reviews) {
-  if (!reviews) return 'peque√±a';
+  if (!reviews) return 'pequeña';
   if (reviews > 500) return 'grande';
   if (reviews > 150) return 'mediana';
-  return 'peque√±a';
+  return 'pequeña';
 }
 
 async function scoreProsects(leads) {
@@ -590,14 +590,14 @@ async function scoreProsects(leads) {
     sector: l.sectorName || l.sector,
     zone: l.zone
   }));
-  const prompt = `Eres analista de leads B2B en Canarias. Punt√∫a cada negocio del 1 al 10 seg√∫n probabilidad de venta de software de gesti√≥n.
+  const prompt = `Eres analista de leads B2B en Canarias. Puntúa cada negocio del 1 al 10 según probabilidad de venta de software de gestión.
 
-CRITERIOS DE PUNTUACI√ìN:
-- EMAIL VISIBLE = +3pts (prioridad m√°xima)
+CRITERIOS DE PUNTUACIÓN:
+- EMAIL VISIBLE = +3pts (prioridad máxima)
 - Sin web = +2pts
 - Sin reservas online aparente = +1pt
 - Sin redes sociales aparentes = +1pt
-- M√°s de 500 rese√±as = +1pt
+- Más de 500 reseñas = +1pt
 - Rating >= 4.7 = +0.5pts
 - Base: 4-5pts
 
@@ -635,7 +635,7 @@ Responde SOLO JSON sin texto adicional, array con un objeto por lead en el mismo
         l.scoreReason = sc.r || '';
       } else {
         l.score = computeFallbackScore(l);
-        l.scoreReason = 'Score autom√°tico';
+        l.scoreReason = 'Score automático';
       }
     });
   } catch(e) {
@@ -671,7 +671,7 @@ async function doSearch() {
 
   btn.disabled = true;
   const originalText = btn.textContent;
-  btn.textContent = '‚è≥ Buscando...';
+  btn.textContent = '⏳ Buscando...';
   resultsDiv.innerHTML = '<div class="loading">Buscando en Google Maps</div>';
 
   try {
@@ -686,7 +686,7 @@ async function doSearch() {
 
     let allResults = [];
     for (const z of zonesToSearch) {
-      const q = `${sectorObj.query} en ${z}, ${island}, Canarias, Espa√±a`;
+      const q = `${sectorObj.query} en ${z}, ${island}, Canarias, España`;
       const { results } = await textSearch(q);
       allResults = allResults.concat(results);
       if (allResults.length >= count * 2) break;
@@ -780,7 +780,7 @@ function renderResults() {
     return;
   }
   if (!filtered.length) {
-    div.innerHTML = '<div class="empty">Ning√∫n lead pasa los filtros actuales</div>';
+    div.innerHTML = '<div class="empty">Ningún lead pasa los filtros actuales</div>';
     return;
   }
   if (state.mode === 'prospects') {
@@ -794,7 +794,7 @@ function renderResults() {
 function renderPipeline() {
   const div = document.getElementById('pipelineList');
   if (!state.savedLeads.length) {
-    div.innerHTML = '<div class="empty">A√∫n no has guardado ning√∫n lead</div>';
+    div.innerHTML = '<div class="empty">Aún no has guardado ningún lead</div>';
     return;
   }
   const sorted = [...state.savedLeads].sort((a,b) => (b.score||0) - (a.score||0));
@@ -810,18 +810,18 @@ function buildProspectCard(l, isSavedView) {
   if (!l.website) tags.push('<span class="tag no-web">Sin web</span>');
   tags.push(`<span class="tag zone">${escapeHtml(l.zone||'')}</span>`);
   tags.push(`<span class="tag size">${sizeFromReviews(l.reviews)}</span>`);
-  const wa = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor en Canarias. ¬øTienes 15 min para una demo gratuita?';
-  const waPreview = wa.length > 110 ? wa.slice(0,110) + '‚Ä¶' : wa;
+  const wa = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor en Canarias. ¿Tienes 15 min para una demo gratuita?';
+  const waPreview = wa.length > 110 ? wa.slice(0,110) + '…' : wa;
   const saved = isSaved(l.id);
   const status = l.status || 'new';
 
   const breakdown = `
     <div class="score-breakdown" data-breakdown="${escapeAttr(l.id)}">
-      <div class="score-reason">${escapeHtml(l.scoreReason || 'An√°lisis IA del lead')}</div>
+      <div class="score-reason">${escapeHtml(l.scoreReason || 'Análisis IA del lead')}</div>
       <div class="score-points">
         <span>Email visible <strong>${l.email ? '+3' : '0'}</strong></span>
         <span>Sin web <strong>${!l.website ? '+2' : '0'}</strong></span>
-        <span>Rese√±as (${l.reviews||0}) <strong>${(l.reviews||0)>500?'+1':'0'}</strong></span>
+        <span>Reseñas (${l.reviews||0}) <strong>${(l.reviews||0)>500?'+1':'0'}</strong></span>
         <span>Rating (${(l.rating||0).toFixed(1)}) <strong>${(l.rating||0)>=4.7?'+0.5':'0'}</strong></span>
       </div>
     </div>
@@ -834,7 +834,7 @@ function buildProspectCard(l, isSavedView) {
           <div class="card-name">${escapeHtml(l.name)} ${isHot?'<span class="hot-badge mono">HOT</span>':''}</div>
         </div>
         <button class="score ${scoreCls}" data-act="score" data-id="${escapeAttr(l.id)}">
-          <span class="score-val mono">${score||'¬∑'}</span>
+          <span class="score-val mono">${score||'·'}</span>
           <span class="score-lbl">Score</span>
         </button>
       </div>
@@ -872,7 +872,7 @@ function buildExploreCard(l) {
         <div style="flex:1">
           <div class="card-name">${escapeHtml(l.name)}</div>
         </div>
-        ${l.rating?`<div style="text-align:right"><div class="rating mono" style="font-size:14px;display:inline-flex;align-items:center;gap:3px">${icon('star',12,true)} ${l.rating.toFixed(1)}</div><div class="rating-count">${l.reviews||0} rese√±as</div></div>`:''}
+        ${l.rating?`<div style="text-align:right"><div class="rating mono" style="font-size:14px;display:inline-flex;align-items:center;gap:3px">${icon('star',12,true)} ${l.rating.toFixed(1)}</div><div class="rating-count">${l.reviews||0} reseñas</div></div>`:''}
       </div>
       <div class="tags"><span class="tag zone">${escapeHtml(l.zone||'')}</span></div>
       <div class="meta">
@@ -924,7 +924,7 @@ function attachCardHandlers(container) {
           if (!l.phone) return;
           const clean = l.phone.replace(/[^\d]/g,'');
           const withCode = clean.startsWith('34') ? clean : ('34' + clean);
-          const msg = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor en Canarias. ¬øTienes 15 min para una demo gratuita?';
+          const msg = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor en Canarias. ¿Tienes 15 min para una demo gratuita?';
           window.open(`https://wa.me/${withCode}?text=${encodeURIComponent(msg)}`, '_blank');
           break;
         }
@@ -958,13 +958,13 @@ function attachCardHandlers(container) {
 function exportCSV() {
   const all = state.currentTab === 'pipeline' ? state.savedLeads : state.leads;
   if (!all.length) { showToast('Nada que exportar'); return; }
-  const headers = ['Nombre','Tel√©fono','Email','Web','Direcci√≥n','Zona','Sector','Score','Status','Rating','Rese√±as'];
+  const headers = ['Nombre','Teléfono','Email','Web','Dirección','Zona','Sector','Score','Status','Rating','Reseñas'];
   const rows = all.map(l => [
     l.name||'', l.phone||'', l.email||'', l.website||'', l.address||'',
     l.zone||'', l.sectorName||l.sector||'', l.score||'', l.status||'', l.rating||'', l.reviews||''
   ]);
   const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob(['Ôªø' + csv], { type: 'text/csv;charset=utf-8' });
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -1070,7 +1070,7 @@ function init() {
 
   document.getElementById('clearAllBtn').addEventListener('click', () => {
     if (!state.savedLeads.length) return;
-    if (confirm('¬øEliminar todos los leads guardados?')) {
+    if (confirm('¿Eliminar todos los leads guardados?')) {
       state.savedLeads = [];
       persistSaved();
       renderPipeline();
