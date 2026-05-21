@@ -145,7 +145,7 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
     <h1 class="logo">Prospector AI</h1>
     <div class="header-actions">
       <button class="icon-btn" id="themeBtn" title="Cambiar tema"></button>
-      <button class="icon-btn" id="csvBtn" title="Exportar CSV"></button>
+      <button class="icon-btn" id="csvBtn" title="Exportar Excel"></button>
       <button class="icon-btn" id="filterBtn" title="Filtros"></button>
     </div>
     <div class="filters-panel" id="filtersPanel">
@@ -1064,25 +1064,77 @@ function attachCardHandlers(container) {
   });
 }
 
-function exportCSV() {
+let _xlsxLoading = null;
+function loadSheetJS() {
+  if (window.XLSX) return Promise.resolve();
+  if (_xlsxLoading) return _xlsxLoading;
+  _xlsxLoading = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+    s.onload = () => resolve();
+    s.onerror = () => {
+      // Fallback a cdnjs por si el CDN principal falla
+      const s2 = document.createElement('script');
+      s2.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+      s2.onload = () => resolve();
+      s2.onerror = () => reject(new Error('No se pudo cargar SheetJS desde ningún CDN'));
+      document.head.appendChild(s2);
+    };
+    document.head.appendChild(s);
+  });
+  return _xlsxLoading;
+}
+
+async function exportXLSX() {
   const all = state.currentTab === 'pipeline' ? state.savedLeads : state.leads;
   if (!all.length) { showToast('Nada que exportar'); return; }
-  const headers = ['Nombre','Teléfono','Email','Web','Dirección','Zona','Sector','Score','Status','Rating','Reseñas'];
-  const rows = all.map(l => [
-    l.name||'', l.phone||'', l.email||'', l.website||'', l.address||'',
-    l.zone||'', l.sectorName||l.sector||'', l.score||'', l.status||'', l.rating||'', l.reviews||''
-  ]);
-  const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `prospector_${new Date().toISOString().slice(0,10)}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  showToast('CSV descargado');
+  const btn = document.getElementById('csvBtn');
+  const originalContent = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳';
+  try {
+    await loadSheetJS();
+    const headers = ['Nombre','Teléfono','Email','Web','Dirección','Zona','Isla/Región','Sector','Score','Motivo IA','Status','Rating','Reseñas','Google Maps'];
+    const rows = all.map(l => ({
+      'Nombre': l.name || '',
+      'Teléfono': l.phone || '',
+      'Email': l.email || '',
+      'Web': l.website || '',
+      'Dirección': l.address || '',
+      'Zona': l.zone || '',
+      'Isla/Región': l.island || '',
+      'Sector': l.sectorName || l.sector || '',
+      'Score': l.score || '',
+      'Motivo IA': l.scoreReason || '',
+      'Status': l.status || 'new',
+      'Rating': l.rating || '',
+      'Reseñas': l.reviews || '',
+      'Google Maps': l.mapsUrl || ''
+    }));
+    const ws = XLSX.utils.json_to_sheet(rows, { header: headers });
+    // Ajustar ancho de columnas según contenido (con tope para que no se desmadre)
+    ws['!cols'] = headers.map(h => {
+      const maxLen = Math.max(h.length, ...rows.map(r => String(r[h] || '').length));
+      return { wch: Math.min(60, Math.max(10, maxLen + 2)) };
+    });
+    // Autofilter en la primera fila
+    const range = XLSX.utils.encode_range({ s: { c: 0, r: 0 }, e: { c: headers.length - 1, r: rows.length } });
+    ws['!autofilter'] = { ref: range };
+    // Freeze header
+    ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+    const wb = XLSX.utils.book_new();
+    const tab = state.currentTab === 'pipeline' ? 'Pipeline' : 'Búsqueda';
+    XLSX.utils.book_append_sheet(wb, ws, tab);
+    const filename = `prospector_${tab.toLowerCase()}_${new Date().toISOString().slice(0,10)}.xlsx`;
+    XLSX.writeFile(wb, filename);
+    showToast('Excel descargado (' + rows.length + ' leads)');
+  } catch(e) {
+    console.error(e);
+    showToast('Error al generar Excel: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalContent;
+  }
 }
 
 function setTheme(theme) {
@@ -1154,7 +1206,7 @@ function init() {
     setTheme(cur === 'dark' ? 'light' : 'dark');
   });
 
-  document.getElementById('csvBtn').addEventListener('click', exportCSV);
+  document.getElementById('csvBtn').addEventListener('click', exportXLSX);
 
   document.getElementById('filterBtn').addEventListener('click', (e) => {
     e.stopPropagation();
