@@ -172,7 +172,7 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
 
       <div class="selectors">
         <div class="select-wrap">
-          <label>Isla</label>
+          <label>Isla / Región</label>
           <select id="islandSelect"></select>
         </div>
         <div class="select-wrap">
@@ -259,7 +259,25 @@ const ZONES = {
   'Fuerteventura': ['TODA Fuerteventura','Puerto del Rosario','Corralejo','Caleta de Fuste','Costa Calma','Morro Jable','Gran Tarajal','Antigua','La Oliva','Pájara','Tuineje'],
   'La Palma': ['TODA La Palma','Santa Cruz de La Palma','Los Llanos de Aridane','Tazacorte','El Paso','Breña Alta','Breña Baja','Mazo','Fuencaliente','San Andrés y Sauces','Barlovento'],
   'La Gomera': ['TODA La Gomera','San Sebastián de La Gomera','Valle Gran Rey','Hermigua','Agulo','Vallehermoso','Alajeró','Playa de Santiago'],
-  'El Hierro': ['TODA El Hierro','Valverde','Frontera','El Pinar','La Restinga','Tamaduste','Tigaday']
+  'El Hierro': ['TODA El Hierro','Valverde','Frontera','El Pinar','La Restinga','Tamaduste','Tigaday'],
+  'Madrid': ['TODA Madrid','Madrid Centro','Madrid Norte','Madrid Sur','Madrid Este','Madrid Oeste','Alcalá de Henares','Móstoles','Fuenlabrada','Leganés','Getafe','Alcorcón','Torrejón de Ardoz','Pozuelo de Alarcón','Las Rozas','Majadahonda','Aranjuez','Coslada','Parla'],
+  'Cataluña': ['TODA Cataluña','Barcelona','Hospitalet de Llobregat','Badalona','Terrassa','Sabadell','Mataró','Sant Cugat','Cornellà','Santa Coloma','Girona','Tarragona','Lleida','Reus','Manresa','Vic','Sitges','Granollers'],
+  'Comunidad Valenciana': ['TODA Comunidad Valenciana','Valencia','Alicante','Elche','Castellón','Torrevieja','Benidorm','Orihuela','Sagunto','Gandía','Paterna','Mislata','Alcoy','Elda','Vila-real','Dénia','Calpe'],
+  'Andalucía': ['TODA Andalucía','Sevilla','Málaga','Granada','Córdoba','Cádiz','Jerez de la Frontera','Almería','Huelva','Jaén','Marbella','Algeciras','Estepona','Torremolinos','Fuengirola','Benalmádena','Roquetas de Mar','Mijas','Dos Hermanas','Vélez-Málaga'],
+  'País Vasco': ['TODA País Vasco','Bilbao','San Sebastián','Vitoria-Gasteiz','Barakaldo','Getxo','Irún','Portugalete','Santurtzi','Basauri','Eibar','Errenteria'],
+  'Galicia': ['TODA Galicia','A Coruña','Vigo','Ourense','Lugo','Santiago de Compostela','Pontevedra','Ferrol','Narón','Oleiros','Arteixo'],
+  'Castilla y León': ['TODA Castilla y León','Valladolid','Burgos','Salamanca','León','Palencia','Zamora','Ávila','Segovia','Soria','Ponferrada','Aranda de Duero'],
+  'Castilla-La Mancha': ['TODA Castilla-La Mancha','Toledo','Albacete','Guadalajara','Ciudad Real','Cuenca','Talavera de la Reina','Puertollano','Tomelloso'],
+  'Aragón': ['TODA Aragón','Zaragoza','Huesca','Teruel','Calatayud','Ejea de los Caballeros','Tarazona'],
+  'Asturias': ['TODA Asturias','Oviedo','Gijón','Avilés','Mieres','Langreo','Siero','San Martín del Rey Aurelio'],
+  'Murcia': ['TODA Murcia','Murcia ciudad','Cartagena','Lorca','Molina de Segura','Alcantarilla','Yecla','Águilas','Cieza','Totana','San Javier'],
+  'Baleares': ['TODA Baleares','Palma de Mallorca','Ibiza','Manacor','Calvià','Marratxí','Llucmajor','Inca','Mahón','Ciutadella','Felanitx','Pollença'],
+  'Extremadura': ['TODA Extremadura','Badajoz','Cáceres','Mérida','Plasencia','Don Benito','Almendralejo','Villanueva de la Serena','Zafra'],
+  'Cantabria': ['TODA Cantabria','Santander','Torrelavega','Castro Urdiales','Camargo','Piélagos','El Astillero','Laredo'],
+  'Navarra': ['TODA Navarra','Pamplona','Tudela','Barañáin','Burlada','Estella','Tafalla'],
+  'La Rioja': ['TODA La Rioja','Logroño','Calahorra','Arnedo','Haro','Lardero','Nájera'],
+  'Ceuta': ['Ceuta'],
+  'Melilla': ['Melilla']
 };
 
 const SECTORS = [
@@ -298,46 +316,90 @@ const SECTORS = [
   {id:'transporte',name:'Transporte',emoji:'🚚',query:'empresa transporte'},
   {id:'alimentacion',name:'Alimentación',emoji:'🍎',query:'supermercado alimentación'},
   {id:'ferreteria',name:'Ferretería',emoji:'🔨',query:'ferretería'},
-  {id:'moda',name:'Moda',emoji:'👗',query:'tienda ropa moda'}
+  {id:'moda',name:'Moda',emoji:'👗',query:'tienda ropa moda'},
+  {id:'extintores',name:'Extintores / PCI',emoji:'🧯',query:'empresa extintores protección contra incendios'},
+  {id:'hoteles',name:'Hoteles',emoji:'🛏️',query:'hotel'},
+  {id:'apartamentos',name:'Apartamentos turísticos',emoji:'🏨',query:'apartamentos turísticos'},
+  {id:'rentacar',name:'Rent-a-car',emoji:'🚙',query:'alquiler coches rent a car'},
+  {id:'panaderias',name:'Panaderías',emoji:'🥖',query:'panadería'},
+  {id:'carnicerias',name:'Carnicerías',emoji:'🥩',query:'carnicería'},
+  {id:'pescaderias',name:'Pescaderías',emoji:'🐟',query:'pescadería'},
+  {id:'lavanderias',name:'Lavanderías / Tintorerías',emoji:'🧺',query:'tintorería lavandería'},
+  {id:'jardineria',name:'Jardinería',emoji:'🌴',query:'empresa jardinería'},
+  {id:'fotografia',name:'Fotografía',emoji:'📷',query:'fotógrafo profesional estudio'},
+  {id:'solar',name:'Solar / Fotovoltaica',emoji:'🔋',query:'empresa instalación placas solares fotovoltaica'},
+  {id:'mudanzas',name:'Mudanzas',emoji:'📦',query:'empresa mudanzas'},
+  {id:'cerrajeria',name:'Cerrajería',emoji:'🚪',query:'cerrajero 24 horas'},
+  {id:'estetica',name:'Estética',emoji:'🧴',query:'centro estética belleza'},
+  {id:'neumaticos',name:'Neumáticos',emoji:'🛞',query:'taller neumáticos'},
+  {id:'labdental',name:'Laboratorios dentales',emoji:'🦷',query:'laboratorio dental prótesis'},
+  {id:'petgroom',name:'Peluquería canina',emoji:'🐶',query:'peluquería canina'},
+  {id:'clubes',name:'Clubes deportivos',emoji:'🏃',query:'club deportivo'},
+  {id:'mobiliario',name:'Mobiliario',emoji:'🪑',query:'tienda muebles mobiliario'},
+  {id:'bodegas',name:'Bodegas y vinos',emoji:'🍷',query:'bodega vinos'},
+  {id:'pastelerias',name:'Pastelerías',emoji:'🎂',query:'pastelería'},
+  {id:'cristalerias',name:'Cristalerías',emoji:'🪟',query:'cristalería empresa'}
 ];
 
 const WHATSAPP = {
-  hosteleria: 'Hola, soy Javier de Tryvor en Canarias. Tenemos un sistema TPV optimizado para restaurantes con gestión de mesas, comandas y delivery integrado. ¿Demo gratuita de 15 min?',
-  cafeterias: 'Hola, soy Javier de Tryvor en Canarias. Sistema TPV pensado para cafeterías con pedidos rápidos, fidelización y control de stock. ¿Demo gratuita de 15 min?',
-  catering: 'Hola, soy Javier de Tryvor en Canarias. Software para gestión de eventos, presupuestos automatizados y logística de catering. ¿Demo gratuita de 15 min?',
-  dental: 'Hola, soy Javier de Tryvor en Canarias. Sistema de gestión clínica con agenda online, historial digital y recordatorios automáticos para tus pacientes. ¿Demo gratuita de 15 min?',
-  fisioterapia: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión para centros de fisio con agenda, historiales y facturación integrada. ¿Demo gratuita de 15 min?',
-  salud: 'Hola, soy Javier de Tryvor en Canarias. Plataforma de gestión sanitaria con citas online, expediente electrónico y facturación. ¿Demo gratuita de 15 min?',
-  psicologia: 'Hola, soy Javier de Tryvor en Canarias. Software para consultas psicológicas con agenda, notas de sesión cifradas y facturación. ¿Demo gratuita de 15 min?',
-  veterinaria: 'Hola, soy Javier de Tryvor en Canarias. Sistema de gestión veterinaria con historiales, agenda y control de stock de productos. ¿Demo gratuita de 15 min?',
-  optica: 'Hola, soy Javier de Tryvor en Canarias. TPV especializado para ópticas con gestión de graduaciones, stock y citas. ¿Demo gratuita de 15 min?',
-  farmacia: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión farmacéutica con control de stock, recetas y fidelización. ¿Demo gratuita de 15 min?',
-  inmobiliaria: 'Hola, soy Javier de Tryvor en Canarias. CRM inmobiliario con portal web, gestión de propiedades y firma digital de contratos. ¿Demo gratuita de 15 min?',
-  construccion: 'Hola, soy Javier de Tryvor en Canarias. Software para gestión de obras, presupuestos, partes diarios y control de costes. ¿Demo gratuita de 15 min?',
-  reformas: 'Hola, soy Javier de Tryvor en Canarias. Software para empresas de reformas con presupuestos automáticos, partes y facturación. ¿Demo gratuita de 15 min?',
-  fontaneria: 'Hola, soy Javier de Tryvor en Canarias. App para gestionar avisos, presupuestos al instante y facturación desde el móvil. ¿Demo gratuita de 15 min?',
-  electricidad: 'Hola, soy Javier de Tryvor en Canarias. Software para electricistas con gestión de partes, presupuestos y facturación móvil. ¿Demo gratuita de 15 min?',
-  climatizacion: 'Hola, soy Javier de Tryvor en Canarias. Gestión integral de instalaciones de clima: presupuestos, mantenimientos programados y partes. ¿Demo gratuita de 15 min?',
-  carpinteria: 'Hola, soy Javier de Tryvor en Canarias. Software de presupuestos por m² y gestión de pedidos para carpinterías. ¿Demo gratuita de 15 min?',
-  pintura: 'Hola, soy Javier de Tryvor en Canarias. App para empresas de pintura: presupuestos al instante desde el móvil y facturación. ¿Demo gratuita de 15 min?',
-  talleres: 'Hola, soy Javier de Tryvor en Canarias. Software para talleres con gestión de OR, recambios, citas y facturación. ¿Demo gratuita de 15 min?',
-  concesionarios: 'Hola, soy Javier de Tryvor en Canarias. CRM para concesionarios con gestión de leads, stock y postventa. ¿Demo gratuita de 15 min?',
-  gruas: 'Hola, soy Javier de Tryvor en Canarias. Gestión de servicios de grúa con localización GPS, partes y facturación. ¿Demo gratuita de 15 min?',
-  prevencion: 'Hola, soy Javier de Tryvor en Canarias. Plataforma de PRL con documentación, formación online y vigilancia de la salud. ¿Demo gratuita de 15 min?',
-  seguridad: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión para empresas de seguridad: cuadrantes, rondas y partes. ¿Demo gratuita de 15 min?',
-  limpieza: 'Hola, soy Javier de Tryvor en Canarias. Gestión integral para empresas de limpieza: cuadrantes, fichaje y partes diarios. ¿Demo gratuita de 15 min?',
-  gestoria: 'Hola, soy Javier de Tryvor en Canarias. Software para gestorías con portal cliente, firma digital y automatización fiscal. ¿Demo gratuita de 15 min?',
-  abogados: 'Hola, soy Javier de Tryvor en Canarias. CRM legal con expedientes, calendario procesal y facturación por horas. ¿Demo gratuita de 15 min?',
-  academias: 'Hola, soy Javier de Tryvor en Canarias. Plataforma para academias con matriculación online, cobros y aula virtual. ¿Demo gratuita de 15 min?',
-  informatica: 'Hola, soy Javier de Tryvor en Canarias. Gestión integral para empresas de IT: tickets, contratos, facturación y partes técnicos. ¿Demo gratuita de 15 min?',
-  marketing: 'Hola, soy Javier de Tryvor en Canarias. CRM para agencias de marketing con gestión de campañas, clientes y facturación. ¿Demo gratuita de 15 min?',
-  peluqueria: 'Hola, soy Javier de Tryvor en Canarias. TPV para peluquerías con agenda online, fidelización y control de caja. ¿Demo gratuita de 15 min?',
-  gimnasios: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión para gimnasios con cobros automáticos, control de acceso y app de socios. ¿Demo gratuita de 15 min?',
-  eventos: 'Hola, soy Javier de Tryvor en Canarias. Gestión integral de eventos: presupuestos, proveedores, asistentes y facturación. ¿Demo gratuita de 15 min?',
-  transporte: 'Hola, soy Javier de Tryvor en Canarias. Software de gestión de flotas con rutas, partes y facturación automática. ¿Demo gratuita de 15 min?',
-  alimentacion: 'Hola, soy Javier de Tryvor en Canarias. TPV para alimentación con control de stock, balanzas integradas y fidelización. ¿Demo gratuita de 15 min?',
-  ferreteria: 'Hola, soy Javier de Tryvor en Canarias. TPV para ferreterías con gestión de referencias múltiples y stock por almacén. ¿Demo gratuita de 15 min?',
-  moda: 'Hola, soy Javier de Tryvor en Canarias. TPV para tiendas de moda con gestión de tallas, colores y fidelización. ¿Demo gratuita de 15 min?'
+  hosteleria: 'Hola, soy Javier de Tryvor. Tenemos un sistema TPV optimizado para restaurantes con gestión de mesas, comandas y delivery integrado. ¿Demo gratuita de 15 min?',
+  cafeterias: 'Hola, soy Javier de Tryvor. Sistema TPV pensado para cafeterías con pedidos rápidos, fidelización y control de stock. ¿Demo gratuita de 15 min?',
+  catering: 'Hola, soy Javier de Tryvor. Software para gestión de eventos, presupuestos automatizados y logística de catering. ¿Demo gratuita de 15 min?',
+  dental: 'Hola, soy Javier de Tryvor. Sistema de gestión clínica con agenda online, historial digital y recordatorios automáticos para tus pacientes. ¿Demo gratuita de 15 min?',
+  fisioterapia: 'Hola, soy Javier de Tryvor. Software de gestión para centros de fisio con agenda, historiales y facturación integrada. ¿Demo gratuita de 15 min?',
+  salud: 'Hola, soy Javier de Tryvor. Plataforma de gestión sanitaria con citas online, expediente electrónico y facturación. ¿Demo gratuita de 15 min?',
+  psicologia: 'Hola, soy Javier de Tryvor. Software para consultas psicológicas con agenda, notas de sesión cifradas y facturación. ¿Demo gratuita de 15 min?',
+  veterinaria: 'Hola, soy Javier de Tryvor. Sistema de gestión veterinaria con historiales, agenda y control de stock de productos. ¿Demo gratuita de 15 min?',
+  optica: 'Hola, soy Javier de Tryvor. TPV especializado para ópticas con gestión de graduaciones, stock y citas. ¿Demo gratuita de 15 min?',
+  farmacia: 'Hola, soy Javier de Tryvor. Software de gestión farmacéutica con control de stock, recetas y fidelización. ¿Demo gratuita de 15 min?',
+  inmobiliaria: 'Hola, soy Javier de Tryvor. CRM inmobiliario con portal web, gestión de propiedades y firma digital de contratos. ¿Demo gratuita de 15 min?',
+  construccion: 'Hola, soy Javier de Tryvor. Software para gestión de obras, presupuestos, partes diarios y control de costes. ¿Demo gratuita de 15 min?',
+  reformas: 'Hola, soy Javier de Tryvor. Software para empresas de reformas con presupuestos automáticos, partes y facturación. ¿Demo gratuita de 15 min?',
+  fontaneria: 'Hola, soy Javier de Tryvor. App para gestionar avisos, presupuestos al instante y facturación desde el móvil. ¿Demo gratuita de 15 min?',
+  electricidad: 'Hola, soy Javier de Tryvor. Software para electricistas con gestión de partes, presupuestos y facturación móvil. ¿Demo gratuita de 15 min?',
+  climatizacion: 'Hola, soy Javier de Tryvor. Gestión integral de instalaciones de clima: presupuestos, mantenimientos programados y partes. ¿Demo gratuita de 15 min?',
+  carpinteria: 'Hola, soy Javier de Tryvor. Software de presupuestos por m² y gestión de pedidos para carpinterías. ¿Demo gratuita de 15 min?',
+  pintura: 'Hola, soy Javier de Tryvor. App para empresas de pintura: presupuestos al instante desde el móvil y facturación. ¿Demo gratuita de 15 min?',
+  talleres: 'Hola, soy Javier de Tryvor. Software para talleres con gestión de OR, recambios, citas y facturación. ¿Demo gratuita de 15 min?',
+  concesionarios: 'Hola, soy Javier de Tryvor. CRM para concesionarios con gestión de leads, stock y postventa. ¿Demo gratuita de 15 min?',
+  gruas: 'Hola, soy Javier de Tryvor. Gestión de servicios de grúa con localización GPS, partes y facturación. ¿Demo gratuita de 15 min?',
+  prevencion: 'Hola, soy Javier de Tryvor. Plataforma de PRL con documentación, formación online y vigilancia de la salud. ¿Demo gratuita de 15 min?',
+  seguridad: 'Hola, soy Javier de Tryvor. Software de gestión para empresas de seguridad: cuadrantes, rondas y partes. ¿Demo gratuita de 15 min?',
+  limpieza: 'Hola, soy Javier de Tryvor. Gestión integral para empresas de limpieza: cuadrantes, fichaje y partes diarios. ¿Demo gratuita de 15 min?',
+  gestoria: 'Hola, soy Javier de Tryvor. Software para gestorías con portal cliente, firma digital y automatización fiscal. ¿Demo gratuita de 15 min?',
+  abogados: 'Hola, soy Javier de Tryvor. CRM legal con expedientes, calendario procesal y facturación por horas. ¿Demo gratuita de 15 min?',
+  academias: 'Hola, soy Javier de Tryvor. Plataforma para academias con matriculación online, cobros y aula virtual. ¿Demo gratuita de 15 min?',
+  informatica: 'Hola, soy Javier de Tryvor. Gestión integral para empresas de IT: tickets, contratos, facturación y partes técnicos. ¿Demo gratuita de 15 min?',
+  marketing: 'Hola, soy Javier de Tryvor. CRM para agencias de marketing con gestión de campañas, clientes y facturación. ¿Demo gratuita de 15 min?',
+  peluqueria: 'Hola, soy Javier de Tryvor. TPV para peluquerías con agenda online, fidelización y control de caja. ¿Demo gratuita de 15 min?',
+  gimnasios: 'Hola, soy Javier de Tryvor. Software de gestión para gimnasios con cobros automáticos, control de acceso y app de socios. ¿Demo gratuita de 15 min?',
+  eventos: 'Hola, soy Javier de Tryvor. Gestión integral de eventos: presupuestos, proveedores, asistentes y facturación. ¿Demo gratuita de 15 min?',
+  transporte: 'Hola, soy Javier de Tryvor. Software de gestión de flotas con rutas, partes y facturación automática. ¿Demo gratuita de 15 min?',
+  alimentacion: 'Hola, soy Javier de Tryvor. TPV para alimentación con control de stock, balanzas integradas y fidelización. ¿Demo gratuita de 15 min?',
+  ferreteria: 'Hola, soy Javier de Tryvor. TPV para ferreterías con gestión de referencias múltiples y stock por almacén. ¿Demo gratuita de 15 min?',
+  moda: 'Hola, soy Javier de Tryvor. TPV para tiendas de moda con gestión de tallas, colores y fidelización. ¿Demo gratuita de 15 min?',
+  extintores: 'Hola, soy Javier de Tryvor. Software para empresas de PCI con planificación de mantenimientos preventivos, partes digitales y control de caducidades de extintores. ¿Demo gratuita de 15 min?',
+  hoteles: 'Hola, soy Javier de Tryvor. PMS hotelero con channel manager integrado, motor de reservas propio y gestión de tarifas dinámicas. ¿Demo gratuita de 15 min?',
+  apartamentos: 'Hola, soy Javier de Tryvor. Software para apartamentos turísticos con channel manager (Booking/Airbnb), cobros automáticos y check-in online. ¿Demo gratuita de 15 min?',
+  rentacar: 'Hola, soy Javier de Tryvor. Software para rent-a-car con motor de reservas, gestión de flota, GPS y firma digital de contratos. ¿Demo gratuita de 15 min?',
+  panaderias: 'Hola, soy Javier de Tryvor. TPV para panaderías con escandallos, producción diaria, balanzas integradas y fidelización. ¿Demo gratuita de 15 min?',
+  carnicerias: 'Hola, soy Javier de Tryvor. TPV para carnicerías con balanzas integradas, control de cortes y trazabilidad por lote. ¿Demo gratuita de 15 min?',
+  pescaderias: 'Hola, soy Javier de Tryvor. TPV para pescaderías con balanzas, trazabilidad por captura y gestión de proveedores. ¿Demo gratuita de 15 min?',
+  lavanderias: 'Hola, soy Javier de Tryvor. Software para tintorerías con tickets, etiquetado de prendas, control de fases y avisos por SMS al cliente. ¿Demo gratuita de 15 min?',
+  jardineria: 'Hola, soy Javier de Tryvor. App para empresas de jardinería con planificación de mantenimientos recurrentes, presupuestos al instante y facturación automática. ¿Demo gratuita de 15 min?',
+  fotografia: 'Hola, soy Javier de Tryvor. Software para fotógrafos con gestión de proyectos, galerías online de entrega protegidas y facturación. ¿Demo gratuita de 15 min?',
+  solar: 'Hola, soy Javier de Tryvor. Software para empresas de fotovoltaica con dimensionado de instalación, presupuestos automáticos y partes de obra digitales. ¿Demo gratuita de 15 min?',
+  mudanzas: 'Hola, soy Javier de Tryvor. Software para empresas de mudanzas con presupuestos por volumen, planificación de rutas y partes diarios. ¿Demo gratuita de 15 min?',
+  cerrajeria: 'Hola, soy Javier de Tryvor. App para cerrajeros 24h con avisos geolocalizados, presupuestos al instante y facturación desde el móvil. ¿Demo gratuita de 15 min?',
+  estetica: 'Hola, soy Javier de Tryvor. Software para centros de estética con agenda online, bonos, fidelización y control de stock de productos. ¿Demo gratuita de 15 min?',
+  neumaticos: 'Hola, soy Javier de Tryvor. TPV para talleres de neumáticos con gestión de stock por medidas, citas y facturación rápida. ¿Demo gratuita de 15 min?',
+  labdental: 'Hola, soy Javier de Tryvor. Software para laboratorios dentales con gestión de pedidos de clínicas, trazabilidad de trabajos y facturación. ¿Demo gratuita de 15 min?',
+  petgroom: 'Hola, soy Javier de Tryvor. Software para peluquería canina con agenda, ficha de mascota, recordatorios automáticos y fidelización. ¿Demo gratuita de 15 min?',
+  clubes: 'Hola, soy Javier de Tryvor. Software para clubes deportivos con gestión de socios, cobros recurrentes automáticos y app del socio. ¿Demo gratuita de 15 min?',
+  mobiliario: 'Hola, soy Javier de Tryvor. Software para tiendas de muebles con catálogo digital, gestión de pedidos, planos 3D y entrega a domicilio. ¿Demo gratuita de 15 min?',
+  bodegas: 'Hola, soy Javier de Tryvor. Software para bodegas con gestión de añadas, etiquetado, ventas B2B y tienda online integrada. ¿Demo gratuita de 15 min?',
+  pastelerias: 'Hola, soy Javier de Tryvor. TPV para pastelerías con pedidos personalizados, agenda de tartas y planificación de producción. ¿Demo gratuita de 15 min?',
+  cristalerias: 'Hola, soy Javier de Tryvor. Software para cristalerías con presupuestos por medidas, pedidos a fábrica y planificación de montajes. ¿Demo gratuita de 15 min?'
 };
 
 const FALLBACK_NAMES = {
@@ -720,7 +782,7 @@ async function doSearch() {
 
     let allResults = [];
     for (const z of zonesToSearch) {
-      const q = `${sectorObj.query} en ${z}, ${island}, Canarias, España`;
+      const q = `${sectorObj.query} en ${z}, ${island}, España`;
       const { results } = await textSearch(q, pagesPerZone);
       allResults = allResults.concat(results);
       if (allResults.length >= count * 2) break;
@@ -844,7 +906,7 @@ function buildProspectCard(l, isSavedView) {
   if (!l.website) tags.push('<span class="tag no-web">Sin web</span>');
   tags.push(`<span class="tag zone">${escapeHtml(l.zone||'')}</span>`);
   tags.push(`<span class="tag size">${sizeFromReviews(l.reviews)}</span>`);
-  const wa = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor en Canarias. ¿Tienes 15 min para una demo gratuita?';
+  const wa = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor. ¿Tienes 15 min para una demo gratuita?';
   const waPreview = wa.length > 110 ? wa.slice(0,110) + '…' : wa;
   const saved = isSaved(l.id);
   const status = l.status || 'new';
@@ -958,7 +1020,7 @@ function attachCardHandlers(container) {
           if (!l.phone) return;
           const clean = l.phone.replace(/[^\d]/g,'');
           const withCode = clean.startsWith('34') ? clean : ('34' + clean);
-          const msg = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor en Canarias. ¿Tienes 15 min para una demo gratuita?';
+          const msg = WHATSAPP[l.sector] || 'Hola, soy Javier de Tryvor. ¿Tienes 15 min para una demo gratuita?';
           window.open(`https://wa.me/${withCode}?text=${encodeURIComponent(msg)}`, '_blank');
           break;
         }
