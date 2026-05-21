@@ -186,10 +186,10 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
         <div class="select-wrap">
           <label>Número de resultados</label>
           <select id="countSelect">
-            <option value="8">8 leads</option>
-            <option value="12" selected>12 leads</option>
             <option value="20">20 leads</option>
-            <option value="30">30 leads</option>
+            <option value="50" selected>50 leads</option>
+            <option value="80">80 leads</option>
+            <option value="100">100 leads</option>
           </select>
         </div>
       </div>
@@ -395,11 +395,29 @@ function getPlacesService() {
   return _placesService;
 }
 
-function textSearch(query) {
+function textSearch(query, maxPages) {
+  maxPages = maxPages || 1;
   return new Promise(resolve => {
-    getPlacesService().textSearch({ query, language: 'es' }, (results, status) => {
-      resolve({ results: results || [], status });
-    });
+    let allResults = [];
+    let pagesLoaded = 0;
+    let lastStatus = '';
+    const handle = (results, status, pagination) => {
+      lastStatus = status;
+      pagesLoaded++;
+      if (results && results.length) allResults = allResults.concat(results);
+      if (pagination && pagination.hasNextPage && pagesLoaded < maxPages) {
+        setTimeout(() => {
+          try { pagination.nextPage(); } catch(e) { resolve({ results: allResults, status: lastStatus }); }
+        }, 2100);
+      } else {
+        resolve({ results: allResults, status: lastStatus });
+      }
+    };
+    try {
+      getPlacesService().textSearch({ query, language: 'es' }, handle);
+    } catch(e) {
+      resolve({ results: [], status: 'ERROR' });
+    }
   });
 }
 
@@ -578,9 +596,8 @@ function sizeFromReviews(reviews) {
   return 'pequeña';
 }
 
-async function scoreProsects(leads) {
-  if (!leads.length) return;
-  const payload = leads.map((l,i) => ({
+async function scoreChunk(chunk) {
+  const payload = chunk.map((l,i) => ({
     i,
     name: l.name,
     web: !!l.website,
@@ -607,41 +624,53 @@ ${JSON.stringify(payload)}
 Responde SOLO JSON sin texto adicional, array con un objeto por lead en el mismo orden, formato exacto:
 [{"s":9,"r":"motivo breve"},{"s":7,"r":"motivo breve"}]`;
 
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': AKEY,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: 4096,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  if (!res.ok) throw new Error('AI HTTP ' + res.status);
+  const data = await res.json();
+  const text = (data.content && data.content[0] && data.content[0].text) || '';
+  const jsonMatch = text.match(/\[[\s\S]*\]/);
+  if (!jsonMatch) throw new Error('No JSON');
+  return JSON.parse(jsonMatch[0]);
+}
+
+async function scoreProsects(leads) {
+  if (!leads.length) return;
+  // Scoring por chunks de 30 para evitar timeouts y mantener calidad del JSON
+  const CHUNK = 30;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': AKEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 1024,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    if (!res.ok) throw new Error('AI HTTP ' + res.status);
-    const data = await res.json();
-    const text = (data.content && data.content[0] && data.content[0].text) || '';
-    const jsonMatch = text.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) throw new Error('No JSON');
-    const scored = JSON.parse(jsonMatch[0]);
-    leads.forEach((l, i) => {
-      const sc = scored[i];
-      if (sc) {
-        l.score = Math.max(1, Math.min(10, Number(sc.s) || 5));
-        l.scoreReason = sc.r || '';
-      } else {
-        l.score = computeFallbackScore(l);
-        l.scoreReason = 'Score automático';
-      }
-    });
+    for (let i = 0; i < leads.length; i += CHUNK) {
+      const chunk = leads.slice(i, i + CHUNK);
+      const scored = await scoreChunk(chunk);
+      chunk.forEach((l, j) => {
+        const sc = scored[j];
+        if (sc) {
+          l.score = Math.max(1, Math.min(10, Number(sc.s) || 5));
+          l.scoreReason = sc.r || '';
+        } else {
+          l.score = computeFallbackScore(l);
+          l.scoreReason = 'Score automático';
+        }
+      });
+    }
   } catch(e) {
     leads.forEach(l => {
-      l.score = computeFallbackScore(l);
-      l.scoreReason = 'Score local (IA no disponible)';
+      if (!l.score) {
+        l.score = computeFallbackScore(l);
+        l.scoreReason = 'Score local (IA no disponible)';
+      }
     });
   }
 }
@@ -677,17 +706,22 @@ async function doSearch() {
   try {
     await loadGoogleMaps();
 
-    let zonesToSearch = [];
-    if (zone.startsWith('TODA')) {
-      zonesToSearch = (ZONES[island] || []).filter(z => !z.startsWith('TODA')).slice(0, 6);
-    } else {
-      zonesToSearch = [zone];
-    }
+    const isAll = zone.startsWith('TODA');
+    const zonesToSearch = isAll
+      ? (ZONES[island] || []).filter(z => !z.startsWith('TODA'))
+      : [zone];
+
+    // Paginación adaptativa: cada página = ~20 resultados
+    // Para TODA isla con muchas zonas, 1 página por zona suele bastar
+    // Para zona única, paginar hasta 5 páginas (máximo Google Places = 60)
+    const pagesPerZone = isAll
+      ? Math.max(1, Math.ceil((count * 1.5) / (zonesToSearch.length * 20)))
+      : Math.min(5, Math.ceil(count / 20) + 1);
 
     let allResults = [];
     for (const z of zonesToSearch) {
       const q = `${sectorObj.query} en ${z}, ${island}, Canarias, España`;
-      const { results } = await textSearch(q);
+      const { results } = await textSearch(q, pagesPerZone);
       allResults = allResults.concat(results);
       if (allResults.length >= count * 2) break;
     }
