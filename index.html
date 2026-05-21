@@ -252,7 +252,10 @@ function icon(name, size, filled) {
   return `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="${f}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]||''}</svg>`;
 }
 
+const SPAIN_TOP_CITIES = ['Madrid','Barcelona','Valencia','Sevilla','Zaragoza','Málaga','Murcia','Palma de Mallorca','Las Palmas de Gran Canaria','Bilbao','Alicante','Córdoba','Valladolid','Vigo','Gijón',"L'Hospitalet de Llobregat",'A Coruña','Vitoria-Gasteiz','Granada','Elche','Santa Cruz de Tenerife','Oviedo','Badalona','Cartagena','Terrassa','Jerez de la Frontera','Sabadell','Móstoles','Pamplona','Almería'];
+
 const ZONES = {
+  '🇪🇸 TODA ESPAÑA': ['TODA ESPAÑA'],
   'Gran Canaria': ['TODA Gran Canaria','Las Palmas — Centro/Triana','Las Palmas — Mesa y López','Las Palmas — Vegueta','Las Palmas — Las Canteras','Las Palmas — Ciudad Alta','Telde','Santa Lucía','Arucas','Gáldar','Agüimes','Vecindario','Playa del Inglés','Maspalomas','Puerto Rico','Mogán'],
   'Lanzarote': ['TODA Lanzarote','Arrecife','Puerto del Carmen','Costa Teguise','Playa Blanca','Tías','Yaiza','San Bartolomé','Teguise','Haría','Tinajo'],
   'Tenerife': ['TODA Tenerife','Santa Cruz de Tenerife','La Laguna','La Orotava','Puerto de la Cruz','Adeje','Arona','Los Cristianos','Playa de las Américas','Costa Adeje','Granadilla de Abona','Güímar','Icod de los Vinos','Tacoronte','Candelaria'],
@@ -575,6 +578,8 @@ function updateStats() {
 function populateIslands() {
   const sel = document.getElementById('islandSelect');
   sel.innerHTML = Object.keys(ZONES).map(i => `<option value="${escapeAttr(i)}">${escapeHtml(i)}</option>`).join('');
+  // Mantenemos Gran Canaria como default (TODA ESPAÑA queda visible arriba pero no se autoselecciona)
+  if (Object.keys(ZONES).includes('Gran Canaria')) sel.value = 'Gran Canaria';
 }
 
 function populateZones() {
@@ -768,13 +773,19 @@ async function doSearch() {
   try {
     await loadGoogleMaps();
 
-    const isAll = zone.startsWith('TODA');
-    const zonesToSearch = isAll
-      ? (ZONES[island] || []).filter(z => !z.startsWith('TODA'))
-      : [zone];
+    const isSpainWide = island === '🇪🇸 TODA ESPAÑA';
+    const isAll = isSpainWide || zone.startsWith('TODA');
+    let zonesToSearch;
+    if (isSpainWide) {
+      zonesToSearch = SPAIN_TOP_CITIES;
+    } else if (isAll) {
+      zonesToSearch = (ZONES[island] || []).filter(z => !z.startsWith('TODA'));
+    } else {
+      zonesToSearch = [zone];
+    }
 
     // Paginación adaptativa: cada página = ~20 resultados
-    // Para TODA isla con muchas zonas, 1 página por zona suele bastar
+    // Para TODA isla/España con muchas zonas, 1 página por zona suele bastar
     // Para zona única, paginar hasta 5 páginas (máximo Google Places = 60)
     const pagesPerZone = isAll
       ? Math.max(1, Math.ceil((count * 1.5) / (zonesToSearch.length * 20)))
@@ -782,7 +793,9 @@ async function doSearch() {
 
     let allResults = [];
     for (const z of zonesToSearch) {
-      const q = `${sectorObj.query} en ${z}, ${island}, España`;
+      const q = isSpainWide
+        ? `${sectorObj.query} en ${z}, España`
+        : `${sectorObj.query} en ${z}, ${island}, España`;
       const { results } = await textSearch(q, pagesPerZone);
       allResults = allResults.concat(results);
       if (allResults.length >= count * 2) break;
@@ -817,7 +830,7 @@ async function doSearch() {
           rating: d.rating || 0,
           reviews: d.user_ratings_total || 0,
           mapsUrl: d.place_id ? `https://www.google.com/maps/place/?q=place_id:${d.place_id}` : '',
-          zone: zone.startsWith('TODA') ? island : zone,
+          zone: isSpainWide ? 'España' : (zone.startsWith('TODA') ? island : zone),
           island: island,
           sector: sectorId,
           sectorName: sectorObj.name,
